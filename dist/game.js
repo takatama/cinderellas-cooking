@@ -4,7 +4,7 @@ const {dishFor,createRound}=CookingRules;
 const foodAssets={
 '豚肉':'pork.webp','しらたき':'shirataki.webp','じゃがいも':'potato.webp',
 'たまご':'egg.webp','カレールー':'curry-roux.webp','ちくわぶ':'chikuwabu.webp',
-'カレー':'curry.webp','おでん':'oden.png','カレー風味のおでん':'curry-oden.png','お料理中':'covered-pot.png'
+'カレー':'curry.png','おでん':'oden.png','カレー風味のおでん':'curry-oden.png','お料理中':'covered-pot.png'
 };
 function foodImage(name,stage=false){const img=document.createElement('img');img.src='assets/'+foodAssets[name];img.alt=stage?name:'';img.width=stage?600:300;img.height=stage?400:200;img.className=stage?'dish-art':'ingredient-art';img.decoding='async';img.draggable=false;img.onerror=()=>{img.hidden=true;if(stage){const note=document.createElement('span');note.className='food-fallback';note.textContent=name==='お料理中'?'お料理中…':name;img.replaceWith(note);}};return img;}
 // Preload independent art so later choices and the final reveal are ready in cache.
