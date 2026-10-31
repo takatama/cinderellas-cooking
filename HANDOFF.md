@@ -10,7 +10,7 @@
 
 扉の前置きはページ送りし、回答画面では問題とフォームを同時表示する。二色の紙も同じ枠を使う。入力値はヒント・誤答・保存再開で保持する。通常サイズで収め、文字拡大やヒントの長文は会話欄をスクロールして読める。低い画面ではページ自体もスクロールできる。
 
-保存キーとversionは従来と同じ。追加の`readKey`・`readPage`で会話位置を保存し、旧セーブは表示単位の先頭から互換再開する。`answerDraft`に回答入力を保存する。料理判定・謎の正答・選択肢シャッフルは変更していない。
+保存キーとversionは従来と同じ。追加の`readKey`・`readPage`で会話位置を保存し、旧セーブは表示単位の先頭から互換再開する。`answerDraft`に回答入力を保存する。料理判定・謎の正答・選択肢シャッフルは変更していない。高さ720pxのPCでも採用原画全体が収まるようにし、料理と選択済み食材は原画の幅に合わせて配置する。
 
 ### 新UIの検証
 
@@ -38,11 +38,11 @@
 - 実装作業：`/workspace/cinderellas-cooking`
 - Sites配信用チェックアウト：`/workspace/sites/cinderella-first-dish`、remoteの`main`へ配信ソースをpushする。
 - 今回のPR：https://github.com/takatama/cinderellas-cooking/pull/2 （ドラフト、未マージ）
-- 実装のGitHubコミット：`10ef4903f3c13287f26b119235f5acd8a5811a1a`
-- 配信済みSitesソース：`65a890a8a81e30e3f15c8590201c805db8cf9d87`
-- version_id：`appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_6273abb7a48481919e3dd4600796d20d`
-- deployment_id：`appgdep_6ae6418debf88191b4bb0a6b980b7b9e`
-- 配信成功確認：2026-11-01 04:29（日本時間）、`succeeded`。所有者のみを維持。
+- 実装のGitHubコミット：`83cf21e59dde3bcd4854745480a9072884c46676`
+- 配信済みSitesソース：`051e65abdf55b5e521475e4eef10782ae40cac8b`
+- version_id：`appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_0a72b16cbf34819188327d20b38fc2b5`
+- deployment_id：`appgdep_6ae6780ec8f481919505e7378317237f`
+- 配信成功確認：2026-11-01 08:22（日本時間）、`succeeded`。所有者のみを維持。
 - この配信結果の記録は公開後にGitHubへ追記したため、資料のコミットは配信ソースより後。アプリの`dist/`は配信した内容と同一。
 
 ## 実装
