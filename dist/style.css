@@ -30,3 +30,7 @@
 .art[data-scene="2"] .atlas-window,.art[data-scene="3"] .atlas-window,.art[data-scene="4"] .atlas-window,.art[data-scene="5"] .atlas-window{top:4.5%}
 .help-scene{position:absolute;inset:0;width:100%;height:100%;object-fit:fill}
 .help-scene[hidden]{display:none}
+/* Blend only the expression into the fixed master; hair, outline, clothes and poses never switch. */
+.sister-expression{pointer-events:none;mask-image:radial-gradient(ellipse 8.3% 13% at 71% 28.4%,#000 75%,transparent 100%)}
+/* Leave both faces visible when the finished dish is placed on the worktop. */
+.art[data-scene="4"] .stage-object,.art[data-scene="5"] .stage-object{left:26%;right:26%;bottom:1%}

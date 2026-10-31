@@ -10,6 +10,7 @@ function foodImage(name,stage=false){const img=document.createElement('img');img
 // Preload independent art so later choices and the final reveal are ready in cache.
 Object.values(foodAssets).forEach(file=>{const preload=new Image();preload.src='assets/'+file;});
 let atlasReady=false,helpReady=false;
+const resultReady={delighted:false,pleased:false};
 const sceneDescriptions=[
 '三角の頭巾とエプロン姿のシンデレラが、自分の側の書見台に開いた料理の本を見ながらボウルを混ぜています。',
 'お姉さんが料理の本を閉じ、腰の方へ持ち去ります。シンデレラは手を止めています。',
@@ -22,9 +23,13 @@ function updateSister(){
 const isResult=['result','end'].includes(state.phase);
 const frame=state.phase==='intro'?(state.introStep===0?state.introBeat:state.introStep===1?2:3):isResult?(state.dish==='カレー'?4:5):3;
 $('art').dataset.scene=String(frame);
-const showHelp=frame===3&&helpReady;
+const expression=isResult?(state.dish==='カレー'?'delighted':'pleased'):null;
+const showResult=expression&&helpReady&&resultReady[expression];
+const showHelp=helpReady&&(frame===3||showResult);
 $('story-scene').hidden=!atlasReady||showHelp;
 $('help-scene').hidden=!showHelp;
+$('help-scene').alt=sceneDescriptions[frame];
+for(const mood of ['delighted','pleased'])$('sister-'+mood).hidden=!(showResult&&expression===mood);
 $('story-scene').style.left=-(frame%2)*100+'%';
 $('story-scene').style.top=-Math.floor(frame/2)*100+'%';
 $('story-scene').alt=sceneDescriptions[frame];
@@ -134,3 +139,11 @@ function helpLoaded(){helpReady=true;updateSister();}
 $('help-scene').onload=helpLoaded;
 $('help-scene').onerror=()=>{helpReady=false;updateSister();};
 if($('help-scene').complete&&$('help-scene').naturalWidth)helpLoaded();
+// Keep the adopted character artwork fixed; reveal only the sister's facial features.
+for(const mood of ['delighted','pleased']){
+const img=$('sister-'+mood);
+const loaded=()=>{resultReady[mood]=true;updateSister();};
+img.onload=loaded;
+img.onerror=()=>{resultReady[mood]=false;updateSister();};
+if(img.complete&&img.naturalWidth)loaded();
+}
