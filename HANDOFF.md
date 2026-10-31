@@ -20,17 +20,17 @@
 | 最新実装とこの資料の保存ブランチ | `codex/cinderella-intro` |
 | PR | https://github.com/takatama/cinderellas-cooking/pull/1 （ドラフト、未マージと確認） |
 | 今の作業場所 | `/workspace/cinderellas-cooking` |
-| アプリ実装のGitHubコミット | `d206c92c6739f15e719cd9e7ea3cb1ef676da666` |
-| 配信したSitesソースコミット | `a6562d1d23dc3f8e0a76c6427725dab9649120a8` |
-| 配信済みバージョン | **13** |
+| アプリ実装のGitHubコミット | `fdc00eb` |
+| 配信したSitesソースコミット | `35560bfd26d3b8376b9bd704ddfe2aa2a645f91c` |
+| 配信済みバージョン | **14** |
 | Sites project_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c` |
-| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_f4f3117c83788191ab0d77d871d4041c` |
-| 成功を確認したdeployment_id | `appgdep_6ae607c4dd208191b9b8d556dabf5e53` |
+| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_d731c970f1a081918260173ed86b533f` |
+| 成功を確認したdeployment_id | `appgdep_6ae60cfdda80819197a133a683632d85` |
 | SitesソースGit | https://git.chatgpt-team.site/e958a5a6-98b0-4518-bba6-ec71b7a7b492/appgprj_6ae54da56ca481918db77b1973ddfb6c.git |
 | Sitesソースのブランチ | `main` |
 | ローカルの配信用ブランチ | `sites-deploy-cinderella-intro` |
 
-この文書の保存コミットは上のアプリ実装コミットより後になる。今回の更新はお願い画像の差し替え。下表の配信情報は更新前のバージョン13を示し、新しい配信結果はこの文書の冒頭の追記を参照する。GitHubのPRはまだ未マージなので、**GitHubのmainだけを取得しても最新実装にはならない**。
+この文書の保存コミットは上のアプリ実装コミットより後になる。今回の更新はお願い画像の差し替え。所有者のみの非公開のままバージョン14の配信成功を確認した。文書の配信結果記録はアプリ配信後のGitHubコミットに残し、`dist/` は配信したソースと一致する。GitHubのPRはまだ未マージなので、**GitHubのmainだけを取得しても最新実装にはならない**。
 
 ### 別環境での取得
 
