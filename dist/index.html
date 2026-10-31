@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f2e7"><title>シンデレラの料理 | 最初の一皿</title><meta name="description" content="材料を選んで、シンデレラとお料理。まちがえても、おいしい物語。"><link rel="stylesheet" href="style.css"></head>
+<body>
+<main class="book">
+<header class="mast"><a class="brand" href="./" aria-label="シンデレラの料理 最初から">✧ <span>シンデレラの料理</span></a><div class="tools"><button id="sound" class="icon" aria-pressed="false" aria-label="読み上げをオンにする">♫ <span>音なし</span></button><button id="settings" class="icon" aria-label="設定を開く">☷</button></div></header>
+<div class="chapter"><span class="rule"></span><span>第一話 <b>最初の一皿</b></span><span class="rule"></span></div>
+<section class="page">
+<div class="art" id="art"><div class="art-fallback">窓から陽がさす、小さな台所。<br>今日も、おいしいお話がはじまります。</div><img class="scene" id="scene" src="assets/kitchen.png" alt="明るい台所にいる、シンデレラとお姉さん" fetchpriority="high"><img class="scene expression" id="expression" alt="" aria-hidden="true" hidden><span class="sun"></span><div class="request" id="request">今日のお願い <span>カレー</span></div><aside id="cinderella-aside" class="cinderella-aside" aria-hidden="true" hidden><p id="cinderella-aside-text"></p></aside><div id="table-ingredients" class="table-ingredients" role="list" aria-label="テーブルに置いた食材"></div><div id="stage-object" class="stage-object" aria-hidden="true"></div><div id="steam" class="steam" aria-hidden="true"><i></i><i></i><i></i></div><span class="art-caption" id="art-caption">ちいさな台所から、はじまる物語。</span></div>
+<section class="story" aria-label="お話と選択肢"><div class="eyebrow"><span id="phase">はじまり</span></div><div class="dialogue" id="dialogue" aria-live="polite" aria-atomic="true"></div><div id="actions" class="actions"></div><p id="guidance" class="guidance"></p></section>
+</section>
+<footer><span>まちがえても、おいしい物語。</span><button id="history">お話を読み返す <span>↗</span></button></footer>
+</main>
+<dialog id="settings-dialog"><div class="modal-head"><h2>お話の設定</h2><button class="close" aria-label="閉じる">×</button></div><label class="setting">動きをひかえめにする <input id="reduce" type="checkbox"></label><p class="small">音声は、お使いの端末の日本語読み上げを使います。</p><button id="restart" class="secondary">最初から遊ぶ</button></dialog>
+<dialog id="history-dialog"><div class="modal-head"><h2>ここまでのお話</h2><button class="close" aria-label="閉じる">×</button></div><div id="history-content"></div><button class="primary close">台所にもどる</button></dialog>
+<script src="rules.js"></script><script src="game.js"></script></body></html>
