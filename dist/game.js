@@ -119,7 +119,7 @@ $('actions').append(choices);
 else if(c.paper)renderPaperChoices();
 else {
 const decisions=c.buttons.length>1&&['intro','mother','prince','castle','final-result','resume','complete'].includes(state.phase);
-if(decisions){$('actions').classList.add('decisions');choiceReadyAt=performance.now()+300;c.buttons.forEach(([label,action],i)=>$('actions').append(button(label,()=>{if(performance.now()>=choiceReadyAt)action();},i>0)));}
+if(decisions){const choices=document.createElement('div');choices.className='decisions';choiceReadyAt=performance.now()+300;c.buttons.forEach(([label,action],i)=>choices.append(button(label,()=>{if(performance.now()>=choiceReadyAt)action();},i>0)));$('advance').append(choices);}
 else c.buttons.forEach(([label,action],i)=>{if(i>0)$('advance').prepend(button(label,action,true));else next(action,/つづきを読む/.test(label)?'つづきへ':label);});
 }
 $('advance').classList.toggle('inactive',!$('advance').childElementCount);
@@ -231,14 +231,14 @@ function cookingResult(){
 const correct=state.dish===target(),who=recipe().who;
 if(state.chapter===0)return correct?{lines:[line('ものがたり','カレーのできあがり！'),line(who,'ふうん、まあまあね。……おかわり、大盛りで！')],buttons:[['おかわりをよそう　→',()=>move('mother')]]}:{lines:[line('ものがたり',`${state.dish}ができました！`),line(who,'おいしいけれど、カレーとはちょっと違うわね。'),line('シンデレラ','もう一度、作ってみよう！')],buttons:[['材料を選びなおす　↻',start]]};
 if(correct)return {lines:[line('ものがたり',`${state.dish}のできあがり！`),line(who,state.chapter===1?'ふうん、まあまあね。もっと食べるから、たくさんよこしなさい。':'これは、すごい！なんておいしいアマトリチャーナなんだ！')],buttons:[['つづきを読む　→',()=>move(state.chapter===1?'prince':'castle')]]};
-const lines=[line('ものがたり',`${state.dish}ができました！`),line(who,`とてもおいしいけれど、${target()}とは違いますね。`)];
+const lines=[line('ものがたり',`${state.dish}ができました！`),line(who,state.chapter===1?`あら、これは${target()}とは言えないわね。`:`とてもおいしいけれど、${target()}とは違いますね。`)];
 if(state.chapter===2)lines.push(line(who,'イタリアのアマトリーチェという町で食べた、パスタにからまったトマトとベーコンの味が忘れられないのです。'));
 lines.push(line('シンデレラ','もう一度、作ってみよう！'));return {lines,buttons:[['材料を選びなおす　↻',start]]};
 }
 function journeyContent(){
 const n=t=>line('ものがたり',t),p=t=>line('王子様',t);
 switch(state.phase){
-case 'mother':return {lines:[n('それを見ていたお母さんも、料理を頼んできました。'),line('お母さん','私にはハンバーグを作って。'),n('シンデレラのために、ハンバーグの材料を選んであげますか？')],buttons:[['はい',start],['いいえ',hold]]};
+case 'mother':return {lines:[n('それを見ていたお母さん。'),line('お母さん','私にはハンバーグを作って。'),n('シンデレラのために、ハンバーグの材料を選んであげますか？')],buttons:[['はい',start],['いいえ',hold]]};
 case 'prince':return {lines:[n('あれ？ 馬の足音が聞こえてきます。王子様が現れました。'),p('おいしそうな匂いに引き寄せられてしまいました。私のためにアマトリチャーナを作ってくれませんか？'),n('シンデレラのために、アマトリチャーナの材料を選んであげますか？')],buttons:[['はい',start],['いいえ',hold]]};
 case 'hold':return {lines:[line('シンデレラ','また会えるのを楽しみにしているね。')],buttons:[['お話を再開する',resumeStory]]};
 case 'castle':return {lines:[p('あなたたちなら、王国に伝わる魔法の道具を使いこなせるかもしれない。お城に来てくれますか？'),n('王子様と一緒に、お城へ行きますか？')],buttons:[['お城へ行く　→',()=>move('door')],['またあとで',hold]]};
