@@ -9,12 +9,12 @@ const foodAssets={
 function foodImage(name,stage=false){const img=document.createElement('img');img.src='assets/'+foodAssets[name];img.alt=stage?name:'';img.width=stage?600:300;img.height=stage?400:200;img.className=stage?'dish-art':'ingredient-art';img.decoding='async';img.draggable=false;img.onerror=()=>{img.hidden=true;if(stage){const note=document.createElement('span');note.className='food-fallback';note.textContent=name==='お料理中'?'お料理中…':name;img.replaceWith(note);}};return img;}
 // Preload independent art so later choices and the final reveal are ready in cache.
 Object.values(foodAssets).forEach(file=>{const preload=new Image();preload.src='assets/'+file;});
-let atlasReady=false;
+let atlasReady=false,helpReady=false;
 const sceneDescriptions=[
 '三角の頭巾とエプロン姿のシンデレラが、自分の側の書見台に開いた料理の本を見ながらボウルを混ぜています。',
 'お姉さんが料理の本を閉じ、腰の方へ持ち去ります。シンデレラは手を止めています。',
 'お姉さんは本を腰の後ろに隠しています。シンデレラは本がなくなった台を見ています。',
-'三角の頭巾をかぶったシンデレラが、こちらへ手を差し出して材料選びをお願いします。',
+'三角の頭巾をかぶったシンデレラが、プレイヤーと目を合わせて手を差し出し、材料選びをお願いします。',
 'お姉さんは目を閉じて満面の笑顔。シンデレラもうれしそうです。',
 '違う料理もおいしくて、お姉さんは目を開けたまま頬を染めています。'
 ];
@@ -22,7 +22,9 @@ function updateSister(){
 const isResult=['result','end'].includes(state.phase);
 const frame=state.phase==='intro'?(state.introStep===0?state.introBeat:state.introStep===1?2:3):isResult?(state.dish==='カレー'?4:5):3;
 $('art').dataset.scene=String(frame);
-$('story-scene').hidden=!atlasReady;
+const showHelp=frame===3&&helpReady;
+$('story-scene').hidden=!atlasReady||showHelp;
+$('help-scene').hidden=!showHelp;
 $('story-scene').style.left=-(frame%2)*100+'%';
 $('story-scene').style.top=-Math.floor(frame/2)*100+'%';
 $('story-scene').alt=sceneDescriptions[frame];
@@ -127,3 +129,8 @@ $('story-scene').onerror=()=>{atlasReady=false;updateSister();};
 if($('scene').complete&&!$('scene').naturalWidth)$('scene').hidden=true;
 if($('story-scene').complete&&$('story-scene').naturalWidth)atlasLoaded();
 fitScene();render(false);
+
+function helpLoaded(){helpReady=true;updateSister();}
+$('help-scene').onload=helpLoaded;
+$('help-scene').onerror=()=>{helpReady=false;updateSister();};
+if($('help-scene').complete&&$('help-scene').naturalWidth)helpLoaded();

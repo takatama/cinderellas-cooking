@@ -25,3 +25,8 @@
 @media(max-width:760px){.art{height:auto;aspect-ratio:3/2}}
 /* Register the cutouts to the back edge of the fixed worktop. */
 .atlas-window{left:7%;top:1.5%;width:86%;height:86%}
+
+/* Later poses end higher in their source cells; lower them to meet the same worktop. */
+.art[data-scene="2"] .atlas-window,.art[data-scene="3"] .atlas-window,.art[data-scene="4"] .atlas-window,.art[data-scene="5"] .atlas-window{top:4.5%}
+.help-scene{position:absolute;inset:0;width:100%;height:100%;object-fit:fill}
+.help-scene[hidden]{display:none}
