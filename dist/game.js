@@ -44,7 +44,7 @@ function updateTable(){const table=$('table-ingredients');const items=['select',
 let cookingStep=0, cookingTimer;
 const cookingBeats=[['とん、とん、とん。','シンデレラは、選んだ材料を手ぎわよく切っていきます。'],['ことこと、ぐつぐつ。','お鍋の中で、材料たちがゆっくり煮えています。'],['……いいにおい！','ふわりと、おいしそうな香りが広がりました。'],['できたよ！','あたたかいうちに、召し上がれ。']];
 function pauseCooking(){clearTimeout(cookingTimer);}
-function scheduleCooking(){pauseCooking();if(state.phase!=='cooking'||cookingStep>=3||document.hidden||document.querySelector('dialog[open]'))return;cookingTimer=setTimeout(()=>{if(sound&&window.speechSynthesis?.speaking){scheduleCooking();return;}cookingStep++;render(false);scheduleCooking();},1800);}
+function scheduleCooking(){pauseCooking();} // Cooking and story advance only by an explicit action.
 let state=initialState(),history=[],sound=false,voices=[],audioContext;
 let savedProgress=null;
 try{const saved=JSON.parse(localStorage.getItem('cinderella-first-journey-v1'));if(validSave(saved))savedProgress=saved;}catch{}
@@ -72,43 +72,60 @@ const current=state.round[step];
 return {lines:state.chapter===0&&current.pairIndex===0?[line('シンデレラ','カレーといえば、しらたき、かしら？')]:state.chapter===0&&current.pairIndex===2?[line('ものがたり','（シンデレラは、ちくわぶをじっと見つめています……）')]:[],question:step===0?`${target()}に入れるのは、どっち？`:step===1?'２つ目の材料は？':'最後の材料は？',choices:current.options};
 }
 if(phase==='ready')return {lines:[line('シンデレラ',`${items.join('、')}だね。どうもありがとう！`),line('シンデレラ','ようし、あとは私にまかせて！')],buttons:[['お料理をお願いする　→',cook],['材料を選びなおす',start]],hint:'選んだ材料で、シンデレラが料理します。'};
-if(phase==='cooking')return {lines:[line(cookingStep===3?'シンデレラ':'ものがたり',currentCookingBeats()[cookingStep][0]),line(cookingStep===3?'シンデレラ':'ものがたり',currentCookingBeats()[cookingStep][1])],buttons:cookingStep===3?[['できた料理を見てみる　→',result]]:[['できあがりまで進む　→',()=>{pauseCooking();cookingStep=3;render();}]],hint:cookingStep===3?'どんな一皿ができたかな？':'シンデレラがお料理しています。少しだけ、待っていてね。'};
+if(phase==='cooking')return {lines:[line(cookingStep===3?'シンデレラ':'ものがたり',currentCookingBeats()[cookingStep][0]),line(cookingStep===3?'シンデレラ':'ものがたり',currentCookingBeats()[cookingStep][1])],buttons:cookingStep===3?[['できた料理を見てみる　→',result]]:[['つづきへ →',()=>{cookingStep++;render();}],['できあがりまで進む　→',()=>{pauseCooking();cookingStep=3;render();}]],hint:cookingStep===3?'どんな一皿ができたかな？':'シンデレラがお料理しています。少しだけ、待っていてね。'};
 if(phase==='result')return cookingResult();
 return {lines:[],buttons:[]};
 }
-function button(label,action,secondary=false){const b=document.createElement('button');b.type='button';b.className=secondary?'secondary':'primary';b.textContent=label;b.onclick=()=>{stopAudio();action();};return b;}
-function render(focus=true,speechOverride=null){updateSister();updateTable();const c=content();const aside=$('cinderella-aside');const asideLine=state.phase==='select'?c.lines[0]:null;$('request').hidden=isCastle()||state.phase==='resume'||state.phase==='intro'&&state.introStep===0;aside.hidden=!asideLine;aside.classList.toggle('observation',asideLine?.who==='ものがたり');$('cinderella-aside-text').textContent=asideLine?(asideLine.who==='ものがたり'?asideLine.text:'「'+asideLine.text+'」'):'';$('phase').textContent=state.phase==='select'?`材料えらび ${state.step+1} / 3`:(titles[state.phase]||[journeyTitle()])[0];renderDialogue(c,asideLine);
+function button(label,action,secondary=false){const b=document.createElement('button');b.type='button';b.className=secondary?'secondary':'primary';b.textContent=label;b.onclick=e=>{if(e.detail>1)return;stopAudio();action();};return b;}
+// Page identity excludes hints and feedback so puzzle updates never reset the reader.
+function pageKey(){return [state.phase,state.chapter,state.introStep,state.introBeat,state.step,state.storyStep,cookingStep].join(':');}
+let choiceReadyAt=0;
+function render(focus=true,speechOverride=null){
+updateSister();updateTable();const original=content(),key=pageKey();
+if(state.readKey!==key){state.readKey=key;state.readPage=0;}
+const sourceLines=original.prologue?original.lines.slice(-1):original.lines;
+const allLines=original.form?sourceLines:sourceLines.flatMap(l=>{const parts=l.text.match(/[^。！？!?]+[。！？!?]?[　 ]*/g)||[l.text];const pages=[];for(const part of parts){if(pages.length&&pages[pages.length-1].length+part.length<=48)pages[pages.length-1]+=part;else pages.push(part);}return pages.map(text=>line(l.who,text));});
+const prelude=original.form==='door'?2:0;
+const paged=!original.form&&!original.choices;
+const index=Math.min(state.readPage||0,original.form?prelude:Math.max(0,allLines.length-1));state.readPage=index;
+const more=original.form?index<prelude:paged&&index<allLines.length-1;
+const c={...original,lines:original.form?(more?allLines.slice(index,index+1):allLines.slice(prelude)):paged?allLines.slice(index,index+1):allLines};
+if(more&&original.form){c.form=null;c.buttons=[];}
+$('request').hidden=isCastle()||state.phase==='resume'||state.phase==='intro'&&state.introStep===0;
+$('cinderella-aside').hidden=true;
+$('phase').textContent=state.phase==='select'?`材料えらび ${state.step+1} / 3`:(titles[state.phase]||[journeyTitle()])[0];
+if(paged&&allLines.length>1)$('phase').textContent+=`　${index+1} / ${allLines.length}`;
+renderDialogue(c);$('dialogue').dataset.more=String(more);$('page').classList.toggle('puzzle',!!c.form);
 if(c.question){const q=document.createElement('h1');q.className='question';q.textContent=c.question;$('dialogue').append(q);}
-if(!(c.prologue&&$('actions').dataset.page==='prologue')){$('actions').replaceChildren();if(c.choices){const choices=document.createElement('div');choices.className='choices';c.choices.forEach((name,i)=>{const b=document.createElement('button');b.className='ingredient';b.type='button';b.setAttribute('aria-label',name+'を選ぶ');b.innerHTML=`<strong>${name}</strong>`;b.prepend(foodImage(name));b.onclick=()=>choose(name);choices.append(b);});$('actions').append(choices);}else c.buttons.forEach(([label,action],i)=>$('actions').append(button(label,action,i>0)));}$('actions').dataset.page=c.prologue?'prologue':'';
-$('guidance').textContent='';$('guidance').hidden=true;
-if(c.form)renderAnswerForm(c.form);if(c.paper)renderPaperChoices();
-const stageName=['cooking','result','final-cooking','final-result','ending'].includes(state.phase)?(['cooking','final-cooking'].includes(state.phase)?'お料理中':state.phase==='result'?state.dish:'パンプキンプリン'):'';if($('stage-object').dataset.food!==stageName){$('stage-object').dataset.food=stageName;$('stage-object').replaceChildren();if(stageName)$('stage-object').append(foodImage(stageName,true));}$('steam').classList.toggle('active',['cooking','result','final-cooking'].includes(state.phase));$('art').classList.toggle('cooking',state.phase==='cooking');$('art').dataset.beat=String(cookingStep);if(state.phase==='cooking'){$('phase').textContent='お料理中 '+['①','②','③','④'][cookingStep];$('actions').classList.toggle('waiting',cookingStep<3);}else $('actions').classList.remove('waiting');$('art-caption').textContent=state.phase==='result'?(''):state.phase==='cooking'?currentCookingBeats()[cookingStep][0]:'';$('art-caption').hidden=!$('art-caption').textContent;
-saveProgress();
-if(focus){$('dialogue').setAttribute('tabindex','-1');$('dialogue').focus({preventScroll:true});}if(speechOverride!=='')say(speechOverride??c.lines.map(l=>l.text).join('。')+(c.question||''));}
-function renderDialogue(c,asideLine){
-const dialogue=$('dialogue');
-dialogue.setAttribute('aria-atomic',c.prologue?'false':'true');
-if(c.prologue){
- if(dialogue.dataset.page!=='prologue'){
-  dialogue.replaceChildren();
-  const box=document.createElement('div');box.className='speech narrator';
-  const name=document.createElement('p');name.className='name';name.textContent='ものがたり';box.append(name);dialogue.append(box);
- }
- dialogue.dataset.page='prologue';
- const box=dialogue.firstElementChild;
- while(box.querySelectorAll('.words').length<c.lines.length){
-  const index=box.querySelectorAll('.words').length;
-  const words=document.createElement('p');words.className='words'+(index?' prologue-reveal':'');words.textContent=c.lines[index].text;box.append(words);
- }
-}else{
- dialogue.dataset.page='';dialogue.replaceChildren();
- for(const l of c.lines){
-  const box=document.createElement('div');box.className='speech '+(l.who==='お姉さん'?'sister':l.who==='ものがたり'?'narrator':'');
-  const name=document.createElement('p');name.className='name';name.textContent=l.who;
-  if(l===asideLine)box.classList.add('sr-only');
-  const words=document.createElement('p');words.className='words';words.textContent=l.text;box.append(name,words);dialogue.append(box);
- }
+$('actions').replaceChildren();$('advance').replaceChildren();
+$('actions').className='actions';
+const next=(action,label='つづきへ →')=>{$('advance').append(button(label,action));};
+if(more)next(()=>{state.readPage++;render();});
+else if(c.choices){
+const choices=document.createElement('div');choices.className='choices';choiceReadyAt=performance.now()+300;
+for(const name of c.choices){const b=button('',()=>{if(performance.now()<choiceReadyAt)return;choose(name);});b.className='ingredient';b.setAttribute('aria-label',name+'を選ぶ');const text=document.createElement('strong');text.textContent=name;b.append(foodImage(name),text);choices.append(b);}
+$('actions').append(choices);
+}else if(c.form){for(const [label,action] of c.buttons)$('actions').append(button(label,action,true));renderAnswerForm(c.form);}
+else if(c.paper)renderPaperChoices();
+else {
+const decisions=c.buttons.length>1&&['intro','mother','prince','castle','final-result','resume','complete'].includes(state.phase);
+if(decisions){choiceReadyAt=performance.now()+300;c.buttons.forEach(([label,action],i)=>$('actions').append(button(label,()=>{if(performance.now()>=choiceReadyAt)action();},i>0)));}
+else c.buttons.forEach(([label,action],i)=>{if(i>0)$('actions').append(button(label,action,true));else next(action,/つづきを読む/.test(label)?'つづきへ →':label);});
 }
+$('advance').classList.toggle('inactive',!$('advance').childElementCount);
+if(!$('advance').childElementCount){const note=document.createElement('span');note.textContent=c.form?'問題を見ながら答えてください':'上の選択肢から選んでください';$('advance').append(note);}
+$('guidance').hidden=true;
+const stageName=['cooking','result','final-cooking','final-result','ending'].includes(state.phase)?(['cooking','final-cooking'].includes(state.phase)?'お料理中':state.phase==='result'?state.dish:'パンプキンプリン'):'';
+if($('stage-object').dataset.food!==stageName){$('stage-object').dataset.food=stageName;$('stage-object').replaceChildren();if(stageName)$('stage-object').append(foodImage(stageName,true));}
+$('steam').classList.toggle('active',['cooking','result','final-cooking'].includes(state.phase));$('art').classList.toggle('cooking',state.phase==='cooking');$('art').dataset.beat=String(cookingStep);$('art-caption').hidden=true;
+$('art').classList.toggle('secret-order',state.chapter===2&&!isCastle()&&!['cooking','result'].includes(state.phase));
+saveProgress();
+if(focus){$('dialogue').setAttribute('tabindex','-1');$('dialogue').focus({preventScroll:true});}
+if(speechOverride!=='')say(speechOverride??c.lines.map(l=>l.text).join('。')+(c.question||''));
+}
+function renderDialogue(c){
+const dialogue=$('dialogue');dialogue.replaceChildren();dialogue.scrollTop=0;
+for(const l of c.lines){const box=document.createElement('div');box.className='speech '+(l.who==='ものがたり'?'narrator':l.who==='お姉さん'?'sister':'');const name=document.createElement('p');name.className='name';name.textContent=l.who;const words=document.createElement('p');words.className='words';words.textContent=l.text;box.append(name,words);dialogue.append(box);}
 }
 function advanceIntro(){
 if(state.phase!=='intro'||state.introStep>=2)return;
@@ -127,19 +144,15 @@ function cook(){if(state.phase!=='ready')return;state.dish=dishFor(state.items,s
 function result(){if(state.phase!=='cooking'||cookingStep<3)return;pauseCooking();state.phase='result';render();log('できたての一皿',content().lines);}
 function end(){move('mother');}
 function openHistory(){pauseCooking();stopAudio();$('history-content').replaceChildren();if(!history.length){const p=document.createElement('p');p.textContent='お話は、これからはじまります。';$('history-content').append(p);}history.forEach(entry=>{const a=document.createElement('article'),h=document.createElement('h3');h.textContent=entry.title;a.append(h);entry.lines.forEach(l=>{const p=document.createElement('p');p.textContent=l.who+'：'+l.text;a.append(p);});$('history-content').append(a);});$('history-dialog').showModal();}
-$('sound').onclick=()=>{sound=!sound;$('sound').setAttribute('aria-pressed',String(sound));$('sound').setAttribute('aria-label',sound?'読み上げをオフにする':'読み上げをオンにする');$('sound').innerHTML=sound?'♫ <span>読み上げ</span>':'♫ <span>音なし</span>';if(sound){const c=content();say(c.lines.map(l=>l.text).join('。'));}else stopAudio();};
+$('sound').onclick=()=>{sound=!sound;$('sound').setAttribute('aria-pressed',String(sound));$('sound').setAttribute('aria-label',sound?'読み上げをオフにする':'読み上げをオンにする');$('sound').innerHTML=sound?'♫ <span>読み上げ</span>':'♫ <span>音なし</span>';if(sound)say($('dialogue').innerText);else stopAudio();};
 if(!('speechSynthesis'in window)){$('sound').hidden=true;}
 $('settings').onclick=()=>{pauseCooking();stopAudio();$('settings-dialog').showModal();};$('reduce').onchange=()=>document.body.classList.toggle('reduced',$('reduce').checked);document.body.classList.toggle('reduced',$('reduce').checked);
 $('restart').onclick=()=>{$('settings-dialog').close();restartStory();};$('history').onclick=openHistory;
 document.querySelectorAll('dialog .close').forEach(b=>b.onclick=()=>{stopAudio();b.closest('dialog').close();});document.querySelectorAll('dialog').forEach(d=>{d.addEventListener('cancel',stopAudio);d.addEventListener('close',()=>{scheduleCooking();});});document.addEventListener('visibilitychange',()=>{if(document.hidden){stopAudio();pauseCooking();}else{scheduleCooking();}});window.addEventListener('pagehide',()=>{stopAudio();pauseCooking();});
 function fitScene(){
-// On narrow screens keep the aside beside the choices, clear of the enlarged food.
-const aside=$('cinderella-aside');
-if(matchMedia('(max-width: 1000px)').matches){
-if(aside.parentElement!==$('dialogue').parentElement)$('dialogue').before(aside);
-}else if(aside.parentElement!==$('art'))$('art').append(aside);
 const ratio=$('scene').naturalWidth?$('scene').naturalWidth/$('scene').naturalHeight:1.5;
-const width=Math.max($('art').clientWidth,$('art').clientHeight*ratio);
+const width=Math.min($('art').clientWidth,$('art').clientHeight*ratio);
+$('art').style.setProperty('--scene-width',width+'px');
 $('scene-canvas').style.width=width+'px';$('scene-canvas').style.height=width/ratio+'px';
 }
 function atlasLoaded(){atlasReady=true;fitScene();updateSister();}
@@ -178,6 +191,8 @@ function validSave(saved){
 if(!saved||saved.version!==1||!saved.state||!Array.isArray(saved.history)||saved.history.length>1000)return false;
 const s=saved.state,phases=['intro','pause','select','ready','cooking','result','mother','prince','castle','door','door-open','room','orange','pink','paper-solved','final-ready','final-cooking','final-result','ending','complete','hold'];
 if(!phases.includes(s.phase)||![0,1,2].includes(s.chapter)||!Number.isInteger(s.step)||s.step<0||s.step>2||!Array.isArray(s.items)||s.items.length>3||!Array.isArray(s.round)||![0,1,2,3].includes(saved.cookingStep))return false;
+if(s.answerDraft!==undefined&&(!s.answerDraft||typeof s.answerDraft!=='object'||Array.isArray(s.answerDraft)||Object.values(s.answerDraft).some(v=>!v||typeof v!=='object'||Object.values(v).some(x=>typeof x!=='string'||x.length>30))))return false;
+if(s.readPage!==undefined&&(!Number.isInteger(s.readPage)||s.readPage<0||s.readPage>20))return false;
 if(!Number.isInteger(s.storyStep)||s.storyStep<0||s.storyStep>2)return false;
 if(![0,1,2].includes(s.introStep)||![0,1,2].includes(s.introBeat)||!Number.isInteger(s.doorHint)||s.doorHint<0||s.doorHint>3||typeof s.orange!=='boolean'||typeof s.pink!=='boolean')return false;
 if(['select','ready','cooking','result'].includes(s.phase)){
@@ -235,7 +250,7 @@ default:return null;
 }}
 function renderAnswerForm(kind){
 const form=document.createElement('form');form.className='answer-form';
-const makeInput=(label,placeholder)=>{const wrap=document.createElement('label');wrap.textContent=label;const input=document.createElement('input');input.type='text';input.required=true;input.maxLength=kind==='door'?4:30;input.placeholder=placeholder;input.autocomplete='off';if(kind==='door'){input.inputMode='numeric';input.pattern='[0-9０-９]{4}';}wrap.append(input);form.append(wrap);return input;};
+const makeInput=(label,placeholder)=>{const wrap=document.createElement('label');wrap.textContent=label;const input=document.createElement('input');input.type='text';input.required=true;input.maxLength=kind==='door'?4:30;input.placeholder=placeholder;input.autocomplete='off';input.value=state.answerDraft?.[kind]?.[label]||'';input.oninput=()=>{state.answerDraft??={};state.answerDraft[kind]??={};state.answerDraft[kind][label]=input.value;saveProgress();};input.onkeydown=e=>{if(e.key==='Enter'&&e.isComposing)e.preventDefault();};if(kind==='door'){input.inputMode='numeric';input.pattern='[0-9０-９]{4}';}wrap.append(input);form.append(wrap);return input;};
 const a=makeInput(kind==='door'?'四桁の数字':kind==='pink'?'一つ目の材料':'野菜の名前',kind==='door'?'0000':kind==='pink'?'材料の名前':'野菜の名前');const b=kind==='pink'?makeInput('二つ目の材料','材料の名前'):null;
 const submit=document.createElement('button');submit.type='submit';submit.className='primary';submit.textContent=kind==='door'?'数字を合わせる':'名前を唱える';form.append(submit);
 form.onsubmit=e=>{e.preventDefault();stopAudio();const correct=kind==='door'?Journey.doorAnswer(a.value):kind==='orange'?Journey.orangeAnswer(a.value):Journey.pinkAnswer(a.value,b.value);
@@ -249,7 +264,7 @@ function foodSymbol(name){return ({'ひき肉':'🥩','パン粉':'🍞','玉ね
 function updateJourneyArt(){
 const chapter=state.chapter||0,castle=isCastle(),art=$('journey-art');
 $('chapter-name').textContent=castle?'第四章　魔法のオーブン':chapter===0?'第一章　お姉さんのお願い':chapter===1?'第二章　お母さんのお願い':'第三章　王子様のお願い';
-$('request').replaceChildren(document.createTextNode('今日のお願い '));const request=document.createElement('span');request.textContent=castle?'パンプキンプリン':target();$('request').append(request);$('request').hidden=castle;
+$('request').replaceChildren(document.createTextNode('今日のお願い '));const request=document.createElement('span');request.textContent=castle?'パンプキンプリン':target();$('request').append(request);$('request').hidden=castle||state.phase==='resume'||state.phase==='intro'&&state.introStep===0;
 art.hidden=chapter===0&&!castle;let scene=castle?(state.phase==='castle'?'castle':['door','door-open'].includes(state.phase)?'door':['ending','complete'].includes(state.phase)?'ending':'oven'):chapter===1?'mother':'prince';
 $('art').dataset.journey=scene;
 if(art.dataset.scene!==scene){art.dataset.scene=scene;art.replaceChildren();const picture=document.createElement('div');picture.className='journey-picture';picture.setAttribute('role','img');
