@@ -20,7 +20,13 @@
 - PR #1 は既にmainへマージ済み（この環境の開始コミット `5f6cda4`）。以前の「未マージ」は旧情報。
 - 実装作業：`/workspace/cinderellas-cooking`
 - Sites配信用チェックアウト：`/workspace/sites/cinderella-first-dish`、remoteの`main`へ配信ソースをpushする。
-- 今回の配信結果は、配信後に下記へ追記する。
+- 今回のPR：https://github.com/takatama/cinderellas-cooking/pull/2 （ドラフト、未マージ）
+- 実装のGitHubコミット：`10ef4903f3c13287f26b119235f5acd8a5811a1a`
+- 配信済みSitesソース：`65a890a8a81e30e3f15c8590201c805db8cf9d87`
+- version_id：`appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_6273abb7a48481919e3dd4600796d20d`
+- deployment_id：`appgdep_6ae6418debf88191b4bb0a6b980b7b9e`
+- 配信成功確認：2026-11-01 04:29（日本時間）、`succeeded`。所有者のみを維持。
+- この配信結果の記録は公開後にGitHubへ追記したため、資料のコミットは配信ソースより後。アプリの`dist/`は配信した内容と同一。
 
 ## 実装
 
