@@ -138,3 +138,30 @@ footer button{min-width:100px;min-height:44px;font-size:14px}
 .art{background:radial-gradient(ellipse at center,#e7d6ad,#cdb58d)}
 .stage-object,.art[data-scene="4"] .stage-object,.art[data-scene="5"] .stage-object{left:calc(50% - var(--scene-width)*.24);right:auto;width:calc(var(--scene-width)*.48)}
 .table-ingredients{left:calc(50% - var(--scene-width)*.47);right:auto;width:calc(var(--scene-width)*.94)}
+/* Give the prose room; reserve the choice area only while a choice is present. */
+.story{grid-template-rows:22px minmax(0,1fr) 0 50px}
+.story:has(.choices){grid-template-rows:22px minmax(0,1fr) 116px 50px}
+.story:has(.decisions){grid-template-rows:22px minmax(0,1fr) 64px 50px}
+.advance{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:center}
+.advance>.primary{grid-column:2;width:100%;height:48px}
+.advance>.secondary{grid-column:1;grid-row:1;width:100%;min-height:48px;font-size:14px}
+.advance .secondary:disabled{visibility:hidden}
+.primary:disabled{cursor:default;background:#a3aa96;border-color:#a3aa96;box-shadow:none;opacity:.7;transform:none}
+.dialogue .speech{margin-bottom:12px}
+.dialogue .question+.speech{margin-top:12px}
+.dialogue .speech.narrator .words{font-size:16px}
+.montage .speech{margin-bottom:16px}
+@media(max-width:760px){
+.story{grid-template-rows:20px minmax(0,1fr) 0 48px}
+.story:has(.choices){grid-template-rows:20px minmax(0,1fr) 116px 48px}
+.story:has(.decisions){grid-template-rows:20px minmax(0,1fr) 64px 48px}
+.advance{gap:10px}
+.advance>.secondary,.advance>.primary{font-size:13px;letter-spacing:0;padding:8px 6px}
+.dialogue .speech.narrator .words{font-size:15px}
+.montage .words{font-size:15px;line-height:1.7}
+.montage .speech{margin-bottom:10px}
+}
+
+.dialogue .speech{margin-bottom:8px}
+
+.dialogue.can-read{cursor:pointer}

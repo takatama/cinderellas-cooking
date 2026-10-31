@@ -6,7 +6,7 @@ const browser=await chromium.launch({headless:true,...(process.env.CHROMIUM_PATH
 try{
 for(const [width,pinkFirst] of [[1280,false],[390,true],[320,false]]){
 const context=await browser.newContext({viewport:{width,height:width===1280?900:740},reducedMotion:width===320?'reduce':'no-preference'});const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
-const read=async()=>{for(let i=0;i<20;i++){const more=await page.locator('#dialogue').getAttribute('data-more')==='true';if(!more)break;await page.getByRole('button',{name:'つづきへ →',exact:true}).click();}};
+const read=async()=>{for(let i=0;i<20;i++){const more=await page.locator('#dialogue').getAttribute('data-more')==='true';if(!more)break;await page.getByRole('button',{name:'つづきへ',exact:true}).click();}};
 const click=async text=>{await read();await page.waitForTimeout(320);await page.getByRole('button',{name:text.replace('つづきを読む','つづきへ'),exact:false}).click();};
 const phase=()=>page.evaluate(()=>state.phase);
 const checkWidth=async()=>assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
@@ -15,7 +15,7 @@ await page.goto(process.env.TEST_URL||'http://127.0.0.1:4173');
 for(let i=0;i<16&&await page.getByRole('button',{name:'はい',exact:true}).count()===0;i++)await page.locator('#advance button').click();
 assert.match(await page.locator('#dialogue').innerText(),/材料を選んであげますか/);
 await click('いいえ');assert.equal(await phase(),'pause');await click('お願いにもどる');await click('はい');
-async function chooseSet(items){for(let n=0;n<3&&await phase()==='select';n++){await page.waitForTimeout(320);let options=await page.locator('.ingredient strong').allTextContents();const choice=options.find(o=>items.includes(o));assert.ok(choice,options.join(','));await page.getByRole('button',{name:choice+'を選ぶ',exact:true}).click();await checkWidth();}assert.equal(await phase(),'ready');await click('お料理をお願いする');await click('できあがりまで進む');await click('できた料理を見てみる');assert.equal(await phase(),'result');}
+async function chooseSet(items){for(let n=0;n<3&&await phase()==='select';n++){await page.waitForTimeout(320);let options=await page.locator('.ingredient strong').allTextContents();const choice=options.find(o=>items.includes(o));assert.ok(choice,options.join(','));await page.getByRole('button',{name:choice+'を選ぶ',exact:true}).click();await checkWidth();}assert.equal(await phase(),'ready');await click('お料理をお願いする');await click('できあがりまで進む');await click('できた料理を見る');assert.equal(await phase(),'result');}
 for(let ch=0;ch<3;ch++){
 const wrong=[['しらたき','たまご','ちくわぶ'],['じゃがいも','キャベツ','青のり'],['お米','たまご','とり肉']][ch];
 await chooseSet(wrong);await read();await shot(`wrong-${ch}`);assert.match(await page.evaluate(()=>content().lines.map(l=>l.text).join('')),/おいしい/);await click('材料を選びなおす');
