@@ -11,3 +11,14 @@
 .cinderella-aside{position:absolute;left:4%;top:48%;width:53%;z-index:2;background:#fffaf0f5;border:1px solid #d9c59f;border-radius:12px;padding:10px 14px;box-shadow:0 4px 14px #563a2422;pointer-events:none}.cinderella-aside[hidden]{display:none}.cinderella-aside:before{content:'';position:absolute;left:35%;top:-8px;width:14px;height:14px;background:#fffaf0;transform:rotate(45deg);border-left:1px solid #d9c59f;border-top:1px solid #d9c59f}.aside-name{font-size:10px;color:#64828b;letter-spacing:.06em}.cinderella-aside p{margin:4px 0 0;font-size:16px;line-height:1.7;font-weight:500;color:#49392e}@media(max-width:760px){.cinderella-aside{left:3%;top:48%;width:57%;padding:7px 10px;border-radius:9px}.cinderella-aside p{font-size:12px;line-height:1.65}.aside-name{font-size:9px}}
 
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}.guidance[hidden]{display:none}.cinderella-aside p{margin:0}.ingredient{gap:8px}.story:has(.choices) .dialogue{min-height:0}.story:has(.choices) .actions{margin-top:0}
+
+/* A single atlas keeps the cooking costume consistent through the introduction and tasting. */
+.scene-viewport{position:absolute;inset:0;overflow:hidden;z-index:-1;pointer-events:none}
+.scene-viewport[hidden]{display:none}
+.atlas-window{position:absolute;left:50%;top:50%;width:100%;height:100%;transform:translate(-50%,-50%) scale(1.008);overflow:hidden}
+.scene-atlas{display:block;position:absolute;width:200%;height:300%;max-width:none;object-fit:fill}
+.prologue-reveal{margin-top:18px;animation:appear .45s ease-out both}
+.request[hidden]{display:none}
+
+@media(min-width:761px){.page{min-height:400px}.art{min-height:400px}.dialogue{min-height:0}}
+@media(max-width:760px){.art{height:auto;aspect-ratio:3/2}}
