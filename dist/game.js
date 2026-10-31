@@ -1,6 +1,6 @@
 'use strict';
 const $=id=>document.getElementById(id);
-const {pairs,dishFor}=CookingRules;
+const {pairs,dishFor,createRound}=CookingRules;
 const foodAssets={
 '豚肉':'pork.webp','しらたき':'shirataki.webp','じゃがいも':'potato.webp',
 'たまご':'egg.webp','カレールー':'curry-roux.webp','ちくわぶ':'chikuwabu.webp',
@@ -18,7 +18,7 @@ let cookingStep=0, cookingTimer;
 const cookingBeats=[['とん、とん、とん。','シンデレラは、選んだ材料を手ぎわよく切っていきます。'],['ことこと、ぐつぐつ。','お鍋の中で、材料たちがゆっくり煮えています。'],['……いいにおい！','ふわりと、おいしそうな香りが広がりました。'],['できたよ！','あたたかいうちに、召し上がれ。']];
 function pauseCooking(){clearTimeout(cookingTimer);}
 function scheduleCooking(){pauseCooking();if(state.phase!=='cooking'||cookingStep>=3||document.hidden||document.querySelector('dialog[open]'))return;cookingTimer=setTimeout(()=>{if(sound&&window.speechSynthesis?.speaking){scheduleCooking();return;}cookingStep++;render(false);scheduleCooking();},1800);}
-let state={phase:'intro',step:0,items:[],dish:null},history=[],sound=false,voices=[],audioContext;
+let state={phase:'intro',introStep:0,step:0,items:[],dish:null,round:[]},history=[],sound=false,voices=[],audioContext;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');$('reduce').checked=reduced.matches;
 const titles={intro:['はじまり','01 / 06'],select:['材料をえらぶ','02 / 06'],ready:['さあ、お料理','03 / 06'],cooking:['シンデレラにおまかせ','04 / 06'],result:['できたてを、どうぞ','05 / 06'],end:['最初の一皿、おしまい','06 / 06']};
 function stopAudio(){if('speechSynthesis'in window)speechSynthesis.cancel();if(audioContext){audioContext.close().catch(()=>{});audioContext=null;}}
@@ -27,21 +27,33 @@ function tone(){if(!sound)return;try{const A=window.AudioContext||window.webkitA
 function line(who,text){return {who,text};}
 function log(title,lines){history.push({title,lines});}
 function content(){const {phase,step,items,dish}=state;
-if(phase==='intro')return {lines:[line('お姉さん','シンデレラ、カレーを作っておいてね。'),line('シンデレラ','大切な料理の本が見つからないの。材料を教えてくれる？')],buttons:[['いっしょに作る　→',start]],hint:'食材を３つ選ぶと、お料理ができます。'};
-if(phase==='select')return {lines:step===0?[line('シンデレラ','カレーといえば、しらたき、かしら？')]:step===2?[line('ものがたり','（シンデレラは、ちくわぶをじっと見つめています……）')]:[],question:step===0?'カレーに入れるのは、どっち？':step===1?'２つ目の材料は？':'最後の材料は？',choices:pairs[step]};
+if(phase==='intro'){
+const pages=[
+[line('ものがたり','料理が得意なシンデレラ。')],
+[line('ものがたり','しかし、お姉さんがいじわるをして、大切な料理の本を隠してしまいました。')],
+[line('ものがたり','それなのに、お姉さんは料理を頼みます。'),line('お姉さん','シンデレラ、カレーを作っておいてね。')],
+[line('シンデレラ','私の名前はシンデレラ。材料さえ分かれば、おいしいカレーが作れるのに！')]
+];
+return {lines:pages[state.introStep],buttons:state.introStep===pages.length-1?[['材料を選ぶ　→',start]]:[['つづきを読む　→',advanceIntro]]};
+}
+if(phase==='select'){
+const current=state.round[step];
+return {lines:current.pairIndex===0?[line('シンデレラ','カレーといえば、しらたき、かしら？')]:current.pairIndex===2?[line('ものがたり','（シンデレラは、ちくわぶをじっと見つめています……）')]:[],question:step===0?'カレーに入れるのは、どっち？':step===1?'２つ目の材料は？':'最後の材料は？',choices:current.options};
+}
 if(phase==='ready')return {lines:[line('シンデレラ',`${items.join('、')}だね。どうもありがとう！`),line('シンデレラ','ようし、あとは私にまかせて！')],buttons:[['お料理をお願いする　→',cook],['材料を選びなおす',start]],hint:'選んだ材料で、シンデレラが料理します。'};
 if(phase==='cooking')return {lines:[line(cookingStep===3?'シンデレラ':'ものがたり',cookingBeats[cookingStep][0]),line(cookingStep===3?'シンデレラ':'ものがたり',cookingBeats[cookingStep][1])],buttons:cookingStep===3?[['できた料理を見てみる　→',result]]:[['できあがりまで進む　→',()=>{pauseCooking();cookingStep=3;render();}]],hint:cookingStep===3?'どんな一皿ができたかな？':'シンデレラがお料理しています。少しだけ、待っていてね。'};
 if(phase==='result')return dish==='カレー'?{lines:[line('ものがたり','カレーのできあがり！'),line('お姉さん','ふうん、まあまあね。……おかわり、大盛りで！')],buttons:[['おかわりをよそう　→',end]],hint:'お姉さんのお皿は、もう空っぽ。'}:{lines:[line('ものがたり',`${dish}ができました！`),line('お姉さん','おいしいけれど、カレーとはちょっと違うわね。'),line('シンデレラ','もう一度、作ってみよう！')],buttons:[['材料を選びなおす　↻',start]],hint:'作りなおしは、何度でも。おいしい料理ができたね。'};
 return {lines:[line('シンデレラ','おいしくできたね。手伝ってくれて、ありがとう！'),line('ものがたり','お姉さんは、最後のひとくちまで大切そうに食べました。')],buttons:[['もう一度、作ってみる　↻',start],['ここまでのお話を読む',openHistory]],hint:'今回のデモはここまで。次は、お母さんのお願いです。'};
 }
 function button(label,action,secondary=false){const b=document.createElement('button');b.type='button';b.className=secondary?'secondary':'primary';b.textContent=label;b.onclick=()=>{stopAudio();action();};return b;}
-function render(focus=true){updateSister();updateTable();const c=content();const aside=$('cinderella-aside');const asideLine=state.phase==='select'?c.lines[0]:null;aside.hidden=!asideLine;aside.classList.toggle('observation',asideLine?.who==='ものがたり');$('cinderella-aside-text').textContent=asideLine?(asideLine.who==='ものがたり'?asideLine.text:'「'+asideLine.text+'」'):'';$('phase').textContent=state.phase==='select'?`材料えらび ${state.step+1} / 3`:titles[state.phase][0];$('dialogue').replaceChildren();for(const l of c.lines){const box=document.createElement('div');box.className='speech '+(l.who==='お姉さん'?'sister':l.who==='ものがたり'?'narrator':'');const name=document.createElement('p');name.className='name';name.textContent=l.who;if(state.phase==='select')box.classList.add('sr-only');const words=document.createElement('p');words.className='words';words.textContent=l.text;box.append(name,words);$('dialogue').append(box);}
+function render(focus=true){updateSister();updateTable();const c=content();const aside=$('cinderella-aside');const asideLine=state.phase==='select'?c.lines[0]:null;$('request').hidden=state.phase==='intro'&&state.introStep<2;aside.hidden=!asideLine;aside.classList.toggle('observation',asideLine?.who==='ものがたり');$('cinderella-aside-text').textContent=asideLine?(asideLine.who==='ものがたり'?asideLine.text:'「'+asideLine.text+'」'):'';$('phase').textContent=state.phase==='select'?`材料えらび ${state.step+1} / 3`:titles[state.phase][0];$('dialogue').replaceChildren();for(const l of c.lines){const box=document.createElement('div');box.className='speech '+(l.who==='お姉さん'?'sister':l.who==='ものがたり'?'narrator':'');const name=document.createElement('p');name.className='name';name.textContent=l.who;if(l===asideLine)box.classList.add('sr-only');const words=document.createElement('p');words.className='words';words.textContent=l.text;box.append(name,words);$('dialogue').append(box);}
 if(c.question){const q=document.createElement('h1');q.className='question';q.textContent=c.question;$('dialogue').append(q);}
 $('actions').replaceChildren();if(c.choices){const choices=document.createElement('div');choices.className='choices';c.choices.forEach((name,i)=>{const b=document.createElement('button');b.className='ingredient';b.type='button';b.setAttribute('aria-label',name+'を選ぶ');b.innerHTML=`<strong>${name}</strong>`;b.prepend(foodImage(name));b.onclick=()=>choose(name);choices.append(b);});$('actions').append(choices);}else c.buttons.forEach(([label,action],i)=>$('actions').append(button(label,action,i>0)));
 $('guidance').textContent=state.phase==='end'?c.hint:'';$('guidance').hidden=state.phase!=='end';const stageName=['cooking','result','end'].includes(state.phase)?(state.phase==='cooking'?'お料理中':state.dish):'';if($('stage-object').dataset.food!==stageName){$('stage-object').dataset.food=stageName;$('stage-object').replaceChildren();if(stageName)$('stage-object').append(foodImage(stageName,true));}$('steam').classList.toggle('active',['cooking','result','end'].includes(state.phase));$('art').classList.toggle('cooking',state.phase==='cooking');$('art').dataset.beat=String(cookingStep);if(state.phase==='cooking'){$('phase').textContent='お料理中 '+['①','②','③','④'][cookingStep];$('actions').classList.toggle('waiting',cookingStep<3);}else $('actions').classList.remove('waiting');$('art-caption').textContent=state.phase==='result'?(state.dish==='カレー'?'おかわりの声は、おいしいのしるし。':'注文とは違っても、おいしい一皿。'):state.phase==='cooking'?cookingBeats[cookingStep][0]:'ちいさな台所から、はじまる物語。';
 if(focus){$('dialogue').setAttribute('tabindex','-1');$('dialogue').focus({preventScroll:true});}say(c.lines.map(l=>l.text).join('。')+(c.question||''));}
-function start(){pauseCooking();stopAudio();if(state.phase==='intro')log('台所のお願い',content().lines);state={phase:'select',step:0,items:[],dish:null};render();}
-function choose(name){if(state.phase!=='select'||!pairs[state.step].includes(name))return;stopAudio();state.items.push(name);if(state.step===2)state.phase='ready';else state.step++;render();}
+function advanceIntro(){if(state.phase!=='intro'||state.introStep>=3)return;log('はじまり',content().lines);state.introStep++;render();}
+function start(){pauseCooking();stopAudio();if(state.phase==='intro')log('台所のお願い',content().lines);state={phase:'select',introStep:0,step:0,items:[],dish:null,round:createRound()};render();}
+function choose(name){if(state.phase!=='select'||!state.round[state.step].options.includes(name))return;stopAudio();state.items.push(name);if(state.step===2)state.phase='ready';else state.step++;render();}
 function cook(){if(state.phase!=='ready')return;state.dish=dishFor(state.items);log('選んだ材料',[line('あなた',state.items.join('、'))]);state.phase='cooking';cookingStep=0;render();scheduleCooking();}
 function result(){if(state.phase!=='cooking'||cookingStep<3)return;pauseCooking();state.phase='result';render();log('できたての一皿',content().lines);}
 function end(){state.phase='end';render();log('最初の一皿',content().lines);}
@@ -49,6 +61,6 @@ function openHistory(){pauseCooking();stopAudio();$('history-content').replaceCh
 $('sound').onclick=()=>{sound=!sound;$('sound').setAttribute('aria-pressed',String(sound));$('sound').setAttribute('aria-label',sound?'読み上げをオフにする':'読み上げをオンにする');$('sound').innerHTML=sound?'♫ <span>読み上げ</span>':'♫ <span>音なし</span>';if(sound){const c=content();say(c.lines.map(l=>l.text).join('。'));}else stopAudio();};
 if(!('speechSynthesis'in window)){$('sound').hidden=true;}
 $('settings').onclick=()=>{pauseCooking();stopAudio();$('settings-dialog').showModal();};$('reduce').onchange=()=>document.body.classList.toggle('reduced',$('reduce').checked);document.body.classList.toggle('reduced',$('reduce').checked);
-$('restart').onclick=()=>{pauseCooking();stopAudio();history=[];state={phase:'intro',step:0,items:[],dish:null};$('settings-dialog').close();render();};$('history').onclick=openHistory;
+$('restart').onclick=()=>{pauseCooking();stopAudio();history=[];state={phase:'intro',introStep:0,step:0,items:[],dish:null,round:[]};$('settings-dialog').close();render();};$('history').onclick=openHistory;
 document.querySelectorAll('dialog .close').forEach(b=>b.onclick=()=>{stopAudio();b.closest('dialog').close();});document.querySelectorAll('dialog').forEach(d=>{d.addEventListener('cancel',stopAudio);d.addEventListener('close',scheduleCooking);});document.addEventListener('visibilitychange',()=>{if(document.hidden){stopAudio();pauseCooking();}else scheduleCooking();});window.addEventListener('pagehide',()=>{stopAudio();pauseCooking();});
 $('scene').onload=updateSister;$('scene').onerror=()=>{$('scene').hidden=true;$('expression').hidden=true;};if($('scene').complete&&!$('scene').naturalWidth)$('scene').hidden=true;render(false);
