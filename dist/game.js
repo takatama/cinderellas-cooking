@@ -12,9 +12,9 @@ Object.values(foodAssets).forEach(file=>{const preload=new Image();preload.src='
 const sisterScenes={stern:'assets/kitchen-stern.png',delighted:'assets/kitchen-delighted.png',pleased:'assets/kitchen-pleased.png'};
 const sceneReady={};
 Object.entries(sisterScenes).forEach(([mood,src])=>{const img=new Image();img.onload=()=>{sceneReady[mood]=true;updateSister();};img.src=src;});
-let atlasReady=false,atlasFailed=false;
+let atlasReady=false,atlasFailed=false,openingReady=false,openingFailed=false;
 const sceneDescriptions=[
-'三角の頭巾とエプロン姿でボウルを混ぜるシンデレラ。台には大切な料理の本が開かれています。',
+'三角の頭巾とエプロン姿のシンデレラが、自分の側の書見台に開いた料理の本を見ながらボウルを混ぜています。',
 'お姉さんが料理の本を閉じ、腰の方へ持ち去ります。シンデレラは手を止めています。',
 'お姉さんは本を腰の後ろに隠しています。シンデレラは本がなくなった台を見ています。',
 '三角の頭巾をかぶったシンデレラが、こちらへ手を差し出して材料選びをお願いします。',
@@ -26,8 +26,12 @@ const isResult=['result','end'].includes(state.phase);
 const mood=isResult?(state.dish==='カレー'?'delighted':'pleased'):'stern';
 const frame=state.phase==='intro'?(state.introStep===0?state.introBeat:state.introStep===1?2:3):isResult?(state.dish==='カレー'?4:5):3;
 $('art').dataset.scene=String(frame);
-$('story-scene-frame').hidden=!atlasReady;
-if(atlasReady){
+const useOpening=frame===0&&openingReady;
+const useAtlas=frame!==0&&atlasReady;
+$('story-scene-frame').hidden=!(useOpening||useAtlas);
+$('opening-scene').hidden=!useOpening;
+$('atlas-window').hidden=!useAtlas;
+if(useOpening||useAtlas){
  $('scene').hidden=true;$('expression').hidden=true;
  $('story-scene').style.left=-(frame%2)*100+'%';
  $('story-scene').style.top=-Math.floor(frame/2)*100+'%';
@@ -46,7 +50,7 @@ function pauseCooking(){clearTimeout(cookingTimer);}
 function scheduleCooking(){pauseCooking();if(state.phase!=='cooking'||cookingStep>=3||document.hidden||document.querySelector('dialog[open]'))return;cookingTimer=setTimeout(()=>{if(sound&&window.speechSynthesis?.speaking){scheduleCooking();return;}cookingStep++;render(false);scheduleCooking();},1800);}
 let state={phase:'intro',introStep:0,introBeat:0,step:0,items:[],dish:null,round:[]},history=[],sound=false,voices=[],audioContext;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');$('reduce').checked=reduced.matches;if(reduced.matches)state.introBeat=2;
-const titles={intro:['はじまり','01 / 06'],select:['材料をえらぶ','02 / 06'],ready:['さあ、お料理','03 / 06'],cooking:['シンデレラにおまかせ','04 / 06'],result:['できたてを、どうぞ','05 / 06'],end:['最初の一皿、おしまい','06 / 06']};
+const titles={pause:['またあとで',''],intro:['はじまり','01 / 06'],select:['材料をえらぶ','02 / 06'],ready:['さあ、お料理','03 / 06'],cooking:['シンデレラにおまかせ','04 / 06'],result:['できたてを、どうぞ','05 / 06'],end:['最初の一皿、おしまい','06 / 06']};
 function stopAudio(){if('speechSynthesis'in window)speechSynthesis.cancel();if(audioContext){audioContext.close().catch(()=>{});audioContext=null;}}
 function say(text){stopAudio();if(!sound||!('speechSynthesis'in window))return;try{const u=new SpeechSynthesisUtterance(text);u.lang='ja-JP';u.rate=.93;const v=speechSynthesis.getVoices().find(v=>v.lang.startsWith('ja'));if(v)u.voice=v;u.onerror=()=>{};speechSynthesis.speak(u);}catch{}}
 function tone(){if(!sound)return;try{const A=window.AudioContext||window.webkitAudioContext;audioContext=new A();const o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.setValueAtTime(550,audioContext.currentTime);o.frequency.exponentialRampToValueAtTime(825,audioContext.currentTime+.18);g.gain.setValueAtTime(.035,audioContext.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+.3);o.connect(g).connect(audioContext.destination);o.start();o.stop(audioContext.currentTime+.3);}catch{}}
@@ -57,10 +61,11 @@ if(phase==='intro'){
 const pages=[
 [line('ものがたり','料理が得意なシンデレラ。'),...(state.introBeat===2?[line('ものがたり','しかし、お姉さんがいじわるをして、大切な料理の本を隠してしまいました。')]:[])],
 [line('ものがたり','それなのに、お姉さんは料理を頼んできます。'),line('お姉さん','シンデレラ、カレーを作っておいてね。')],
-[line('シンデレラ','材料さえ分かれば、おいしいカレーが作れるのに！')]
+[line('シンデレラ','材料さえ分かれば、おいしいカレーが作れるのに！'),line('ものがたり','シンデレラのために、カレーの材料を選んであげますか？')]
 ];
-return {lines:pages[state.introStep],prologue:state.introStep===0,buttons:state.introStep===pages.length-1?[['材料を選ぶ　→',start]]:[['つづきを読む　→',advanceIntro]]};
+return {lines:pages[state.introStep],prologue:state.introStep===0,buttons:state.introStep===pages.length-1?[['はい',start],['いいえ',deferHelp]]:[['つづきを読む　→',advanceIntro]]};
 }
+if(phase==='pause')return {lines:[line('シンデレラ','また会えるのを楽しみにしているね。')],buttons:[['お願いにもどる',resumeHelp]]};
 if(phase==='select'){
 const current=state.round[step];
 return {lines:current.pairIndex===0?[line('シンデレラ','カレーといえば、しらたき、かしら？')]:current.pairIndex===2?[line('ものがたり','（シンデレラは、ちくわぶをじっと見つめています……）')]:[],question:step===0?'カレーに入れるのは、どっち？':step===1?'２つ目の材料は？':'最後の材料は？',choices:current.options};
@@ -105,7 +110,7 @@ let introTimer;
 function pauseIntro(){clearTimeout(introTimer);}
 function scheduleIntro(){
 pauseIntro();
-if((!atlasReady&&!atlasFailed)||state.phase!=='intro'||state.introStep!==0||state.introBeat>=2||document.hidden||document.querySelector('dialog[open]'))return;
+if((!atlasReady&&!atlasFailed)||(!openingReady&&!openingFailed)||state.phase!=='intro'||state.introStep!==0||state.introBeat>=2||document.hidden||document.querySelector('dialog[open]'))return;
 introTimer=setTimeout(()=>{
  if(sound&&window.speechSynthesis?.speaking){scheduleIntro();return;}
  state.introBeat++;
@@ -118,6 +123,8 @@ pauseIntro();
 if(state.introStep===0&&state.introBeat<2){state.introBeat=2;render(false,'しかし、お姉さんがいじわるをして、大切な料理の本を隠してしまいました。');return;}
 log('はじまり',content().lines);state.introStep++;render();
 }
+function deferHelp(){if(state.phase!=='intro'||state.introStep!==2)return;pauseIntro();state.phase='pause';render();}
+function resumeHelp(){if(state.phase!=='pause')return;state.phase='intro';state.introStep=2;render();}
 function start(){pauseIntro();pauseCooking();stopAudio();if(state.phase==='intro')log('台所のお願い',content().lines);state={phase:'select',introStep:0,step:0,items:[],dish:null,round:createRound()};render();}
 function choose(name){if(state.phase!=='select'||!state.round[state.step].options.includes(name))return;stopAudio();state.items.push(name);if(state.step===2)state.phase='ready';else state.step++;render();}
 function cook(){if(state.phase!=='ready')return;state.dish=dishFor(state.items);log('選んだ材料',[line('あなた',state.items.join('、'))]);state.phase='cooking';cookingStep=0;render();scheduleCooking();}
@@ -143,3 +150,8 @@ else window.addEventListener('resize',fitScene);
 $('story-scene').onload=atlasLoaded;
 $('story-scene').onerror=()=>{atlasReady=false;atlasFailed=true;updateSister();scheduleIntro();};
 if($('story-scene').complete&&$('story-scene').naturalWidth)atlasLoaded();
+
+function openingLoaded(){openingReady=true;updateSister();scheduleIntro();}
+$('opening-scene').onload=openingLoaded;
+$('opening-scene').onerror=()=>{openingReady=false;openingFailed=true;updateSister();scheduleIntro();};
+if($('opening-scene').complete&&$('opening-scene').naturalWidth)openingLoaded();
