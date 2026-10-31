@@ -20,17 +20,17 @@
 | 最新実装とこの資料の保存ブランチ | `codex/cinderella-intro` |
 | PR | https://github.com/takatama/cinderellas-cooking/pull/1 （ドラフト、未マージと確認） |
 | 今の作業場所 | `/workspace/cinderellas-cooking` |
-| アプリ実装のGitHubコミット | `fe2d08c` |
-| 配信したSitesソースコミット | `833714ea884ea0be506d3d4a52dc7b8dd08882f3` |
-| 配信済みバージョン | **16** |
+| アプリ実装のGitHubコミット | `3b55ee9` |
+| 配信したSitesソースコミット | `8c2cfbf18d59b8c69c51046a1e9c646e153485c3` |
+| 配信済みバージョン | **17** |
 | Sites project_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c` |
-| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_1e1f8da3efbc8191ae87f86f57e2e4ed` |
-| 成功を確認したdeployment_id | `appgdep_6ae61367c3ac8191a1b92d6f17a12ce8` |
+| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_feaeb7938d08819197ed18cb6705306d` |
+| 成功を確認したdeployment_id | `appgdep_6ae614bd0cb081919a5726eac3088cca` |
 | SitesソースGit | https://git.chatgpt-team.site/e958a5a6-98b0-4518-bba6-ec71b7a7b492/appgprj_6ae54da56ca481918db77b1973ddfb6c.git |
 | Sitesソースのブランチ | `main` |
 | ローカルの配信用ブランチ | `sites-deploy-cinderella-intro` |
 
-この文書の保存コミットは上のアプリ実装コミットより後になる。今回の更新は、テーブルの視点に合わせた鍋3素材の角度修正。所有者のみの非公開のままバージョン16の配信成功を確認した。文書の配信結果記録はアプリ配信後のGitHubコミットに残し、`dist/` は配信したソースと一致する。GitHubのPRはまだ未マージなので、**GitHubのmainだけを取得しても最新実装にはならない**。
+この文書の保存コミットは上のアプリ実装コミットより後になる。今回の更新は、鍋に続き、カレー皿もテーブルの視点に合わせた低い角度へ修正。所有者のみの非公開のままバージョン17の配信成功を確認した。文書の配信結果記録はアプリ配信後のGitHubコミットに残し、`dist/` は配信したソースと一致する。GitHubのPRはまだ未マージなので、**GitHubのmainだけを取得しても最新実装にはならない**。
 
 ### 別環境での取得
 
