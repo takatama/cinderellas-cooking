@@ -1,0 +1,382 @@
+,"シンデレラの料理へようこそ。シンデレラの料理、はじまり、はじまり。
+おかえりなさい！
+またお会いできて嬉しいです！
+また遊びに来てくれたんですね！お会いできて嬉しいです！",Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4
+0,"料理が得意なシンデレラ。
+しかし、お姉さんがいじわるをして、大切な料理の本を隠してしまいました。
+それなのに、チーズバーガーを作っておきなさい、と仕事を押しつけてきます。
+私の名前はシンデレラ。材料さえ分かれば、おいしいチーズバーガーが作れるのに！
+シンデレラのために、チーズバーガーの材料を選んであげますか？","Cinderella is good at cooking. 
+One day, her evil stepsister hid Cinderella's important recipe book, 
+and then ordered Cinderella to make a cheeseburger.
+My name is Cinderella. I can't find my recipe book. What am I gonna do?
+I can make a delicious cheeseburger if only someone could tell me the ingredients. 
+Would you choose ingredients for cheeseburger to help Cinderella?","Yes
+No",,
+1,"どうもありがとう！
+では、チーズバーバーを作るために材料を選びましょう。
+★3つ選べばよいのを示したい。
+ひき肉とソーセージ、どちらにしますか？","Thank you very much!
+Let's choose the ingredients for cheesebargar.
+Which would you choose grand beef or sausege?
+",ingradient,,
+2,"分かりました。ひき肉ですね。
+パンとスパゲティ、どちらにしますか？","OK, you said grand beef.
+Let's choose the next.
+Which would you choose bun or spagetti? ",ingradient,,
+3,"ようし、後は私にまかせて！
+シンデレラはあなたが選んだ、ひき肉、パン、チーズで、チーズバーガーを作りました。
+いただきます。一口食べた、お姉さん。","I got it! Thanks! Now I can make a tasty cheeseburger.
+（Cinderella made a cheeseburger with ground beef, bun, and cheese.）
+Using ground beef, bun, and cheese, Cinderella made cheeseburger.
+The prince had a bite and said.",,,
+4,"あら、あなた、やらかしたわね。これ、チーズバーガーじゃないわ。
+あら、これはチーズバーガーとは言えないわね。
+作り直しますか？","Oh, you messed it up! This is not a cheeseburger.
+Oh, this is not a cheeseburger.
+Would you like to prepare another one?","Yes
+No",,
+5,"ふうん、まぁまぁね。もっとたくさんよそって、と嬉しそう。
+それを見ていたお母さん、私にはBLTサンドイッチを作って、と言いつけました。
+シンデレラのためにBLTサンドイッチの材料を選んであげますか？","""Well, I can not say it bad. Give me one more."", the mean sister said joyfully.
+The stepmother was watching it and told Cinderella to make a BLT sandwich for her.
+Would you choose ingredients for BLT sandwich to help Cinderella?","Yes
+No",,
+6,"ふうん、まぁまぁね。もっと食べるからたくさんよこしなさい、と嬉しそう。
+あれ？馬の足音が聞こえてきます。
+王子様が現れました。
+おいしそうな匂いに引き寄せられてしまいました。
+私のためにアマトリチャーナを作ってくれませんか？
+シンデレラのためにアマトリチャーナの材料を選んであげますか？","""Well, I can not say it bad. Give me one more."", the mean mother said contentedly.
+Oh, what is it? You hear horse footsteps.
+A charming prince appeared.
+The smell of delicious food brought me here. Could you make Amatriciana for me?
+Would you choose ingredients for Amatriana to help Cinderella?","Yes
+No",,
+7,"うーん。とっても美味しいんだけど、アマトリチャーナとは違いますね。
+イタリアのアマトリーチェという町で食べた、
+パスタにからまったトマトとベーコンの味が忘れられないのです。","Hmm. It's delicious, but it's not Amatriciana.
+I can't forget the rich taste of tomato and bacon with pasta. 
+I ate it in a town called Amatrice in Italy. ",,,
+8,"これは、すごい！何ておいしいアマトリチャーナなんだ！
+あなたたちなら、王国に伝わる魔法の道具を、
+使いこなせるかもしれない。お城に来てくれますか？","This is amazing! What a delicious Amatriciana!
+Maybe you can use a magical tool passed down in the kingdom. 
+Could you come to the castle with me? ","Yes
+No",,
+9,王子様と一緒に、お城へ行きますか？,Would you like to go to the castle with the prince?,"Yes
+No",,
+10,"それでは、お城へご案内いたします！
+お城の奥へと進みます","Now I'll take you to the castle!
+You walk down the passage into the castle.",,,
+11,"大きな扉の前まで来ました。
+この部屋は、料理の上手な魔法つかいが使っていました。
+けれど、魔法つかいは別の国に出かけてしまい、この部屋には誰もはいることができないのです。
+扉には鍵がかかっています。ダイヤル式の鍵です。開けるためには4つの数字が必要です。
+扉にはひらがなで、${slow(getQuiz(handlerInput).question)}、と書いてあります。
+数字を合わせますか？扉を詳しく調べますか？","You are now in front of a big door.
+This room used to be occupied by a wizard who was good at cooking.
+However, the wizard has gone to another country, and no one has been able to enter this room.
+The door is locked. You need to dial four numbers and get the right combination to open it.
+A word CHEF is written on the door.
+You can set numbers or examine the door more. What would you like to do?","Set numbers
+Examine","dial four numbers
+examine door, examine more examine the door more","observe, check out, look over carefully, inspect"
+12,,"You examined the door.
+Under the word, there is a sentence, ""BAG is 217.""
+And another sentence is written: ""BEE is 255.""
+And the sentence continues: 
+""If the word has 3 characters, the number is 3 digit.
+The word has 4 characters, the number is 4 digit.""
+There are no sentences any more.
+You can set numbers, or ask for more time to think. What would you like to do?","Set numbers
+Examine
+Think","ask for time, time to think, get more time, wait, wait a minutes, wait a moment",
+13,,"You set the number as 1234.
+Oops, the door is not opened. 
+You can set numbers, examine the door more, or ask for more time to think.
+What would you like to do","Set numbers
+Examine
+Think",,
+14,,"You set the number as 1234.
+The door is opened!",,,
+15,"部屋の中には、オーブンが置いてあります。
+オーブンには二つの紙がはりつけてあります。オレンジ色の紙と、ピンク色の紙です。
+どちらの紙を読みますか？","There is an oven in the room.
+Two sheets of paper are put on the oven. Orange paper and pink paper.
+Which paper would you like to read?","orange
+pink","orange paper, orange one",
+16,"オレンジ色の紙には、こう書いてあります。
+この道具は、ある材料を料理するために作られた。
+その材料の名前を呼ぶと、この紙がはがれて、料理ができるようになる。
+It has seeds but it is not a watermelon
+It can be made into a pie but it is not an apple
+It is orange but it is not an orange
+
+the orange paper also says that Its seeds are edible, It can be scary but it is not a ghost. 
+I can be carved but I’m not roast beef
+I’m associated with a patch but I’m not an eye
+答えが分かったら、材料を教えてください。それとも、少し考えますか？","The orange paper says:
+This appliance was made to cook a special ingredient.
+Say the name of the ingredient, 
+and then this paper will disappear and you will be able to cook using the oven. 
+`It has seeds but it is not a watermelon.
+ It can be made into a pie but it is not an apple.
+ It is orange but it is not an orange.
+The orange paper also says that it is a kind of vegitable, 
+ its seeds are edible, and it can be scary but it is not a ghost. 
+(Please tell me the ingredient. Or you can ask for more time to think)
+You can say the ingredient name, examine the paper more, or ask for more time to think.
+What would you want to do?","Say ingredient name
+Examine
+Think",examine paper,
+17,"ピンク色の紙には、こう書いてあります。
+この道具は、ある材料を料理するために作られた。
+その材料の名前を呼ぶと、この紙がはがれて、料理ができるようになる。
+材料は二つ。seugggar
+S-E-U-G-G-G-A-R
+答えが分かったら、一つ目の材料を教えてください。
+それとも、紙をもっと調べますか？少し考えますか？","The pink paper says:
+This tool was made to cook special ingredients.
+Say the name of the ingredients, 
+and then this paper will disappear and you will be able to cook using the oven. 
+There are two materials. seuggar.
+SEUGGGAR
+Tell me the first ingredient. 
+Or you can examine the paper more, or would you like to think for a minute?","Say ingredient name
+Examine
+Think",the first ingredient name,
+18,どうやら、二つの材料の名前がバラバラに書いてあるみたいです。,"Apparently, the names of the two ingredients are mixed.",,,
+19,"あなたは、パンプキン、と唱えました。
+すると、オレンジ色の紙は消えてなくなりました！
+ピンク色の紙が残っています。","You said, Pumpkin.
+Voila, the orange paper magically disappeared!
+The pink paper is still there. ",,,
+20," しかし、何も起きません。
+オレンジ色の紙をもっと調べますか？少し考えますか？","But nothing happens.
+Would you like to examine the orange paper more? 
+Or would you like to think for a minute? ","Say ingredient name
+Examine
+Think",,
+21,"そうだ！これでパンプキンプリンを作ったら、絶対においしいはず！
+シンデレラは魔法のオーブンを使って、パンプキンプリンを作りました。
+一口食べた、王子様。
+すごい！すごい！素晴らしい！何て美味しい、パンプキンプリンなんだ！`,
+この素晴らしい味を、一人でも多くの国民に届けたいです！協力してくださいますか？","Yes! I can make pumpkin pudding with these ingredients. It should be delicious!
+Cinderella made pumpkin pudding using the magical oven.
+The prince had a bite and said.
+Wow! Wow! Great! I have never had such a delicious pumpkin pudding! 
+I want to deliver this wonderful taste and happiness to as many people as possible in my country!
+Would you please cooperate with me?","Say ingredient name
+Examine
+Think",,
+22,"どうもありがとうございます！
+それでは、私が出資しますので、パンプキンプリンの会社を作りましょう。
+シンデレラの会社は大繁盛。シンデレラは王子様と一緒に幸せに暮らしましたとさ。
+え？意地悪なお姉さんとお母さんですか？
+今でもシンデレラの料理が忘れられず、
+こっそり、シンデレラの会社からお取り寄せしているようですよ。
+これで、シンデレラの料理、はおしまいです。
+最後まで遊んでくれて、どうもありがとうございました！","Thank you very much! I would like to invest in your talent. 
+Let's build a pumpkin pudding company.
+The Cinderella company has been thriving. Cinderella lives happily with the prince.
+Want to know how the evil stepsister and stepmother are doing?
+They can't forget how delicious Cinderella's cooking was, 
+and they seem to be secretly ordering foods from the Cinderella company.
+This is the end of Cinderella's cooking. 
+Thank you very much for playing to the end!
+",,,
+23,"うぇーん、とっても残念。
+ほら、はやく作りなさい、とシンデレラが急かされています。
+また会えるのを楽しみにしているね？
+また遊ぶには、アレクサ、${GAME_TITLE}を開いて、と話しかけてください。
+続きから遊べるので安心してくださいね。遊んでくれて、ありがとうございました。","Hmm, very sorry.
+“Hey, make it fast,” Cinderella is scolded again.
+Looking forward to seeing you again?
+To play again, please say ""Alexa, open Cinderella's cooking"". 
+Then you can continue to play.
+Thank you for playing",,,
+24,"そうですか。それはとても残念です。
+あなたの力があれば、多くの国民を喜ばせることができるはず。
+またお会いできるのを楽しみにしています。","Is that so. That's really unfortunate.
+With your power, you can make many people happy.",,,
+25,,,,,
+26,,"Sorry, I did't get that.
+(I missed what you said.)
+I did't understand.",,,
+27,シンデレラの料理は、シンデレラを助けるためにクイズやなぞなぞに答えていくゲームです。,"Cinderella's cooking is a brain teasing adventure game. 
+You will answer quizzes and riddles to help Cinderella in this game.",,,
+28,"前回はゲームクリア、おめでとうございます！
+さて、今回はどんなお料理を作ることになるのでしょうか？どうぞお楽しみください。","Congratulations on clearing the game!
+What kind of dishes will you make this time? Please enjoy yourself.",,,
+29,"分かりました。これから1分間、考える時間です。答えが分かったら、アレクサ、と話しかけてください。
+",,help,hint,
+30,"料理が得意なシンデレラ。
+しかし、お姉さんがいじわるをして、大切な料理の本をかくしてしまいました。
+このままでは、言いつけられた料理を作ることができません。
+シンデレラを助けるために、料理の材料を選んであげましょう。
+
+クイズやなぞなぞをときながら、お話を進める謎解きアドベンチャーゲームです。
+プレイ時間は20分くらいです。途中でやめても、続きから遊ぶことができます。
+
+使わせていただいた音楽は次のとおりです。すてきな音楽をありがとうございます。
+
+- 効果音素材：ポケットサウンド – https://pocket-se.info
+- 無料効果音で遊ぼう！ https://taira-komori.jpn.org
+- On-Jin ～音人～ https://on-jin.com","Cinderella is good at cooking. 
+However, her mean stepsister hid her important recipe book.
+Let's choose ingredients and solve riddles to help Cinderella.
+
+Cinderella's cooking is a brain teasing adventure game. 
+You will answer quizzes and riddles to help Cinderella in this game.
+The playing time is about 20 minutes.
+You can continue to play even if you quit in the middle of the game.
+
+Special thanks to 
+- Pocket Sound https://pocket-se.info
+- Play with Free Soud Effects https://taira-komori.jpn.org
+- On-Jin https://on-jin.com
+- PeriTune music https://peritune.com
+",,,
+31,暑い夏にスペインで食べた、トマト、キュウリ、パンが溶け込んだあの味が忘れられないのです。,"I can't forget the taste of tomato, cucumber, and bread that I ate in Spain in the hot summer.",,,
+32,イセエビに、小麦粉とバターで作ったホワイトソースをかけて作る、あの味が忘れられないのです。,I can't forget the taste of lobster with white sauce made of flour and butter.,,,
+33,,"Now, let's start again,  ",,,
+,#,cuisines,ingradients,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9,Unnamed: 10,Unnamed: 11,Unnamed: 12,Unnamed: 13,Unnamed: 14
+0,1,cheeseburger,ground beef,,bun,,cheese,,,,,,,,
+1,2,beef stroganoff sandwich,ground beef,,bun,,,mushroom,,,,,,,
+2,3,spaghetti casserole,ground beef,,,spaghetti,cheese,,,,,,,,
+3,4,spaghetti with mushroom meat sauce,ground beef,,,spaghetti,,mushroom,,,,,,,
+4,5,cheese dog,,sausage,bun,,cheese,,,,,,,,
+5,6,sausage roll,,sausage,bun,,,mushroom,,,,,,,
+6,7,cheesy sausage spaghetti,,sausage,,spaghetti,cheese,,,,,,,,
+7,8,spaghetti with sausage and mashroom,,sausage,,spaghetti,,mushroom,,,,,,,
+8,,,,,,,,,,,,,,,
+9,9,BLT sandwich,bacon,,lettuce,,tomato,,,,,,,,
+10,10,cobb salad,,chicken,lettuce,egg,tomato,avocado,,,bacon,,blue cheese,tomato,
+11,,,,,,,,,,,,,,,
+12,11,Amatriciana,spagetti,,tomato,,bacon,,,,,,,,
+13,12,chicken spaghetti,spagetti,,tomato,,,chicken,,,,,,,
+14,13,carbonara,spagetti,,,egg,bacon,,,,,,,,
+15,14,chicken carbonara,spagetti,,,egg,,chicken,,,,,,,
+16,15,tomato risotto,,rice,tomato,,bacon,,,,,,,,
+17,16,tomato chicken rice,,rice,tomato,,,chicken,,,,,,,
+18,17,bacon and egg fried rice,,rice,,egg,bacon,,,,,,,,
+19,18,chicken fried rice,,rice,,egg,,chicken,,,,,,,
+20,,,,,,,,,,,,,,,
+21,,4 digit number,,,,,,,,,,,,,
+22,,,,,,,,,,,,,,,
+23,,orange,,,,,,,,,,,,,
+24,,What Am I? http://riddles-for-kids.org/pumpkin-riddles/,,,,,,,,,,,,,
+25,,I have seeds but I’m not a watermelon,,,,,,,,,,,,,
+26,,I can be made into a pie but I’m not an apple,,,,,,,,,,,,,
+27,,I’m orange but I’m not an orange,,,,,,,,,,,,,
+28,,I can be carved but I’m not roast beef,,,,,,,,,,,,,
+29,,I’m associated with a patch but I’m not an eye,,,,,,,,,,,,,
+30,,,,,,,,,,,,,,,
+31,,pink,,,,,,,,,,,,,
+32,,sugar,,,,,,,,,,,,,
+33,,egg,,,,,,,,,,,,,
+34,,seugggar,,,,,,,,,,,,,
+35,,,,,,,,,,,,,,,
+36,,humburger,ground beef,,bun,,egg,bread crumbs,cheese,onion,,,,,
+37,,hot dog,,sausage,bun,,,,,,,,,,
+38,,spaghetti and meatballs,ground beef,,,spaghetti,,,,,,,,,
+39,,sausage spaghetti,,sausage,,spaghetti,,,,,,,,,
+40,,meat pie,ground beef,,,,pie,,,,,,,,
+41,,sausage pie,,sausage,,,pie,,,,,,,,
+42,,,apple,,bun,,,,,,,,,,
+43,,,apple,,,spaghetti,,,,,,,,,
+44,,apple pie,apple,,,,pie,,,,,,,,
+45,,,,,,,,,,,,,,,
+46,,,,,,,,,,,,,,,
+47,,,,,,,,,,,,,,,
+48,,,,,,,,,,,,,,,
+49,,tacos,ground beef,,,taco shells,,salsa,lettuce,tomato,cheese,,,,
+50,,,,,,,tomato,,,,,,,,
+51,,meatloaf,ground beef,egg,onion,milk,bread crumb,ketchup,,,,,,,
+52,,,,,,,,,,,,,,,
+53,,biscuits and gravy,biscuits,pork sausage,milk,flour,salt,black papper,,,,,,,
+54,,cheeseburger,cheese,ground beef,egg,bread crumb,milk,hamburger patties,,,,,,,
+55,,hot dog,sausage,bun,,,,,,,,,,,
+56,,tacos,ground beef,taco shells,salsa,lettuce,tomato,cheddar cheese,,,,,,,
+57,,BLT,bacon,lettuce,tomato,,,,,,,,,,
+58,,macaroni and cheese,macaroni,butter,flour,salt ,black paper,milk,chedder cheese,,,,,,
+59,,apple pie,apple,pie,sugar,cinnamon,flour,ginger,nutmeg,lemon juice,,,,,
+60,,,,,,,,,,,,,,,
+61,,clam chowder,miced clams,minced onion,diced celery,cubed potatos,diced carrots,butter,flour,hand-and-half cream,red wine vinegar,salt,,,
+62,,bagel and lox,bagels,cream cheese,smoked salmon,black pepper,,,,,,,,,
+63,,deep-dish pizza,flour,cornmeal,salt,sugar,yeast,butter,olive oil,onion,oregano,tomatoes,garlic cloves,mozzarella cheese,parmesan cheese
+64,,biscuits and gravy,biscuits,pork sausage,milk,flour,salt,black papper,,,,,,,
+65,,texas barbecue,rub,butter,onion,celery,garlic,tomato ketchup,worcestershire source,lemon juice,sugar,vinegar,mustard,,
+66,,hominy grits,hominy grits,salt,black papper,butter,cheddar cheese,,,,,,,,
+67,,,,,,,,,,,,,,,
+68,,,,,,,,,,,,,,,
+69,,cobb salad,lettuce,egg,chicken,bacon,avocado,blue cheese,tomato,,,,,,
+70,,pot roast,chuck roast,olive oil,onion,carrot,red wine,beef broth,rosemary,thyme,,,,,
+71,,jambalaya,chicken,sausage,shrimp,rice,,,,,,,,,
+72,,chicken fried steak,,,,,,,,,,,,,
+73,,California roll,,,,,,,,,,,,,
+74,,meatloaf,,,,,,,,,,,,,
+75,,,,,,,,,,,,,,,
+76,,Maryland crabcakes,,,,,,,,,,,,,
+77,,cioppino,,,,,,,,,,,,,
+78,,peanut butter sandwich,,,,,,,,,,,,,
+79,,enchiladas,,,,,,,,,,,,,
+80,,smores,,,,,,,,,,,,,
+81,,lobster rolls,,,,,,,,,,,,,
+82,,buffalo wings,,,,,,,,,,,,,
+83,,indian fryread,,,,,,,,,,,,,
+84,,barbecue ribs,,,,,,,,,,,,,
+85,,,,,,,,,,,,,,,
+86,,po'boy,,,,,,,,,,,,,
+87,,green chile stew,,,,,,,,,,,,,
+88,,chololate-chip cookie,,,,,,,,,,,,,
+89,,blueberry cobbler,,,,,,,,,,,,,
+90,,nachos,,,,,,,,,,,,,
+91,,reuden sandwich,,,,,,,,,,,,,
+92,,cheeseburger,,,,,,,,,,,,,
+,Unnamed: 0,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7
+0,1,カレーライス,豚肉,,じゃがいも,,カレールー,
+1,2,おでん,豚肉,,じゃがいも,,,ちくわぶ
+2,3,カレー風味のおでん,豚肉,,,たまご,カレールー,
+3,,おでん,豚肉,,,たまご,,ちくわぶ
+4,,カレー風味のおでん,,しらたき,じゃがいも,,カレールー,
+5,,おでん,,しらたき,じゃがいも,,,ちくわぶ
+6,,カレー風味のおでん,,しらたき,,たまご,カレールー,
+7,,おでん,,しらたき,,たまご,,ちくわぶ
+8,,,,,,,,
+9,4,ハンバーグ,ひき肉,,パン粉,,玉ねぎ,
+10,5,メンチカツ,ひき肉,,パン粉,,,青のり
+11,6,ロールキャベツ,ひき肉,,,キャベツ,玉ねぎ,
+12,7,野菜炒め,ひき肉,,,キャベツ,,青のり
+13,8,コロッケ,,じゃがいも,パン粉,,玉ねぎ,
+14,,コロッケ,,じゃがいも,パン粉,,,青のり
+15,9,ポテトサラダ,,じゃがいも,,キャベツ,玉ねぎ,
+16,,ポテトサラダ,,じゃがいも,,キャベツ,,青のり
+17,,,,,,,,
+18,10,アマトリチャーナ,パスタ,,トマト,,ベーコン,
+19,11,トマトスパゲティ,パスタ,,トマト,,,とり肉
+20,12,カルボナーラ,パスタ,,,たまご,ベーコン,
+21,,カルボナーラ,パスタ,,,たまご,,とり肉
+22,13,ピラフ,,お米,トマト,,ベーコン,
+23,14,チキンライス,,お米,トマト,,,とり肉
+24,15,オムライス,,お米,,たまご,ベーコン,
+25,16,親子丼,,お米,,たまご,,とり肉
+26,,,,,,,,
+27,17,ガスパッチョ,トマト,,キュウリ,,パン,
+28,18,野菜サラダ,トマト,,キュウリ,,,ハム
+29,19,アクアコッタ,トマト,,,たまご,パン,
+30,20,オムレツ,トマト,,,たまご,,ハム
+31,21,きゅうりサンドイッチ,,マヨネーズ,キュウリ,,パン,
+32,22,ハムサラダ,,マヨネーズ,キュウリ,,,ハム
+33,23,たまごサンドイッチ,,マヨネーズ,,たまご,パン,
+34,24,ハムエッグ,,マヨネーズ,,たまご,,ハム
+35,,,,,,,,
+36,25,テルミドール,イセエビ,,小麦粉,,バター,
+37,26,イセエビの天ぷら,イセエビ,,小麦粉,,,白ワイン
+38,27,ビスク,イセエビ,,,ブイヨン,バター,
+39,,ビスク,イセエビ,,,ブイヨン,,白ワイン
+40,28,シチュー,,とり肉,小麦粉,,バター,
+41,,シチュー,,とり肉,小麦粉,,,白ワイン
+42,29,バターチキンカレー,,とり肉,,ブイヨン,バター,
+43,30,チキンスープ,,とり肉,,ブイヨン,,白ワイン
