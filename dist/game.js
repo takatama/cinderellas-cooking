@@ -120,6 +120,11 @@ $('settings').onclick=()=>{pauseCooking();stopAudio();$('settings-dialog').showM
 $('restart').onclick=()=>{pauseCooking();stopAudio();history=[];state={phase:'intro',introStep:0,introBeat:0,step:0,items:[],dish:null,round:[]};$('dialogue').dataset.page='';$('settings-dialog').close();render();};$('history').onclick=openHistory;
 document.querySelectorAll('dialog .close').forEach(b=>b.onclick=()=>{stopAudio();b.closest('dialog').close();});document.querySelectorAll('dialog').forEach(d=>{d.addEventListener('cancel',stopAudio);d.addEventListener('close',()=>{scheduleCooking();});});document.addEventListener('visibilitychange',()=>{if(document.hidden){stopAudio();pauseCooking();}else{scheduleCooking();}});window.addEventListener('pagehide',()=>{stopAudio();pauseCooking();});
 function fitScene(){
+// On narrow screens keep the aside beside the choices, clear of the enlarged food.
+const aside=$('cinderella-aside');
+if(matchMedia('(max-width: 1000px)').matches){
+if(aside.parentElement!==$('dialogue').parentElement)$('dialogue').before(aside);
+}else if(aside.parentElement!==$('art'))$('art').append(aside);
 const ratio=$('scene').naturalWidth?$('scene').naturalWidth/$('scene').naturalHeight:1.5;
 const width=Math.max($('art').clientWidth,$('art').clientHeight*ratio);
 $('scene-canvas').style.width=width+'px';$('scene-canvas').style.height=width/ratio+'px';
