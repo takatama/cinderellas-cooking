@@ -20,17 +20,17 @@
 | 最新実装とこの資料の保存ブランチ | `codex/cinderella-intro` |
 | PR | https://github.com/takatama/cinderellas-cooking/pull/1 （ドラフト、未マージと確認） |
 | 今の作業場所 | `/workspace/cinderellas-cooking` |
-| アプリ実装のGitHubコミット | `bab2aca` |
-| 配信したSitesソースコミット | `d098924da92281e1482a3da27cbd8fc329b88450` |
-| 配信済みバージョン | **15** |
+| アプリ実装のGitHubコミット | `fe2d08c` |
+| 配信したSitesソースコミット | `833714ea884ea0be506d3d4a52dc7b8dd08882f3` |
+| 配信済みバージョン | **16** |
 | Sites project_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c` |
-| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_15b023a3906481919d59f9e91dcca25e` |
-| 成功を確認したdeployment_id | `appgdep_6ae60fa2c7788191aab699550fc10b0b` |
+| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_1e1f8da3efbc8191ae87f86f57e2e4ed` |
+| 成功を確認したdeployment_id | `appgdep_6ae61367c3ac8191a1b92d6f17a12ce8` |
 | SitesソースGit | https://git.chatgpt-team.site/e958a5a6-98b0-4518-bba6-ec71b7a7b492/appgprj_6ae54da56ca481918db77b1973ddfb6c.git |
 | Sitesソースのブランチ | `main` |
 | ローカルの配信用ブランチ | `sites-deploy-cinderella-intro` |
 
-この文書の保存コミットは上のアプリ実装コミットより後になる。今回の更新は、採用原画を固定したお姉さんの結果表情2パターンの追加と、完成料理が顔を隠さない配置への調整。所有者のみの非公開のままバージョン15の配信成功を確認した。文書の配信結果記録はアプリ配信後のGitHubコミットに残し、`dist/` は配信したソースと一致する。GitHubのPRはまだ未マージなので、**GitHubのmainだけを取得しても最新実装にはならない**。
+この文書の保存コミットは上のアプリ実装コミットより後になる。今回の更新は、テーブルの視点に合わせた鍋3素材の角度修正。所有者のみの非公開のままバージョン16の配信成功を確認した。文書の配信結果記録はアプリ配信後のGitHubコミットに残し、`dist/` は配信したソースと一致する。GitHubのPRはまだ未マージなので、**GitHubのmainだけを取得しても最新実装にはならない**。
 
 ### 別環境での取得
 
