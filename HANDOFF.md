@@ -8,6 +8,8 @@
 
 六皿の検証：構文・Nodeテスト、`tests/mother-dishes.browser.cjs`（1280／390／320px、母親の全8組合せ→6皿の画像表示、表情、公開前の非表示、保存再開、ハンバーグ画像失敗時の代替文と継続）が成功。`tests/cooking.browser.cjs`の料理別器具・完成公開・再開・オーブンも再確認。390pxのハンバーグ、1280pxのコロッケ、320pxのポテトサラダは画像でも確認した。
 
+**最新配信（母親の六皿）**：2026-11-01 13:49 JST、`succeeded`。GitHub実装コミット `651ced5`、Sitesソース `77e6312e9acfdae34ce06fbc599e22274f16be4c`。`dist/`の一致を確認。version_id は `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_e56668c868c08191a2199e0c53f49c34`、deployment_id は `appgdep_6ae6c4bd6574819188632949aa857a64`。既存URL・所有者限定を維持。この記録を下記の器具のみ・母親のみの旧配信記録より優先する。
+
 ユーザーから料理別の調理器具の調査を依頼され、[調査結果](docs/COOKWARE_RESEARCH.md)を保存。その後の「ok 進めて」で、煮込み鍋／フライパン／揚げ鍋／ボウル／オーブンの5系統を実装した。`dist/cooking.js` が料理別の工程文・器具・効果の正本。選択食材から決まった料理を使い、4段階で切り替える。サラダを和える時は湯気なし、プリンは既存の魔法のオーブンだけを表示する。人物と完成皿の原画・判定・保存・手動公開は保持。新食材・母親の六料理の画像は未採用のまま。
 
 器具変更の検証：`node --check dist/cooking.js`・`dist/game.js`、`node --test tests/*.test.js`、`tests/cooking.browser.cjs`（通常16料理×4段階×7画面サイズ、プリンのオーブン表示、調理途中の保存再開、画像失敗）、既存の `novel.browser.cjs`・`journey.browser.cjs`・`scene-layout.browser.cjs`・`mother-art.browser.cjs` が全て成功。1280pxのフライパン・揚げ鍋・ボウルと、390pxのふた付きフライパンは画像でも確認。
