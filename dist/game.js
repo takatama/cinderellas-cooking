@@ -7,7 +7,9 @@ const initialState=()=>({phase:'intro',introStep:0,introBeat:0,chapter:0,step:0,
 const foodAssets={
 '豚肉':'pork.webp','しらたき':'shirataki.webp','じゃがいも':'potato.webp',
 'たまご':'egg.webp','カレールー':'curry-roux.webp','ちくわぶ':'chikuwabu.webp',
-'カレー':'curry.png','おでん':'oden.png','カレー風味のおでん':'curry-oden.png','お料理中':'covered-pot.png'
+'カレー':'curry.png','おでん':'oden.png','カレー風味のおでん':'curry-oden.png','お料理中':'covered-pot.png',
+'ハンバーグ':'hamburg-steak.png','メンチカツ':'menchi-katsu.png','ロールキャベツ':'cabbage-rolls.png',
+'野菜炒め':'vegetable-stir-fry.png','コロッケ':'potato-croquettes.png','ポテトサラダ':'potato-salad.png'
 };
 function foodImage(name,stage=false){if(!foodAssets[name]){const card=document.createElement('span');card.className=stage?'food-card dish-card':'food-card';card.setAttribute('aria-hidden','true');card.textContent=foodSymbol(name);return card;}const img=document.createElement('img');img.src='assets/'+foodAssets[name];img.alt=stage?name:'';img.width=stage?600:300;img.height=stage?400:200;img.className=stage?'dish-art':'ingredient-art';img.decoding='async';img.draggable=false;img.onerror=()=>{img.hidden=true;if(stage){const note=document.createElement('span');note.className='food-fallback';note.textContent=name==='お料理中'?'お料理中…':name;img.replaceWith(note);}};return img;}
 // Preload independent art so later choices and the final reveal are ready in cache.
