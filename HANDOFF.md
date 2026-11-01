@@ -11,6 +11,8 @@
 検証：Node 15テスト、追加のscene-loading、既存のdelivery・journey・castle-art・mother-art・prince-art・final-artが成功。三幅の遅延・高速切替とデコード保留、全編・保存再開・画像失敗時の継続を確認した。
 
 
+配信成功：2026-11-02 06:00 JST、**version 38 / succeeded**。既存URL・所有者限定を維持。GitHub実装 `15db9fa62b40cd58d59eb27d7795d7214143d5f2`、Sitesソース `2235c206ed8d809b50b89f927a98259becf85376`。双方の `dist/` tree は `660598f19554f254a6ea3f008fa5615be0a7201b` で一致。version_id `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_067855fe75708191bbe489f6c36cb012`、deployment_id `appgdep_6ae7a87a60b88191953a5a90e7bcc63c`。PR #3の同じブランチへ反映済み。この配信記録の追記は資料だけで、アプリを変更していない。
+
 ## リファクタリング完了（2026-11-01、最新）
 
 ユーザーの「音楽・SE、二・三周目、英語版の素材再確認へ安全かつ楽に進むための大胆なリファクタリング」を実施。一周目完成版のGitHub main `2938784` とSite version 36の配信ソースが一致することを確認して着手した。旧ローカル先頭は古かったため、mainへfast-forwardしてから `codex/refactor-foundation` で作業した。
