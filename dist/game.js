@@ -401,6 +401,18 @@ actor('cinderella','help-characters.png');
 if(scene!=='thanks')actor('prince','prince.png',scene==='investment'?'prince-pleased.png':'prince-delighted.png');
 }
 picture.append(cast);
+if(scene==='mail-order'){
+// This scene has its own poses. The adopted cutouts remain a fallback on failure.
+const tableau=document.createElement('img');tableau.className='mail-order-tableau';tableau.alt='';tableau.hidden=true;tableau.draggable=false;
+tableau.onload=()=>{tableau.hidden=false;picture.dataset.tableau='true';};
+tableau.onerror=()=>{tableau.hidden=true;picture.dataset.tableau='false';};
+tableau.src='assets/mail-order-epilogue.png';picture.append(tableau);
+}
+if(['company','mail-order','thanks'].includes(scene)){
+// Reuse the exact painted boxes above the people, without repainting the workshop.
+const parcels=document.createElement('img');parcels.className='finale-parcels'+(scene==='mail-order'?' mail-order-parcels':'');parcels.alt='';parcels.draggable=false;
+parcels.onerror=()=>{parcels.hidden=true;};parcels.src='assets/'+(scene==='mail-order'?'mail-order-home.png':'company-workshop.png');picture.append(parcels);
+}
 if(scene==='tasting'||scene==='investment'){
 const table=document.createElement('div');table.className='finale-table';
 const img=document.createElement('img');img.src='assets/tasting-table.png';img.alt='';img.draggable=false;
