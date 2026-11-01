@@ -14,7 +14,18 @@
 
 次回は [構成と手順](docs/REFACTORING.md)、[不足素材・英語確認状況](docs/CONTENT_STATUS.md) から進める。`npm run check`、`npm run check:assets`、サーバー起動後の `CHROMIUM_PATH=/usr/bin/chromium npm run test:browser` が入口。生成済みの `dist/` は従来どおりビルドなしで起動できる。
 
-以下は今回の整理前の制作記録。配信情報はこの先頭へ追記する。
+配信成功：2026-11-01 12:45 UTC（21:45 JST）、**version 37 / succeeded**。URLは https://cinderella-first-dish.halvedfable.chatgpt.site 、所有者限定を維持。
+
+- GitHub実装コミット：`cfd7c34b0ff43411065ff0817916ccdee7c19769`
+- 作業ブランチ：`codex/refactor-foundation`、[ドラフトPR #3](https://github.com/takatama/cinderellas-cooking/pull/3)（未マージ）
+- Sitesソース：`05bdfb4dff8c68c3763f00cc37473572f4aaa2a1`、同じSiteのmainへfast-forward反映済み
+- 両ソースの `dist/` tree：`8f7452d52c24c970f6096308df200dc93189baa4`（一致）
+- version_id：`appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_719aaec42d2c8191b4421096571e7ace`
+- deployment_id：`appgdep_6ae7346e7d188191988a83007f6e3b56`
+
+SitesのGitは一回のpushが64MiBまで。今回の最初の一括pushは容量制限で拒否されたため、旧アプリが動くまま配信用画像だけを先に追加するコミットと、検証済みソースへ切り替えるコミットの二回に分けた。強制pushはしていない。配信アーカイブは `.openai/hosting.json` と `dist/` のみ（60,876,800 bytes / 80 files）。ソースヘルパーは環境内に見つからず、短期credentialをecho無効のstdinだけで渡して通常のGitとtarを使用。この配信記録の追記は資料だけで、アプリを変えていない。
+
+次の環境で続ける際はGitHubのmainだけでなくPR #3のブランチを取得すること。旧版に戻す場合はversion 36。以下は今回の整理前の制作記録。
 
 ---
 
