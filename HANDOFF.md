@@ -43,11 +43,11 @@
 - 実装作業：`/workspace/cinderellas-cooking`
 - Sites配信用チェックアウト：`/workspace/sites/cinderella-first-dish`、remoteの`main`へ配信ソースをpushする。
 - 今回のPR：https://github.com/takatama/cinderellas-cooking/pull/2 （ドラフト、未マージ）
-- 実装のGitHubコミット：`40bc28b54a21bac2bd942404459e3a52dcec6543`
-- 配信済みSitesソース：`903d4f2053ed0738cb4f36f69a6ce49bbd04b49b`
-- version_id：`appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_d0ce2cef995c81919de554008de0f27f`
-- deployment_id：`appgdep_6ae67e2f40a0819192285e42fd7d2dae`
-- 配信成功確認：2026-11-01 08:48（日本時間）、`succeeded`。所有者のみを維持。
+- 実装のGitHubコミット：`3f86b46f514daba14ddb336cc4b1c0dabeb63bdb`
+- 配信済みSitesソース：`983f22ea1ac73367f8b79de69577b065f9fb0793`
+- version_id：`appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_5229309ee1f08191820a929a4f9ebcc3`
+- deployment_id：`appgdep_6ae6850ffe608191b296f1b4fe7bf606`
+- 配信成功確認：2026-11-01 09:17（日本時間）、`succeeded`。所有者のみを維持。
 - この配信結果の記録は公開後にGitHubへ追記したため、資料のコミットは配信ソースより後。アプリの`dist/`は配信した内容と同一。
 
 ## 実装
