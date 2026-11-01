@@ -317,7 +317,7 @@ if(state.doorHint>=2)lines.push(n('ひらがなを「あ・い・う・え・お
 if(state.doorHint>=3)lines.push(n('「あ」は1、「い」は2。……「お」は5、「え」は4、「か」は6、「き」は7です。'));
 if(state.message)lines.push(n(state.message));return {lines,form:'door',buttons:[['扉を詳しく調べる',()=>{state.doorHint=Math.min(3,state.doorHint+1);state.message='';render();}]]};}
 case 'door-open':return {lines:[n('鍵の数字を合わせると、扉が開きました！'),p('さあ、中へ入りましょう。')],buttons:[['部屋に入る　→',()=>move('room')]]};
-case 'room':return {lines:[n('部屋の中には、魔法のオーブンが置いてあります。'),n(state.orange?'ピンク色の紙が残っています。':state.pink?'オレンジ色の紙が残っています。':'オレンジ色とピンク色の、二枚の紙が貼りつけてあります。'),n('どちらの紙を読みますか？')],paper:true,buttons:[]};
+case 'room':return {lines:[n('部屋の中には、魔法のオーブンが置いてあります。'),n(state.orange?'ピンク色の紙が残っています。':state.pink?'オレンジ色の紙が残っています。':'オレンジ色とピンク色の、二枚の紙が貼りつけてあります。'),...(!state.orange&&!state.pink?[n('どちらの紙を読みますか？')]:[])],paper:true,buttons:[]};
 case 'orange':{
 const lines=[n('この道具は、ある材料を料理するために作られた。その材料の名前を呼ぶと、この紙がはがれ、料理ができるようになる。'),n('その材料とは、カンボジアから伝わった、カンボジアのような名前の野菜だ。')];
 if(state.paperHint)lines.push(n('南の瓜とも呼ばれる、北海道でたくさん取れる、外は緑で、中はオレンジの野菜です。'));

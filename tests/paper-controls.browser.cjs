@@ -9,6 +9,7 @@ await page.goto(process.env.TEST_URL||'http://127.0.0.1:4173');
 const click=async name=>{for(let i=0;i<12&&await page.locator('#dialogue').getAttribute('data-more')==='true';i++)await page.getByRole('button',{name:'つづきへ',exact:true}).click();await page.getByRole('button',{name,exact:true}).click();};
 await page.evaluate(()=>{state.chapter=2;state.orange=false;state.pink=false;move('room');});
 for(let i=0;i<2;i++){
+assert.equal(await page.locator('#dialogue').innerText().then(text=>text.includes('どちらの紙を読みますか？')),i===0);
 const color=order[i];await click(color==='orange'?'オレンジ色の紙を読む':'ピンク色の紙を読む');
 const hint=page.getByRole('button',{name:'紙をもっと調べる',exact:true}),back=page.getByRole('button',{name:'紙を選びなおす',exact:true});
 assert.equal(await hint.isEnabled(),true);assert.equal(await back.isDisabled(),i===1);
