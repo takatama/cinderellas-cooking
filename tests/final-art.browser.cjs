@@ -1,3 +1,4 @@
+const {assetUrl,assetPattern}=require('./assets.cjs');
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 (async()=>{
@@ -15,14 +16,14 @@ for(const phase of ['room','orange','pink','final-ready','final-cooking']){
 await page.evaluate(p=>{state.chapter=2;state.orange=true;state.pink=true;move(p);},phase);
 assert.equal(await page.locator('#stage-object').textContent(),'');
 assert.equal(await page.locator('#stage-object img,.finale-cast,.finale-table').count(),0,'no final dish, cast or table before manual reveal');
-assert.equal(await page.locator('.castle-backdrop').getAttribute('src'),'assets/magic-room.png');
+assert.equal(await page.locator('.castle-backdrop').getAttribute('src'),assetUrl('magic-room.png'));
 }
 await click('できた料理を見る　→');await decode();
 assert.equal(await page.evaluate(()=>state.phase),'final-result');
-assert.equal(await page.locator('#stage-object img').getAttribute('src'),'assets/pumpkin-pudding.png');
+assert.equal(await page.locator('#stage-object img').getAttribute('src'),assetUrl('pumpkin-pudding.png'));
 assert.equal(await page.locator('#stage-object').evaluate(el=>el.parentElement.id),'table-plane');
-assert.equal(await page.locator('.finale-prince>img').first().getAttribute('src'),'assets/prince.png');
-assert.equal(await page.locator('.finale-prince .finale-expression').getAttribute('src'),'assets/prince-delighted.png');
+assert.equal(await page.locator('.finale-prince>img').first().getAttribute('src'),assetUrl('prince.png'));
+assert.equal(await page.locator('.finale-prince .finale-expression').getAttribute('src'),assetUrl('prince-delighted.png'));
 assert.equal(await page.locator('#story-scene-frame').isVisible(),false,'no kitchen behind the castle cast');
 await read();const position=await page.evaluate(()=>({key:state.readKey,page:state.readPage}));
 await page.reload();await page.waitForTimeout(330);await page.getByRole('button',{name:'つづきから遊ぶ',exact:true}).click();await decode();
@@ -33,9 +34,9 @@ await click('お話を再開する');await click('はい');await decode();
 for(const [step,scene,file] of [[0,'investment','magic-room.png'],[1,'company','company-workshop.png'],[2,'mail-order','mail-order-home.png']]){
 assert.equal(await page.evaluate(()=>state.storyStep),step);
 assert.equal(await page.locator('.finale-scene').getAttribute('data-finale'),scene);
-assert.equal(await page.locator('.castle-backdrop').getAttribute('src'),'assets/'+file);
-assert.equal(await page.locator('#stage-object img').getAttribute('src'),'assets/pumpkin-pudding.png');
-if(step===0)assert.equal(await page.locator('.finale-prince .finale-expression').getAttribute('src'),'assets/prince-pleased.png');
+assert.equal(await page.locator('.castle-backdrop').getAttribute('src'),assetUrl(file));
+assert.equal(await page.locator('#stage-object img').getAttribute('src'),assetUrl('pumpkin-pudding.png'));
+if(step===0)assert.equal(await page.locator('.finale-prince .finale-expression').getAttribute('src'),assetUrl('prince-pleased.png'));
 if(step===1)assert.equal(await page.locator('.finale-parcels').isVisible(),true);
 if(step===2){assert.equal(await page.locator('.finale-prince,.finale-cinderella').count(),0);assert.equal(await page.locator('.mail-order-tableau').isVisible(),true);assert.equal(await page.locator('.finale-cast').isVisible(),false);assert.equal(await page.locator('.finale-parcels').isVisible(),false);}
 await page.reload();await page.waitForTimeout(330);await page.getByRole('button',{name:'つづきから遊ぶ',exact:true}).click();await decode();
@@ -56,7 +57,7 @@ if(process.env.SCREENSHOTS)await page.screenshot({path:`${process.env.SCREENSHOT
 assert.deepEqual(errors,[]);await page.close();console.log(`PASS final art ${width}x${height}: reveal, cast, expressions, pause, saves, endings, resize`);
 }
 for(const files of [['pumpkin-pudding.png'],['prince-delighted.png'],['help-characters.png','prince.png','mother.png'],['magic-room.png','tasting-table.png','company-workshop.png','mail-order-home.png'],['mail-order-epilogue.png']]){
-const page=await browser.newPage();for(const file of files)await page.route('**/assets/'+file,r=>r.abort());
+const page=await browser.newPage();for(const file of files)await page.route(assetPattern(file),r=>r.abort());
 await page.goto(process.env.TEST_URL||'http://127.0.0.1:4173');
 const click=async name=>{for(let i=0;i<12&&await page.locator('#dialogue').getAttribute('data-more')==='true';i++)await page.getByRole('button',{name:'つづきへ',exact:true}).click();await page.waitForTimeout(330);await page.getByRole('button',{name,exact:true}).click();};
 await page.evaluate(()=>{state.chapter=2;state.orange=true;state.pink=true;move('final-result');});
