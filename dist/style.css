@@ -32,6 +32,11 @@
 .help-scene[hidden]{display:none}
 /* Blend only the expression into the fixed master; hair, outline, clothes and poses never switch. */
 .sister-expression{pointer-events:none;mask-image:radial-gradient(ellipse 8.3% 13% at 71% 28.4%,#000 75%,transparent 100%)}
+/* Keep Cinderella's adopted pixels; replace only the right-hand character. */
+.help-scene.cinderella-only{clip-path:inset(0 49.5% 0 0)}
+.mother-layer{position:absolute;left:16%;top:4.5%;width:78%;height:75.5%;object-fit:fill;pointer-events:none}
+.mother-layer[hidden]{display:none}
+.mother-expression{mask-image:radial-gradient(ellipse 8% 12% at 69% 33%,#000 70%,transparent 100%)}
 /* Leave both faces visible when the finished dish is placed on the worktop. */
 .art[data-scene="4"] .stage-object,.art[data-scene="5"] .stage-object{left:26%;right:26%;bottom:1%}
 
