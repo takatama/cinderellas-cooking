@@ -9,6 +9,8 @@
 `tests/door-dials.browser.cjs` はPC・320／390px・低い画面の五画面で、桁の独立・循環・入力同期・誤答・ヒント・保存再開・キーボード・44px以上の操作領域・開扉を検証。Node全3テスト、既存 `novel` の三幅と `castle-art` の八画面も成功。セッションを変えず、このチャットで実装・検証を継続した。
 
 ## 城・扉・魔法の部屋の画像仕上げ（最新）
+**ダイアル錠の配信成功**：2026-11-01 19:54 JST、`succeeded`。GitHub実装 `65afedb87bee1021bd7380ca47ce504bb334efd5`、Sitesソース `c6ffc411eda1f5d3910a761501c9c95e21bc60d0`。両方の `dist/` 一致を確認。version_id は `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_e5a853cfe1c08191be881c39589bb053`、deployment_id は `appgdep_6ae71a3eb4f08191bb8af5c87bad9d22`。同じURL・所有者限定公開・ドラフトPR #2を継続。配信後のこの資料追記でアプリは変わらない。
+
 
 ユーザー添付の城を参考に、外観・閉扉・開扉・魔法の部屋を画像化。追加指示の「十字架は使わない」を優先し、窓・旗・装飾を葉と曲線へ修正した。扉の文字は画像に焼き込まず `doorInscription()` とDOMで差し替え可能にし、開いた時は非表示。二色の紙は独立したDOMで一枚ずつ消える。通常の画像・判定・保存・ノベルUIを維持。プリンと終幕は引き続き未整備。素材と検証は [制作記録](docs/references/castle-art.md) を参照。
 
