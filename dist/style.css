@@ -224,3 +224,17 @@ footer button{min-width:100px;min-height:44px;font-size:14px}
 .castle-scene .oven-glass{inset:57% 39% 26%;z-index:1;border:0;border-radius:45% 45% 8% 8%;font-size:0;background:transparent;pointer-events:none}
 .castle-scene.oven-baking .oven-glass{background:radial-gradient(ellipse,#ffe5a787,#eab66b40 50%,transparent 75%);box-shadow:0 0 18px #f8c77844}
 .castle-scene[data-loaded="false"]:before{content:attr(aria-label);position:absolute;left:10%;right:10%;top:12%;font-size:14px;line-height:1.7}
+
+/* The painted door and the accessible controls show the same answer draft. */
+.door-lock{position:absolute;left:35%;top:52%;width:30%;height:13%;display:grid;grid-template-columns:repeat(4,1fr);gap:3%;padding:2% 2.5%;border:2px solid #a97632;border-radius:12% / 28%;background:linear-gradient(#e3bd73,#946024 48%,#d1a655);box-shadow:0 2px 3px #2e190b80,inset 0 0 0 2px #f5d895}
+.door-lock>span{display:grid;place-items:center;min-width:0;background:linear-gradient(#c6a879,#fff4d8 42%,#d8be91);border:1px solid #815c35;border-radius:2px;color:#3c291b;font-family:Georgia,serif;font-size:clamp(10px,calc(var(--scene-width)*.033),30px);line-height:1;box-shadow:inset 0 2px 4px #5b371d40}
+.door-dials{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:340px;width:100%;margin:0 auto;padding:7px;border:1px solid #bc9558;border-radius:10px;background:linear-gradient(#d3b278,#ae854b);box-shadow:inset 0 0 0 2px #f3dbab}
+.door-dial{display:grid;grid-template-rows:44px 44px 44px;min-width:0}
+.door-dial button{min-width:44px;border:1px solid #ad8b59;border-radius:4px;background:#f5e7ca;color:#654925;font-size:19px;line-height:1;touch-action:manipulation}
+.door-dial button:hover{background:#fff3d9}
+.door-dial button:active{background:#dac194}
+.door-dial output{display:grid;place-items:center;margin:2px 0;border:1px solid #947044;border-radius:3px;background:linear-gradient(#d4bc92,#fff5de 45%,#d4bc92);color:#49301b;font-family:Georgia,serif;font-size:30px;line-height:1}
+.answer-form:has(.door-dials){gap:9px}
+.answer-form:has(.door-dials)>label{grid-template-columns:auto minmax(80px,130px);align-items:center;justify-content:center;column-gap:12px}
+.answer-form #door-answer{min-height:44px;text-align:center;letter-spacing:.15em}
+@media(max-width:360px){.door-dials{gap:5px;padding:5px}}

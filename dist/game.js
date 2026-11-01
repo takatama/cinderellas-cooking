@@ -336,10 +336,42 @@ return {lines:pages[state.storyStep]||pages[0],buttons:[['つづきを読む　�
 case 'complete':return {lines:[n('これで「シンデレラの料理」は、おしまいです。'),line('シンデレラ','最後まで手伝ってくれて、どうもありがとう！')],buttons:[['ここまでのお話を読む',openHistory],['最初から遊ぶ',restartStory]]};
 default:return null;
 }}
+function doorDigits(){
+const raw=state.answerDraft?.door?.['四桁の数字']??'0000';
+const value=raw.replace(/[０-９]/g,c=>String(c.charCodeAt(0)-0xff10));
+return Array.from({length:4},(_,i)=>/[0-9]/.test(value[i]||'')?value[i]:'—');
+}
+function syncDoorDials(){
+const digits=doorDigits();
+document.querySelectorAll('[data-door-digit]').forEach(el=>{const value=digits[Number(el.dataset.doorDigit)];if(el.textContent!==value)el.textContent=value;});
+}
+function turnDoorDial(index,delta){
+const digits=doorDigits().map(d=>d==='—'?'0':d);
+digits[index]=String((Number(digits[index])+delta+10)%10);
+state.answerDraft??={};state.answerDraft.door??={};
+state.answerDraft.door['四桁の数字']=digits.join('');
+const input=$('door-answer');if(input)input.value=digits.join('');
+syncDoorDials();saveProgress();
+}
+function renderDoorDials(){
+const controls=document.createElement('div');controls.className='door-dials';controls.setAttribute('role','group');controls.setAttribute('aria-label','錠前の四つのダイアル');
+for(let i=0;i<4;i++){
+const wheel=document.createElement('div');wheel.className='door-dial';
+const makeTurn=(delta,symbol)=>{const b=document.createElement('button');b.type='button';b.textContent=symbol;b.setAttribute('aria-label',`${i+1}桁目を${delta>0?'増やす':'減らす'}`);b.onclick=()=>{stopAudio();turnDoorDial(i,delta);};return b;};
+const value=document.createElement('output');value.dataset.doorDigit=i;value.textContent=doorDigits()[i];value.setAttribute('aria-label',`${i+1}桁目`);value.setAttribute('aria-live','polite');
+wheel.append(makeTurn(1,'▴'),value,makeTurn(-1,'▾'));controls.append(wheel);
+}
+return controls;
+}
 function renderAnswerForm(kind){
 const form=document.createElement('form');form.className='answer-form';
 const makeInput=(label,placeholder)=>{const wrap=document.createElement('label');wrap.textContent=label;const input=document.createElement('input');input.type='text';input.required=true;input.maxLength=kind==='door'?4:30;input.placeholder=placeholder;input.autocomplete='off';input.value=state.answerDraft?.[kind]?.[label]||'';input.oninput=()=>{state.answerDraft??={};state.answerDraft[kind]??={};state.answerDraft[kind][label]=input.value;saveProgress();};input.onkeydown=e=>{if(e.key==='Enter'&&e.isComposing)e.preventDefault();};if(kind==='door'){input.inputMode='numeric';input.pattern='[0-9０-９]{4}';}wrap.append(input);form.append(wrap);return input;};
 const a=makeInput(kind==='door'?'四桁の数字':kind==='pink'?'一つ目の材料':'野菜の名前',kind==='door'?'0000':kind==='pink'?'材料の名前':'野菜の名前');const b=kind==='pink'?makeInput('二つ目の材料','材料の名前'):null;
+if(kind==='door'){
+a.id='door-answer';a.value=state.answerDraft?.door?.['四桁の数字']??'0000';
+const saveInput=a.oninput;a.oninput=()=>{saveInput();syncDoorDials();};
+form.prepend(renderDoorDials());
+}
 const submit=document.createElement('button');submit.type='submit';submit.className='primary';submit.textContent=kind==='door'?'数字を合わせる':'名前を唱える';form.append(submit);
 form.onsubmit=e=>{e.preventDefault();stopAudio();const correct=kind==='door'?Journey.doorAnswer(a.value):kind==='orange'?Journey.orangeAnswer(a.value):Journey.pinkAnswer(a.value,b.value);
 if(!correct){state.message=kind==='door'?'まだ鍵は開きません。もう一度、数字を合わせてみましょう。':'まだ紙ははがれません。もう一度、名前を考えてみましょう。';render();$('actions').querySelector('input')?.focus();return;}
@@ -359,7 +391,8 @@ art.hidden=chapter===0&&!castle||showMother()||showPrince();let scene=castle?(st
 $('art').dataset.journey=scene;
 const visualKey=scene==='door'?state.phase:scene;
 if(art.dataset.visual!==visualKey){art.dataset.scene=scene;art.dataset.visual=visualKey;art.replaceChildren();const picture=document.createElement('div');picture.className='journey-picture';picture.setAttribute('role','img');
-if(scene==='door'){picture.classList.add('magic-door');picture.setAttribute('aria-label',state.phase==='door-open'?'開いた扉と明るい廊下':doorInscription()+'と書かれた大きな扉');const plaque=document.createElement('span');plaque.className='door-inscription';plaque.textContent=doorInscription();plaque.hidden=state.phase==='door-open';picture.append(plaque);}
+if(scene==='door'){picture.classList.add('magic-door');picture.setAttribute('aria-label',state.phase==='door-open'?'開いた扉と明るい廊下':doorInscription()+'と書かれた大きな扉');const plaque=document.createElement('span');plaque.className='door-inscription';plaque.textContent=doorInscription();plaque.hidden=state.phase==='door-open';picture.append(plaque);
+if(state.phase==='door'){const lock=document.createElement('div');lock.className='door-lock';lock.setAttribute('aria-hidden','true');for(let i=0;i<4;i++){const digit=document.createElement('span');digit.dataset.doorDigit=i;lock.append(digit);}picture.append(lock);}}
 else if(scene==='oven'){picture.classList.add('magic-oven');picture.setAttribute('aria-label','二枚の紙が貼られた魔法のオーブン');const glass=document.createElement('span');glass.className='oven-glass';glass.textContent='✧';picture.append(glass);for(const color of ['orange','pink']){const paper=document.createElement('span');paper.className='oven-paper '+color;paper.dataset.paper=color;paper.textContent=color==='orange'?'？':'たさまとごう';picture.append(paper);}}
 else{picture.classList.add('story-emblem');const symbol=document.createElement('span');symbol.textContent=scene==='castle'?'♜':scene==='ending'?'✧':scene==='mother'?'♛':'♔';picture.append(symbol);const name=document.createElement('p');name.textContent=scene==='castle'?'王子様のお城':scene==='ending'?'シンデレラの会社':scene==='mother'?'お母さん':'王子様';picture.append(name);picture.setAttribute('aria-label',name.textContent);}
 if(['castle','door','oven'].includes(scene)){
@@ -370,7 +403,7 @@ backdrop.src='assets/'+(scene==='castle'?'castle-exterior.png':scene==='door'?(s
 }
 art.append(picture);}
 const picture=art.querySelector('.journey-picture');
-if(scene==='door'){const plaque=art.querySelector('.door-inscription');if(plaque)plaque.textContent=doorInscription();}
+if(scene==='door'){const plaque=art.querySelector('.door-inscription');if(plaque)plaque.textContent=doorInscription();syncDoorDials();}
 if(scene==='oven'){
 picture.classList.toggle('oven-baking',state.phase==='final-cooking');
 picture.setAttribute('aria-label',(state.orange&&state.pink?'紙がなくなった':state.orange?'ピンク色の紙が残った':state.pink?'オレンジ色の紙が残った':'二枚の紙が貼られた')+'魔法のオーブン');
