@@ -171,12 +171,17 @@ $('restart').onclick=()=>{$('settings-dialog').close();restartStory();};$('histo
 document.querySelectorAll('dialog .close').forEach(b=>b.onclick=()=>{stopAudio();b.closest('dialog').close();});document.querySelectorAll('dialog').forEach(d=>{d.addEventListener('cancel',stopAudio);d.addEventListener('close',()=>{scheduleCooking();});});document.addEventListener('visibilitychange',()=>{if(document.hidden){stopAudio();pauseCooking();}else{scheduleCooking();}});window.addEventListener('pagehide',()=>{stopAudio();pauseCooking();});
 function fitScene(){
 const ratio=$('scene').naturalWidth?$('scene').naturalWidth/$('scene').naturalHeight:1.5;
+// Let a narrow illustration shorten its frame; the dialogue absorbs the spare height.
+const storyMinimum=matchMedia('(max-width: 760px)').matches?354:340;
+const artHeight=Math.min($('art').clientWidth/ratio,Math.max(0,$('page').clientHeight-storyMinimum));
+$('page').style.setProperty('--art-height',artHeight+'px');
 const width=Math.min($('art').clientWidth,$('art').clientHeight*ratio);
 $('art').style.setProperty('--scene-width',width+'px');
+$('art').style.setProperty('--scene-height',width/ratio+'px');
 $('scene-canvas').style.width=width+'px';$('scene-canvas').style.height=width/ratio+'px';
 }
 function atlasLoaded(){atlasReady=true;fitScene();updateSister();}
-if('ResizeObserver'in window)new ResizeObserver(fitScene).observe($('art'));
+if('ResizeObserver'in window){const observer=new ResizeObserver(fitScene);observer.observe($('art'));observer.observe($('page'));}
 else window.addEventListener('resize',fitScene);
 $('scene').onload=fitScene;
 $('scene').onerror=()=>{$('scene').hidden=true;};

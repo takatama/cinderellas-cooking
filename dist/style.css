@@ -169,3 +169,18 @@ footer button{min-width:100px;min-height:44px;font-size:14px}
 .advance>.decisions{grid-column:1;grid-row:1;display:grid;grid-template-columns:1fr 1fr;gap:12px;min-width:0}
 .advance .decisions>button{width:100%;min-width:44px;height:48px;padding:8px;font-size:14px;letter-spacing:0}
 @media(max-width:760px){.advance>.decisions{gap:8px}.advance .decisions>button{font-size:13px;padding:6px 4px}}
+
+/* Keep dishes on the painted worktop, including when the painting is letterboxed. */
+.table-plane{position:absolute;left:50%;top:50%;width:var(--scene-width);height:var(--scene-height);transform:translate(-50%,-50%);pointer-events:none;z-index:1}
+.table-plane .stage-object{left:26%;right:auto;width:48%;bottom:0}
+.art[data-scene="4"] .table-plane .stage-object,.art[data-scene="5"] .table-plane .stage-object{left:26%;right:auto;width:48%;bottom:1%}
+.table-plane .table-ingredients{left:3%;right:auto;width:94%;bottom:3%}
+.table-plane .table-ingredients .ingredient-art,.table-plane .table-ingredients .food-card{height:calc(var(--scene-height)*.27);min-height:0}
+.table-plane .table-ingredients figcaption{font-size:clamp(11px,calc(var(--scene-width)*.035),13px)}
+@media(min-height:651px){
+.page:not(.puzzle){grid-template-rows:var(--art-height,minmax(160px,1fr)) minmax(340px,1fr)}
+}
+@media(min-height:651px) and (max-width:760px){
+.page:not(.puzzle){grid-template-rows:var(--art-height,minmax(150px,1fr)) minmax(354px,1fr)}
+}
+.art.cooking .table-plane .stage-object{bottom:3%}
