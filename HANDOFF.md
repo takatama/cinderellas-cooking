@@ -10,6 +10,8 @@
 
 専用画が読めない場合は既存人物の組み合わせへ戻し、そのときも元の箱を前景に重ねる。構文、Node全3ファイル、`final-art` 五画面（公開前後・各終幕・保存再開・幅の往復・人物の縦横比）、専用画を含む五組の画像失敗時の完了までの操作を確認。PC・320/390pxの工房とお取り寄せの実画面も確認した。詳細は [制作記録](docs/references/final-art.md)。
 
+配信成功：2026-11-01 20:48 JST、`succeeded`。GitHub実装 `f9cad9abccf3400eb84fd1b730f44c668a080dd7`、Sitesソース `7426532d4eac3589a65548d50cb071bd2fde06ee`。`dist/` tree SHA `cb2eada00aed956624560bbd1c29f3296e3c045f` で一致。version_id `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_b63bd9368e5c81918e072860c479c2bc`、deployment_id `appgdep_6ae72719cd4481919d4b1bfa8eeffcf6`。既存URL・所有者限定・ドラフトPR #2を維持。
+
 ## 扉の文言・紙の操作・終幕人物の縦横比を修正
 
 ユーザーの追加指示で、扉の紹介を「お城の奥に、大きな扉があります。」へ修正。紙の最後のヒントを表示した後は「紙をもっと調べる」をdisabledにし、片方の紙を解いて残り一枚のときは「紙を選びなおす」をdisabledにする。両方とも残っている場合は選びなおせる。誤答・回答下書き・保存再開を維持。
