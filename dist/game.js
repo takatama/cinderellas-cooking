@@ -7,6 +7,8 @@ const initialState=()=>({phase:'intro',introStep:0,introBeat:0,chapter:0,step:0,
 const foodAssets={
 '豚肉':'pork.webp','しらたき':'shirataki.webp','じゃがいも':'potato.webp',
 'たまご':'egg.webp','カレールー':'curry-roux.webp','ちくわぶ':'chikuwabu.webp',
+'ひき肉':'ground-meat.webp','パン粉':'breadcrumbs.webp','キャベツ':'cabbage.webp','玉ねぎ':'onion.webp','青のり':'aonori.webp',
+'パスタ':'pasta.webp','お米':'rice.webp','トマト':'tomato.webp','ベーコン':'bacon.webp','とり肉':'chicken.webp',
 'カレー':'curry.png','おでん':'oden.png','カレー風味のおでん':'curry-oden.png','お料理中':'covered-pot.png',
 'ハンバーグ':'hamburg-steak.png','メンチカツ':'menchi-katsu.png','ロールキャベツ':'cabbage-rolls.png',
 '野菜炒め':'vegetable-stir-fry.png','コロッケ':'potato-croquettes.png','ポテトサラダ':'potato-salad.png'
@@ -18,7 +20,9 @@ Object.values(CookingArt.vessels).forEach(v=>{const preload=new Image();preload.
 let atlasReady=false,helpReady=false;
 const resultReady={delighted:false,pleased:false};
 const motherReady={normal:false,delighted:false,pleased:false};
+const princeReady={normal:false,delighted:false,pleased:false};
 function showMother(){return state.chapter===1&&!isCastle()&&motherReady.normal&&helpReady;}
+function showPrince(){return state.chapter===2&&!isCastle()&&princeReady.normal&&helpReady;}
 const sceneDescriptions=[
 '三角の頭巾とエプロン姿のシンデレラが、自分の側の書見台に開いた料理の本を見ながらボウルを混ぜています。',
 'お姉さんが料理の本を閉じ、腰の方へ持ち去ります。シンデレラは手を止めています。',
@@ -30,10 +34,23 @@ const sceneDescriptions=[
 function updateSister(){
 updateJourneyArt();
 const mother=showMother();
+const prince=showPrince();
+const princeRequestedMood=prince&&state.phase==='result'?(state.dish===target()?'delighted':'pleased'):null;
+const princeMood=princeRequestedMood&&princeReady[princeRequestedMood]?princeRequestedMood:null;
 const requestedMood=mother&&state.phase==='result'?(state.dish===target()?'delighted':'pleased'):null;
 const motherMood=requestedMood&&motherReady[requestedMood]?requestedMood:null;
-$('help-scene').classList.toggle('cinderella-only',mother);
+$('help-scene').classList.toggle('cinderella-only',mother||prince);
 for(const mood of ['normal','delighted','pleased'])$('mother-'+mood).hidden=!mother||(mood!=='normal'&&motherMood!==mood);
+for(const mood of ['normal','delighted','pleased'])$('prince-'+mood).hidden=!prince||(mood!=='normal'&&princeMood!==mood);
+if(prince){
+$('story-scene-frame').hidden=false;
+$('art').dataset.scene='3';
+$('story-scene').hidden=true;$('help-scene').hidden=false;
+$('help-scene').alt='採用した頭巾と結い髪のシンデレラが、こちらへ手を差し出しています。';
+$('prince-normal').alt=princeMood==='delighted'?'王子様は目を閉じ、おいしい思い出の料理に感動しています。':princeMood==='pleased'?'王子様は別の料理を味わい、穏やかに微笑んでいます。':'白と青の衣装の王子様が、頬に手を添えて思い出の料理を頼んでいます。';
+for(const mood of ['delighted','pleased'])$('sister-'+mood).hidden=true;
+return;
+}
 if(mother){
 $('story-scene-frame').hidden=false;
 $('art').dataset.scene='3';
@@ -233,11 +250,11 @@ function helpLoaded(){helpReady=true;updateSister();}
 $('help-scene').onload=helpLoaded;
 $('help-scene').onerror=()=>{helpReady=false;updateSister();};
 if($('help-scene').complete&&$('help-scene').naturalWidth)helpLoaded();
-for(const mood of ['normal','delighted','pleased']){
-const img=$('mother-'+mood);
-const loaded=()=>{motherReady[mood]=true;updateSister();};
+for(const [actor,ready] of [['mother',motherReady],['prince',princeReady]])for(const mood of ['normal','delighted','pleased']){
+const img=$(actor+'-'+mood);
+const loaded=()=>{ready[mood]=true;updateSister();};
 img.onload=loaded;
-img.onerror=()=>{motherReady[mood]=false;updateSister();};
+img.onerror=()=>{ready[mood]=false;updateSister();};
 if(img.complete&&img.naturalWidth)loaded();
 }
 // Keep the adopted character artwork fixed; reveal only the sister's facial features.
@@ -334,7 +351,7 @@ function updateJourneyArt(){
 const chapter=state.chapter||0,castle=isCastle(),art=$('journey-art');
 $('chapter-name').textContent=castle?'第四章　魔法のオーブン':chapter===0?'第一章　お姉さんのお願い':chapter===1?'第二章　お母さんのお願い':'第三章　王子様のお願い';
 $('request').replaceChildren(document.createTextNode('今日のお願い '));const request=document.createElement('span');request.textContent=castle?'パンプキンプリン':target();$('request').append(request);$('request').hidden=castle||state.phase==='resume'||state.phase==='intro'&&state.introStep===0;
-art.hidden=chapter===0&&!castle||showMother();let scene=castle?(state.phase==='castle'?'castle':['door','door-open'].includes(state.phase)?'door':['ending','complete'].includes(state.phase)?'ending':'oven'):chapter===1?'mother':'prince';
+art.hidden=chapter===0&&!castle||showMother()||showPrince();let scene=castle?(state.phase==='castle'?'castle':['door','door-open'].includes(state.phase)?'door':['ending','complete'].includes(state.phase)?'ending':'oven'):chapter===1?'mother':'prince';
 $('art').dataset.journey=scene;
 if(art.dataset.scene!==scene){art.dataset.scene=scene;art.replaceChildren();const picture=document.createElement('div');picture.className='journey-picture';picture.setAttribute('role','img');
 if(scene==='door'){picture.classList.add('magic-door');picture.setAttribute('aria-label','おえかきと書かれた大きな扉');const plaque=document.createElement('span');plaque.textContent='お え か き';picture.append(plaque);const lock=document.createElement('b');lock.textContent='◇ ◇ ◇ ◇';picture.append(lock);}

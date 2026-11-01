@@ -37,6 +37,9 @@
 .mother-layer{position:absolute;left:16%;top:4.5%;width:78%;height:75.5%;object-fit:fill;pointer-events:none}
 .mother-layer[hidden]{display:none}
 .mother-expression{mask-image:radial-gradient(ellipse 8% 12% at 69% 33%,#000 70%,transparent 100%)}
+.prince-layer{position:absolute;left:16%;top:4.5%;width:78%;height:75.5%;object-fit:fill;pointer-events:none}
+.prince-layer[hidden]{display:none}
+.prince-expression{mask-image:radial-gradient(ellipse 8% 12% at 64% 34%,#000 70%,transparent 100%)}
 /* Leave both faces visible when the finished dish is placed on the worktop. */
 .art[data-scene="4"] .stage-object,.art[data-scene="5"] .stage-object{left:26%;right:26%;bottom:1%}
 
