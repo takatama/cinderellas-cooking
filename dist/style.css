@@ -189,3 +189,19 @@ footer button{min-width:100px;min-height:44px;font-size:14px}
 .page:not(.puzzle){grid-template-rows:var(--art-height,minmax(150px,1fr)) minmax(354px,1fr)}
 }
 .art.cooking .table-plane .stage-object{bottom:3%}
+/* Movement belongs to heat and oil, never to the heavy cookware itself. */
+.art.cooking .stage-object{animation:none}
+.table-plane .steam{left:43%;top:auto;bottom:29%;width:14%;height:calc(var(--scene-height)*.12)}
+.oil-bubbles{position:absolute;left:40%;bottom:32.5%;width:20%;height:calc(var(--scene-height)*.06);pointer-events:none}
+.oil-bubbles[hidden]{display:none}
+.oil-bubbles i{position:absolute;bottom:0;left:10%;width:5px;height:5px;border:1px solid #ffdf8ba8;border-radius:50%;animation:oil-bubble 1.3s ease-out infinite}
+.oil-bubbles i:nth-child(2){left:35%;animation-delay:-.4s}
+.oil-bubbles i:nth-child(3){left:65%;animation-delay:-.8s}
+.oil-bubbles i:nth-child(4){left:85%;animation-delay:-.2s}
+@keyframes oil-bubble{0%{opacity:0;transform:translateY(3px) scale(.5)}40%{opacity:.8}100%{opacity:0;transform:translateY(-6px) scale(1.2)}}
+.art.effects-paused .steam i,.art.effects-paused .oil-bubbles i{animation-play-state:paused}
+.oven-working .oven-glass{box-shadow:inset 0 0 24px #ffc86eaa;background:radial-gradient(#f4c37a,#795334)}
+/* Match the painted bases, accounting for each transparent canvas's margins. */
+.art.cooking .table-plane .stage-object[data-vessel="pan"],.art.cooking .table-plane .stage-object[data-vessel="covered-pan"]{bottom:0}
+.art.cooking .table-plane .stage-object[data-vessel="bowl"]{bottom:6%}
+.art[data-cookware="pan"] .table-plane .steam,.art[data-cookware="covered-pan"] .table-plane .steam{bottom:26%}

@@ -4,7 +4,9 @@
 
 ## 画像仕上げの進捗（最新）
 
-ユーザーから、料理ごとに鍋・フライパンを選ぶための事前調査を依頼された。[調理器具の調査](docs/COOKWARE_RESEARCH.md)に一周目17料理の工程・器具・画面表示の提案と参照先を保存。煮込み鍋／フライパン／揚げ鍋／ボウル／オーブンの5系統を提案した段階で、器具の制作・実装はまだ。母親の六料理の画像も未採用のまま。
+ユーザーから料理別の調理器具の調査を依頼され、[調査結果](docs/COOKWARE_RESEARCH.md)を保存。その後の「ok 進めて」で、煮込み鍋／フライパン／揚げ鍋／ボウル／オーブンの5系統を実装した。`dist/cooking.js` が料理別の工程文・器具・効果の正本。選択食材から決まった料理を使い、4段階で切り替える。サラダを和える時は湯気なし、プリンは既存の魔法のオーブンだけを表示する。人物と完成皿の原画・判定・保存・手動公開は保持。新食材・母親の六料理の画像は未採用のまま。
+
+器具変更の検証：`node --check dist/cooking.js`・`dist/game.js`、`node --test tests/*.test.js`、`tests/cooking.browser.cjs`（通常16料理×4段階×7画面サイズ、プリンのオーブン表示、調理途中の保存再開、画像失敗）、既存の `novel.browser.cjs`・`journey.browser.cjs`・`scene-layout.browser.cjs`・`mother-art.browser.cjs` が全て成功。1280pxのフライパン・揚げ鍋・ボウルと、390pxのふた付きフライパンは画像でも確認。
 
 母親の依頼場面の[構図案](docs/references/mother-request-preview.png)を提示し、ユーザーの「はい」で採用された。母親の独立した透過素材と顔だけの2表情を実装。既存シンデレラの左側をCSSで切り出し、採用原画と台所背景を固定した。[素材・配置の記録](docs/references/mother-request-preview.md)を参照。
 

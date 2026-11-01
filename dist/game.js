@@ -12,6 +12,7 @@ const foodAssets={
 function foodImage(name,stage=false){if(!foodAssets[name]){const card=document.createElement('span');card.className=stage?'food-card dish-card':'food-card';card.setAttribute('aria-hidden','true');card.textContent=foodSymbol(name);return card;}const img=document.createElement('img');img.src='assets/'+foodAssets[name];img.alt=stage?name:'';img.width=stage?600:300;img.height=stage?400:200;img.className=stage?'dish-art':'ingredient-art';img.decoding='async';img.draggable=false;img.onerror=()=>{img.hidden=true;if(stage){const note=document.createElement('span');note.className='food-fallback';note.textContent=name==='お料理中'?'お料理中…':name;img.replaceWith(note);}};return img;}
 // Preload independent art so later choices and the final reveal are ready in cache.
 Object.values(foodAssets).forEach(file=>{const preload=new Image();preload.src='assets/'+file;});
+Object.values(CookingArt.vessels).forEach(v=>{const preload=new Image();preload.src='assets/'+v.file;});
 let atlasReady=false,helpReady=false;
 const resultReady={delighted:false,pleased:false};
 const motherReady={normal:false,delighted:false,pleased:false};
@@ -58,10 +59,9 @@ $('story-scene').alt=sceneDescriptions[frame];
 }
 function updateTable(){const table=$('table-ingredients');const items=['select','ready'].includes(state.phase)?state.items:[];const current=[...table.children].map(el=>el.dataset.food);if(current.some((name,i)=>items[i]!==name)||current.length>items.length)table.replaceChildren();items.slice(table.children.length).forEach(name=>{const item=document.createElement('figure');item.setAttribute('role','listitem');item.dataset.food=name;item.append(foodImage(name));const caption=document.createElement('figcaption');caption.textContent=name;item.append(caption);table.append(item);});table.hidden=!items.length;}
 let cookingStep=0, cookingTimer;
-const cookingBeats=[['とん、とん、とん。','シンデレラは、選んだ材料を手ぎわよく切っていきます。'],['ことこと、ぐつぐつ。','お鍋の中で、材料たちがゆっくり煮えています。'],['……いいにおい！','ふわりと、おいしそうな香りが広がりました。'],['できたよ！','あたたかいうちに、召し上がれ。']];
-function pauseCooking(){clearTimeout(cookingTimer);}
-// Only the covered cooking illustration advances on a timer. Revealing the dish is manual.
-function scheduleCooking(){pauseCooking();if(state.phase!=='cooking'||cookingStep>=3||document.hidden||document.querySelector('dialog[open]'))return;cookingTimer=setTimeout(()=>{cookingStep++;updateCookingControls();saveProgress();scheduleCooking();},900);}
+function pauseCooking(){clearTimeout(cookingTimer);$('art').classList.add('effects-paused');}
+// Only cookware stages advance on a timer. Revealing the dish is manual.
+function scheduleCooking(){pauseCooking();if(state.phase!=='cooking'||document.hidden||document.querySelector('dialog[open]'))return;$('art').classList.remove('effects-paused');if(cookingStep>=3)return;cookingTimer=setTimeout(()=>{cookingStep++;updateCookingControls();saveProgress();scheduleCooking();},900);}
 let state=initialState(),history=[],sound=false,voices=[],audioContext;
 let savedProgress=null;
 try{const saved=JSON.parse(localStorage.getItem('cinderella-first-journey-v1'));if(validSave(saved))savedProgress=saved;}catch{}
@@ -142,9 +142,7 @@ $('advance').classList.toggle('inactive',!$('advance').childElementCount);
 $('dialogue').classList.toggle('can-read',!![...$('advance').querySelectorAll('.primary')].find(b=>b.textContent==='つづきへ'));
 if(c.montage)updateCookingControls();
 $('guidance').hidden=true;
-const stageName=['cooking','result','final-cooking','final-result','ending'].includes(state.phase)?(['cooking','final-cooking'].includes(state.phase)?'お料理中':state.phase==='result'?state.dish:'パンプキンプリン'):'';
-if($('stage-object').dataset.food!==stageName){$('stage-object').dataset.food=stageName;$('stage-object').replaceChildren();if(stageName)$('stage-object').append(foodImage(stageName,true));}
-$('steam').classList.toggle('active',['cooking','result','final-cooking'].includes(state.phase));$('art').classList.toggle('cooking',state.phase==='cooking');$('art').dataset.beat=String(cookingStep);$('art-caption').hidden=true;
+updateStageArt();$('art-caption').hidden=true;
 $('art').classList.toggle('secret-order',state.chapter===2&&!isCastle()&&!['cooking','result'].includes(state.phase));
 saveProgress();
 if(focus){$('dialogue').setAttribute('tabindex','-1');$('dialogue').focus({preventScroll:true});}
@@ -152,6 +150,27 @@ if(speechOverride!=='')say(speechOverride??((c.question?c.question+'。':'')+c.l
 }
 function updateCookingControls(){
 $('advance').querySelector('.primary').disabled=cookingStep<3;$('advance').querySelector('.secondary').disabled=cookingStep>=3;$('art').dataset.beat=String(cookingStep);
+updateStageArt();
+}
+function updateStageArt(){
+const cooking=state.phase==='cooking',oven=state.phase==='final-cooking';
+const stage=cooking?CookingArt.stageFor(state.dish,cookingStep):null;
+const name=cooking?'お料理中':state.phase==='result'?state.dish:['final-result','ending'].includes(state.phase)?'パンプキンプリン':'';
+const object=$('stage-object'),key=name+'|'+(stage?.vessel||'');
+object.dataset.food=name;object.dataset.vessel=stage?.vessel||'';
+if(object.dataset.artKey!==key){
+object.dataset.artKey=key;object.replaceChildren();
+if(stage){const vessel=CookingArt.vessels[stage.vessel],img=document.createElement('img');img.src='assets/'+vessel.file;img.alt=vessel.alt;img.width=600;img.height=400;img.className='dish-art cookware-art';img.draggable=false;
+img.onerror=()=>{const note=document.createElement('span');note.className='food-fallback';note.textContent=vessel.alt;img.replaceWith(note);};object.append(img);
+}else if(name)object.append(foodImage(name,true));
+}
+const warm=state.phase==='result'&&CookingArt.planFor(state.dish).servedSteam;
+$('steam').classList.toggle('active',stage?.effect==='steam'||warm);
+$('oil-bubbles').hidden=stage?.effect!=='oil';
+$('art').classList.toggle('cooking',cooking);$('art').classList.toggle('oven-working',oven);
+$('art').dataset.cookingMethod=cooking?CookingArt.planFor(state.dish).method:oven?'oven':'';
+$('art').dataset.cookware=stage?.vessel||'';
+$('art').dataset.beat=String(cookingStep);
 }
 function advanceDialogue(){
 if(document.querySelector('dialog[open]')||window.getSelection()?.toString())return;
@@ -324,11 +343,5 @@ for(const color of ['orange','pink']){const paper=art.querySelector(`[data-paper
 }
 
 function currentCookingBeats(){
-const beats=cookingBeats.map(b=>b.slice());
-const dish=state.dish;
-if(['ハンバーグ','野菜炒め','ピラフ','チキンライス','オムライス'].includes(dish))beats[1]=['じゅう、じゅう。','フライパンの上で、材料がこんがり焼けていきます。'];
-if(['メンチカツ','コロッケ'].includes(dish))beats[1]=['からり、じゅわっ。','熱い油の中で、衣がきつね色になっていきます。'];
-if(['ポテトサラダ'].includes(dish))beats[1]=['ほくほく、さっくり。','ゆでたじゃがいもと、用意した材料を合わせます。'];
-if(['アマトリチャーナ','トマトスパゲティ','カルボナーラ'].includes(dish))beats[1]=['くるり、さっと。','ゆでたパスタに、おいしいソースをからめます。'];
-return beats;
+return CookingArt.planFor(state.dish).beats;
 }
