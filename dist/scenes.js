@@ -52,7 +52,7 @@
       img.className = stage ? "dish-art" : "ingredient-art";
       img.decoding = "async";
       img.draggable = false;
-      img.onerror = () => {
+      img.addEventListener("asseterror", () => {
         img.hidden = true;
         if (stage) {
           const note = document.createElement("span");
@@ -60,7 +60,7 @@
           note.textContent = name === "お料理中" ? "お料理中…" : name;
           img.replaceWith(note);
         }
-      };
+      });
       return img;
     }
     function ensureSceneImages() {
@@ -92,6 +92,13 @@
     function updateSister() {
       ensureSceneImages();
       const state = getState();
+      for (const id of [
+        "story-scene",
+        "help-scene",
+        "sister-delighted",
+        "sister-pleased",
+      ])
+        $(id).hidden = true;
       updateJourneyArt();
       const mother = showMother();
       const prince = showPrince();
@@ -244,12 +251,12 @@
           img.height = 400;
           img.className = "dish-art cookware-art";
           img.draggable = false;
-          img.onerror = () => {
+          img.addEventListener("asseterror", () => {
             const note = document.createElement("span");
             note.className = "food-fallback";
             note.textContent = vessel.alt;
             img.replaceWith(note);
-          };
+          });
           object.append(img);
         } else if (name) object.append(foodImage(name, true));
       }
@@ -298,9 +305,9 @@
         root.Assets.assign(base, file);
         base.alt = "";
         base.draggable = false;
-        base.onerror = () => {
+        base.addEventListener("asseterror", () => {
           group.hidden = true;
-        };
+        });
         group.append(base);
         if (expression) {
           const face = document.createElement("img");
@@ -308,9 +315,9 @@
           face.alt = "";
           face.className = "finale-expression";
           face.draggable = false;
-          face.onerror = () => {
+          face.addEventListener("asseterror", () => {
             face.hidden = true;
-          };
+          });
           group.append(face);
         }
         cast.append(group);
@@ -331,20 +338,21 @@
       }
       picture.append(cast);
       if (scene === "mail-order") {
+        picture.dataset.tableau = "loading";
         // This scene has its own poses. The adopted cutouts remain a fallback on failure.
         const tableau = document.createElement("img");
         tableau.className = "mail-order-tableau";
         tableau.alt = "";
         tableau.hidden = true;
         tableau.draggable = false;
-        tableau.onload = () => {
+        tableau.addEventListener("assetready", () => {
           tableau.hidden = false;
           picture.dataset.tableau = "true";
-        };
-        tableau.onerror = () => {
+        });
+        tableau.addEventListener("asseterror", () => {
           tableau.hidden = true;
           picture.dataset.tableau = "false";
-        };
+        });
         root.Assets.assign(tableau, "mail-order-epilogue.png");
         picture.append(tableau);
       }
@@ -356,9 +364,9 @@
           (scene === "mail-order" ? " mail-order-parcels" : "");
         parcels.alt = "";
         parcels.draggable = false;
-        parcels.onerror = () => {
+        parcels.addEventListener("asseterror", () => {
           parcels.hidden = true;
-        };
+        });
         root.Assets.assign(
           parcels,
           scene === "mail-order"
@@ -374,10 +382,10 @@
         root.Assets.assign(img, "tasting-table.png");
         img.alt = "";
         img.draggable = false;
-        img.onerror = () => {
+        img.addEventListener("asseterror", () => {
           img.hidden = true;
           table.classList.add("table-fallback");
-        };
+        });
         table.append(img);
         picture.append(table);
       }
@@ -521,17 +529,18 @@
         }
         if (["castle", "door", "oven"].includes(scene) || finale) {
           picture.classList.add("castle-scene");
+          picture.dataset.loaded = "loading";
           const backdrop = document.createElement("img");
           backdrop.className = "castle-backdrop";
           backdrop.alt = "";
           backdrop.setAttribute("aria-hidden", "true");
-          backdrop.onload = () => {
+          backdrop.addEventListener("assetready", () => {
             picture.dataset.loaded = "true";
-          };
-          backdrop.onerror = () => {
+          });
+          backdrop.addEventListener("asseterror", () => {
             backdrop.hidden = true;
             picture.dataset.loaded = "false";
-          };
+          });
           root.Assets.assign(
             backdrop,
             scene === "castle"
@@ -552,6 +561,13 @@
         art.append(picture);
       }
       const picture = art.querySelector(".journey-picture");
+      if (scene === "mother" || scene === "prince") {
+        picture.dataset.fallback = String(
+          [$(scene + "-normal"), $("help-scene")].some(
+            (img) => img.dataset.assetState === "failed",
+          ),
+        );
+      }
       if (scene === "door") {
         const plaque = art.querySelector(".door-inscription");
         if (plaque) plaque.textContent = doorInscription();
@@ -619,31 +635,26 @@
         observer.observe($("art"));
         observer.observe($("page"));
       } else window.addEventListener("resize", fitScene);
-      $("scene").onload = fitScene;
-      $("scene").onerror = () => {
+      $("scene").addEventListener("assetready", fitScene);
+      $("scene").addEventListener("asseterror", () => {
         $("scene").hidden = true;
-      };
-      $("story-scene").onload = atlasLoaded;
-      $("story-scene").onerror = () => {
+        document.querySelector(".art-fallback").hidden = false;
+      });
+      $("story-scene").addEventListener("assetready", atlasLoaded);
+      $("story-scene").addEventListener("asseterror", () => {
         atlasReady = false;
         updateSister();
-      };
-      if ($("scene").complete && !$("scene").naturalWidth)
-        $("scene").hidden = true;
-      if ($("story-scene").complete && $("story-scene").naturalWidth)
-        atlasLoaded();
+      });
 
       function helpLoaded() {
         helpReady = true;
         updateSister();
       }
-      $("help-scene").onload = helpLoaded;
-      $("help-scene").onerror = () => {
+      $("help-scene").addEventListener("assetready", helpLoaded);
+      $("help-scene").addEventListener("asseterror", () => {
         helpReady = false;
         updateSister();
-      };
-      if ($("help-scene").complete && $("help-scene").naturalWidth)
-        helpLoaded();
+      });
       for (const [actor, ready] of [
         ["mother", motherReady],
         ["prince", princeReady],
@@ -654,12 +665,11 @@
             ready[mood] = true;
             updateSister();
           };
-          img.onload = loaded;
-          img.onerror = () => {
+          img.addEventListener("assetready", loaded);
+          img.addEventListener("asseterror", () => {
             ready[mood] = false;
             updateSister();
-          };
-          if (img.complete && img.naturalWidth) loaded();
+          });
         }
       // Keep the adopted character artwork fixed; reveal only the sister's facial features.
       for (const mood of ["delighted", "pleased"]) {
@@ -668,13 +678,14 @@
           resultReady[mood] = true;
           updateSister();
         };
-        img.onload = loaded;
-        img.onerror = () => {
+        img.addEventListener("assetready", loaded);
+        img.addEventListener("asseterror", () => {
           resultReady[mood] = false;
           updateSister();
-        };
-        if (img.complete && img.naturalWidth) loaded();
+        });
       }
+      for (const img of document.querySelectorAll("#scene-canvas img"))
+        root.Assets.observe(img);
     }
     return {
       init,

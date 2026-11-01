@@ -12,10 +12,14 @@ const assetPattern = (file) => {
       ")$",
   );
 };
-const settleImages = (page) =>
-  page
+const settleImages = async (page) => {
+  await page
     .locator("img[src]")
     .evaluateAll((imgs) =>
       Promise.all(imgs.map((img) => img.decode().catch(() => {}))),
     );
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll('img[src]')].every(img => img.dataset.assetState !== 'loading'),
+  );
+};
 module.exports = { assetUrl, assetPattern, settleImages };
