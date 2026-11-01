@@ -13,7 +13,8 @@ const foodAssets={
 'ハンバーグ':'hamburg-steak.png','メンチカツ':'menchi-katsu.png','ロールキャベツ':'cabbage-rolls.png',
 '野菜炒め':'vegetable-stir-fry.png','コロッケ':'potato-croquettes.png','ポテトサラダ':'potato-salad.png',
 'アマトリチャーナ':'amatriciana.png','トマトスパゲティ':'tomato-spaghetti.png','カルボナーラ':'carbonara.png',
-'ピラフ':'pilaf.png','チキンライス':'chicken-rice.png','オムライス':'omurice.png','親子丼':'oyakodon.png'
+'ピラフ':'pilaf.png','チキンライス':'chicken-rice.png','オムライス':'omurice.png','親子丼':'oyakodon.png',
+'パンプキンプリン':'pumpkin-pudding.png'
 };
 function foodImage(name,stage=false){if(!foodAssets[name]){const card=document.createElement('span');card.className=stage?'food-card dish-card':'food-card';card.setAttribute('aria-hidden','true');card.textContent=foodSymbol(name);return card;}const img=document.createElement('img');img.src='assets/'+foodAssets[name];img.alt=stage?name:'';img.width=stage?600:300;img.height=stage?400:200;img.className=stage?'dish-art':'ingredient-art';img.decoding='async';img.draggable=false;img.onerror=()=>{img.hidden=true;if(stage){const note=document.createElement('span');note.className='food-fallback';note.textContent=name==='お料理中'?'お料理中…':name;img.replaceWith(note);}};return img;}
 // Preload independent art so later choices and the final reveal are ready in cache.
@@ -383,11 +384,35 @@ function renderPaperChoices(){for(const color of ['orange','pink']){if(state[col
 function foodSymbol(name){return ({'ひき肉':'🥩','パン粉':'🍞','玉ねぎ':'🧅','青のり':'🌿','キャベツ':'🥬','パスタ':'🍝','お米':'🍚','トマト':'🍅','ベーコン':'🥓','とり肉':'🍗','ハンバーグ':'🍽️','メンチカツ':'🍽️','ロールキャベツ':'🥬','野菜炒め':'🥬','コロッケ':'🥔','ポテトサラダ':'🥔','アマトリチャーナ':'🍝','トマトスパゲティ':'🍝','カルボナーラ':'🍝','ピラフ':'🍚','チキンライス':'🍚','オムライス':'🍳','親子丼':'🍚','パンプキンプリン':'🍮'})[name]||'🍽️';}
 // Keep the inscription outside the artwork so later journeys can replace it.
 function doorInscription(){return 'おえかき';}
+// Reuse adopted pixels in the finale; expressions still cover only the face.
+function addFinaleCast(picture,scene){
+const cast=document.createElement('div');cast.className='finale-cast';cast.setAttribute('aria-hidden','true');
+const actor=(name,file,expression)=>{
+const group=document.createElement('div');group.className='finale-actor finale-'+name;
+const base=document.createElement('img');base.src='assets/'+file;base.alt='';base.draggable=false;
+base.onerror=()=>{group.hidden=true;};group.append(base);
+if(expression){const face=document.createElement('img');face.src='assets/'+expression;face.alt='';face.className='finale-expression';face.draggable=false;face.onerror=()=>{face.hidden=true;};group.append(face);}
+cast.append(group);
+};
+if(scene==='mail-order'){
+actor('sister','help-characters.png','sister-pleased.png');
+actor('mother','mother.png','mother-pleased.png');
+}else{
+actor('cinderella','help-characters.png');
+if(scene!=='thanks')actor('prince','prince.png',scene==='investment'?'prince-pleased.png':'prince-delighted.png');
+}
+picture.append(cast);
+if(scene==='tasting'||scene==='investment'){
+const table=document.createElement('div');table.className='finale-table';
+const img=document.createElement('img');img.src='assets/tasting-table.png';img.alt='';img.draggable=false;
+img.onerror=()=>{img.hidden=true;table.classList.add('table-fallback');};table.append(img);picture.append(table);
+}
+}
 function updateJourneyArt(){
 const chapter=state.chapter||0,castle=isCastle(),art=$('journey-art');
 $('chapter-name').textContent=castle?'第四章　魔法のオーブン':chapter===0?'第一章　お姉さんのお願い':chapter===1?'第二章　お母さんのお願い':'第三章　王子様のお願い';
 $('request').replaceChildren(document.createTextNode('今日のお願い '));const request=document.createElement('span');request.textContent=castle?'パンプキンプリン':target();$('request').append(request);$('request').hidden=castle||state.phase==='resume'||state.phase==='intro'&&state.introStep===0;
-art.hidden=chapter===0&&!castle||showMother()||showPrince();let scene=castle?(state.phase==='castle'?'castle':['door','door-open'].includes(state.phase)?'door':['ending','complete'].includes(state.phase)?'ending':'oven'):chapter===1?'mother':'prince';
+art.hidden=chapter===0&&!castle||showMother()||showPrince();let scene=castle?(state.phase==='castle'?'castle':['door','door-open'].includes(state.phase)?'door':state.phase==='final-result'?'tasting':state.phase==='ending'?['investment','company','mail-order'][state.storyStep]||'investment':state.phase==='complete'?'thanks':'oven'):chapter===1?'mother':'prince';
 $('art').dataset.journey=scene;
 const visualKey=scene==='door'?state.phase:scene;
 if(art.dataset.visual!==visualKey){art.dataset.scene=scene;art.dataset.visual=visualKey;art.replaceChildren();const picture=document.createElement('div');picture.className='journey-picture';picture.setAttribute('role','img');
@@ -395,12 +420,18 @@ if(scene==='door'){picture.classList.add('magic-door');picture.setAttribute('ari
 if(state.phase==='door'){const lock=document.createElement('div');lock.className='door-lock';lock.setAttribute('aria-hidden','true');for(let i=0;i<4;i++){const digit=document.createElement('span');digit.dataset.doorDigit=i;lock.append(digit);}picture.append(lock);}}
 else if(scene==='oven'){picture.classList.add('magic-oven');picture.setAttribute('aria-label','二枚の紙が貼られた魔法のオーブン');const glass=document.createElement('span');glass.className='oven-glass';glass.textContent='✧';picture.append(glass);for(const color of ['orange','pink']){const paper=document.createElement('span');paper.className='oven-paper '+color;paper.dataset.paper=color;paper.textContent=color==='orange'?'？':'たさまとごう';picture.append(paper);}}
 else{picture.classList.add('story-emblem');const symbol=document.createElement('span');symbol.textContent=scene==='castle'?'♜':scene==='ending'?'✧':scene==='mother'?'♛':'♔';picture.append(symbol);const name=document.createElement('p');name.textContent=scene==='castle'?'王子様のお城':scene==='ending'?'シンデレラの会社':scene==='mother'?'お母さん':'王子様';picture.append(name);picture.setAttribute('aria-label',name.textContent);}
-if(['castle','door','oven'].includes(scene)){
+const finale=['tasting','investment','company','mail-order','thanks'].includes(scene);
+if(finale){
+picture.className='journey-picture castle-scene finale-scene';picture.dataset.finale=scene;picture.replaceChildren();
+picture.setAttribute('aria-label',({tasting:'魔法の部屋で、テーブルのパンプキンプリンに感動する王子様とシンデレラ。',investment:'王子様がシンデレラに会社への出資を申し出ています。',company:'発送用の箱が並ぶ繁盛した工房で、シンデレラと王子様が微笑んでいます。','mail-order':'お姉さんとお母さんが、こっそり取り寄せた箱を開け、パンプキンプリンを楽しんでいます。',thanks:'温かな工房から、シンデレラがこちらへ手を差し出してお礼を伝えています。'})[scene]);
+}
+if(['castle','door','oven'].includes(scene)||finale){
 picture.classList.add('castle-scene');
 const backdrop=document.createElement('img');backdrop.className='castle-backdrop';backdrop.alt='';backdrop.setAttribute('aria-hidden','true');
 backdrop.onload=()=>{picture.dataset.loaded='true';};backdrop.onerror=()=>{backdrop.hidden=true;picture.dataset.loaded='false';};
-backdrop.src='assets/'+(scene==='castle'?'castle-exterior.png':scene==='door'?(state.phase==='door-open'?'castle-door-open.png':'castle-door-closed.png'):'magic-room.png');picture.prepend(backdrop);
+backdrop.src='assets/'+(scene==='castle'?'castle-exterior.png':scene==='door'?(state.phase==='door-open'?'castle-door-open.png':'castle-door-closed.png'):scene==='company'||scene==='thanks'?'company-workshop.png':scene==='mail-order'?'mail-order-home.png':'magic-room.png');picture.prepend(backdrop);
 }
+if(finale)addFinaleCast(picture,scene);
 art.append(picture);}
 const picture=art.querySelector('.journey-picture');
 if(scene==='door'){const plaque=art.querySelector('.door-inscription');if(plaque)plaque.textContent=doorInscription();syncDoorDials();}
