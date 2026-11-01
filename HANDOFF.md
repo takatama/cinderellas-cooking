@@ -10,6 +10,8 @@
 
 検証：構文・Node 9テスト、`paper-controls.browser.cjs`（1280/390/320pxと低い画面、紙の両順序、最後のヒント・残り一枚・誤答・下書き・再開）、`final-art.browser.cjs`（五画面と画像失敗、全終幕の人物の縦横比も確認）。PCと390pxでプリン・お取り寄せ・完了の実画面を確認した。
 
+配信成功：2026-11-01 20:36 JST、`succeeded`。GitHub実装 `1a70d3429e9da50b0ee1f5313492ad5f64f0b564`（扉の文言は先行コミット `28587bf`）、Sitesソース `e39bd75d72937ac0bf0645ab4cd5e48af924f514`。`dist/` tree SHA `26288b4fc223755ad4e465d84cb2d095da4abde0` で一致。version_id `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_5ff5086275dc8191aa12190afaf4023a`、deployment_id `appgdep_6ae724271f808191875329ce77fbd958`。既存URL・所有者限定・ドラフトPR #2を維持。
+
 ## 王子の注文の白い覆いを削除
 
 ユーザーの「アマトリチャーナの謎の白い料理を隠す奴は不要」に従い、王子の注文中にCSSで表示していた銀皿の覆い（`secret-order`）を削除。完成料理は従来どおり手動公開後だけ表示する。人物・台詞・判定・保存・ノベルUIは変更しない。構文、Node 9テスト、`novel` 三幅、PC/390/320pxの注文→材料選び→調理→完成公開を検証した。
