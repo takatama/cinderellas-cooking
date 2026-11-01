@@ -8,6 +8,12 @@
 
 母親の六料理は[確認案](docs/references/mother-dishes-preview.png)までで未採用・未反映。食材と料理、王子以降の仮素材の置換はこれから。以下の「今回は資料のみ更新」は前回セッションの記録。
 
+- 母親の実装コミット：`d7b6a9b`（`codex/first-journey`、既存PR #2へpush済み）。
+- 最新配信ソース：`909fea20f534256e7b0b2014b5001d0c55b3c9b6`。`dist/`の一致を確認。
+- version_id：`appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_16aec1edbc5481919be7cfc4de784a04`。
+- deployment_id：`appgdep_6ae68cdafe6c81918d25e62b5085047a`。2026-11-01 09:50 JST、`succeeded`。既存URL・所有者のみを維持。
+- 検証：構文・Node判定テスト、`mother-art.browser.cjs`（320／390／690／760／1000／1280px・通常／正解／別料理／再挑戦／退場・人物と表情の読み込み失敗）、既存の`scene-layout.browser.cjs`・`novel.browser.cjs`・`journey.browser.cjs`が全て成功。PCの依頼と390pxの満足顔を画像でも確認。
+
 ## 次は一周目の画像を揃えて仕上げる
 
 ユーザーは狭幅の画像・鍋配置の修正に「すばらしい。いよいよ画像をそろえていって仕上げだね」と返答し、別セッション用の資料を依頼した。次の入口は [画像仕上げの引き継ぎ書](docs/ART_FINISH_HANDOFF.md)。採用原画、仮素材の具体一覧、制作の推奨順、答えを絵で漏らさない条件、配置・保存・公開の注意、次セッションへの貼り付け文をまとめた。
