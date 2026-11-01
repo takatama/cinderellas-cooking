@@ -32,7 +32,230 @@
 .help-scene[hidden]{display:none}
 /* Blend only the expression into the fixed master; hair, outline, clothes and poses never switch. */
 .sister-expression{pointer-events:none;mask-image:radial-gradient(ellipse 8.3% 13% at 71% 28.4%,#000 75%,transparent 100%)}
+/* Keep Cinderella's adopted pixels; replace only the right-hand character. */
+.help-scene.cinderella-only{clip-path:inset(0 49.5% 0 0)}
+.mother-layer{position:absolute;left:16%;top:4.5%;width:78%;height:75.5%;object-fit:fill;pointer-events:none}
+.mother-layer[hidden]{display:none}
+.mother-expression{mask-image:radial-gradient(ellipse 8% 12% at 69% 33%,#000 70%,transparent 100%)}
+.prince-layer{position:absolute;left:16%;top:4.5%;width:78%;height:75.5%;object-fit:fill;pointer-events:none}
+.prince-layer[hidden]{display:none}
+.prince-expression{mask-image:radial-gradient(ellipse 8% 12% at 64% 34%,#000 70%,transparent 100%)}
 /* Leave both faces visible when the finished dish is placed on the worktop. */
 .art[data-scene="4"] .stage-object,.art[data-scene="5"] .stage-object{left:26%;right:26%;bottom:1%}
 
 @media(min-width:761px) and (max-width:1000px){.cinderella-aside{position:relative;left:auto;top:auto;width:auto;margin:0 0 16px;padding:10px 12px}}
+/* First journey: text remains complete while new illustration scenes are placeholders. */
+.journey-art{position:absolute;inset:0;background:radial-gradient(ellipse at 35% 20%,#fff2cd,#cab28c);display:grid;place-items:center;z-index:-1}.journey-art[hidden]{display:none}.journey-picture{position:relative;text-align:center;color:#5c4b39}.story-emblem{padding:30px;border:1px solid #9f8456;border-radius:50% 50% 8px 8px;min-width:190px;background:#fff8e4b8;box-shadow:0 12px 30px #614b2425}.story-emblem>span{font-size:80px;line-height:1.2;color:#937247}.story-emblem p{font-size:20px;margin:10px 0}.art[data-journey="castle"] .journey-art,.art[data-journey="door"] .journey-art{background:radial-gradient(ellipse at top,#d9e0da,#7e8e8b)}.magic-door{height:85%;min-height:210px;width:53%;border:12px solid #79634b;border-bottom:0;border-radius:48% 48% 0 0;background:repeating-linear-gradient(90deg,#957654 0,#957654 23%,#806344 24%,#957654 25%);box-shadow:0 0 0 7px #b4a68e;display:flex;flex-direction:column;justify-content:center;gap:20px}.magic-door>span{padding:12px 5px;background:#efe3bc;font-size:clamp(16px,2vw,23px);box-shadow:0 3px 7px #382a2255}.magic-door>b{font-size:18px;color:#f3dfac;letter-spacing:.1em}.art[data-journey="door"] .journey-art{align-items:end}.magic-oven{width:57%;height:65%;border:10px solid #65736d;border-radius:35px 35px 7px 7px;background:#a4aea3;box-shadow:0 12px 30px #302c2740}.oven-glass{position:absolute;inset:30% 12% 10%;background:radial-gradient(#e9a966,#4e544f);border:7px solid #6f786e;border-radius:50% 50% 7px 7px;color:#fff1b7;font-size:60px}.oven-paper{position:absolute;top:6%;left:4%;width:44%;min-height:85px;padding:20px 4px;font-size:18px;box-shadow:2px 4px 8px #2b32284a;transform:rotate(-6deg);background:#f4bc77}.oven-paper.pink{left:auto;right:4%;background:#e9b2ba;transform:rotate(6deg);font-size:14px;writing-mode:vertical-rl;text-orientation:upright;min-height:100px}.oven-paper[hidden]{display:none}.food-card{display:grid;place-items:center;min-height:100px;width:100%;font-size:60px;filter:drop-shadow(0 4px 4px #4b2e1430)}.dish-card{background:#fff7dfed;border:2px solid #bfaa76;border-radius:50%;min-height:100px;aspect-ratio:3/2;font-size:75px}.table-ingredients .food-card{height:160px}.answer-form{display:grid;gap:12px;margin-bottom:6px}.answer-form label{display:grid;gap:7px;font-size:14px}.answer-form input{width:100%;height:auto;min-height:50px;font:inherit;font-size:18px;padding:10px 12px;background:#fffdf8;border:1px solid #bcaa8b;border-radius:5px;color:var(--ink)}.answer-form input:focus-visible{outline:3px solid #427b98;outline-offset:2px}.paper-button.orange{background:#edc08a;border-color:#c58a49;color:#513b29}.paper-button.pink{background:#e6b8c1;border-color:#ba8590;color:#513b3d}.art[data-journey="oven"] .request,.art[data-journey="door"] .request,.art[data-journey="ending"] .request{display:none}@media(max-width:760px){.table-ingredients .food-card{height:clamp(96px,25vw,160px)}.magic-oven{height:70%}.oven-paper{min-height:60px;padding:10px 3px}.oven-paper.pink{font-size:12px;min-height:80px}.story-emblem{padding:10px;min-width:150px}.story-emblem>span{font-size:55px}.story-emblem p{font-size:17px;margin:5px 0}.dish-card{min-height:65px;font-size:50px}.magic-door{min-height:160px}}
+/* Novel stage: the reading rail never shares a target with a decision. */
+.book{width:min(960px,100%);height:calc(100dvh - 24px);min-height:680px;margin:12px auto;padding:0 16px;display:grid;grid-template-rows:58px 32px minmax(0,1fr) 54px;border:1px solid #cbb58d;border-radius:8px;overflow:hidden}
+
+.mast{height:auto;justify-content:center}
+.brand{font-size:22px}
+.chapter{height:auto}
+.page{display:grid;grid-template-columns:1fr;grid-template-rows:minmax(160px,1fr) 340px;min-height:0;align-items:stretch;border-color:#cbb58d}
+.art{height:auto;min-height:0;aspect-ratio:auto}
+.scene-canvas{max-width:none}
+.story{min-height:0;padding:12px 24px;display:grid;grid-template-rows:22px minmax(0,1fr) 116px 50px;gap:6px;border-top:2px solid #cbb58d}
+.eyebrow{margin:0;padding:0 0 5px}
+.dialogue,.story:has(.choices) .dialogue{min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;outline:none}
+.speech{margin:0 0 8px;animation:none}
+.words{font-size:18px;line-height:1.8}
+.name{margin-bottom:4px;font-size:12px}
+.question{font-size:18px;margin:5px 0}
+.actions,.story:has(.choices) .actions{margin:0;min-height:0;display:flex;align-items:center;justify-content:center;gap:12px}
+.actions>.primary,.actions>.secondary{width:min(260px,48%)}
+.primary,.secondary{min-height:44px;padding:10px 14px;font-size:15px}
+.advance{display:flex;justify-content:flex-end;align-items:center;min-height:50px}
+.advance>.primary{width:min(280px,65%);height:48px}
+.advance.inactive{color:#8c7b63;font-size:12px}
+.choices{width:min(480px,100%);height:110px;gap:16px}
+.ingredient{min-height:44px;height:110px;padding:4px;gap:2px}
+.ingredient-art,.ingredient .food-card{height:65px;min-height:0;font-size:40px}
+.ingredient strong{font-size:16px}
+.ingredient:hover{transform:none}
+.ingredient small{display:none}
+.guidance{display:none}
+footer{min-height:0;justify-content:space-between;font-size:12px}
+footer button{min-width:100px;min-height:44px;font-size:14px}
+.cinderella-aside{display:none!important}
+.table-ingredients .ingredient-art,.table-ingredients .food-card{height:clamp(65px,12vh,120px)}
+.table-ingredients figcaption{font-size:13px}
+.stage-object{left:35%;right:35%;bottom:0}
+.art[data-scene="4"] .stage-object,.art[data-scene="5"] .stage-object{left:35%;right:35%;bottom:0}
+.request{top:10px;left:10px;padding:6px 12px}
+.story-emblem{padding:8px;min-width:150px}
+.story-emblem>span{font-size:45px}
+.story-emblem p{font-size:17px;margin:4px 0}
+.story:has(.answer-form){grid-template-rows:22px minmax(110px,1fr) auto 30px}
+.story:has(.answer-form) .actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.story:has(.answer-form) .actions>button{width:100%;font-size:13px}
+.answer-form{grid-column:1/-1;display:flex;align-items:end;margin:0;gap:10px}
+.answer-form label{flex:1;min-width:0;font-size:12px;gap:3px}
+.answer-form input{min-height:44px;padding:8px;font-size:18px}
+.answer-form .primary{width:auto;min-width:130px}
+.magic-door{min-height:100px}
+.magic-oven{height:80%}
+.food-card.dish-card{min-height:60px;font-size:50px}
+
+@media(max-width:760px){.book{height:100dvh;min-height:650px;margin:0;padding:0 6px;grid-template-rows:48px 28px minmax(0,1fr) 48px;border-radius:0}
+.brand{font-size:19px}
+.page{grid-template-rows:minmax(150px,1fr) 354px}
+.story{padding:10px 12px;grid-template-rows:20px minmax(0,1fr) 116px 48px;gap:6px}
+.words{font-size:16px;line-height:1.8}
+.name{font-size:11px}
+.request span{font-size:13px}
+.request{max-width:calc(100% - 20px)}
+.advance>.primary{width:65%;font-size:14px}
+.table-ingredients figcaption{font-size:12px;padding:2px 4px}
+.table-ingredients .ingredient-art,.table-ingredients .food-card{height:70px}
+.stage-object,.art[data-scene="4"] .stage-object,.art[data-scene="5"] .stage-object{left:30%;right:30%}
+.story:has(.answer-form){grid-template-rows:20px minmax(120px,1fr) auto 22px}
+.answer-form{gap:6px;flex-wrap:wrap}
+.answer-form .primary{width:100%;min-width:0}
+.answer-form label{flex-basis:40%}
+.story:has(.answer-form) .actions>button{font-size:12px;padding:7px}
+}
+
+/* Reading remains accessible at zoom and with the software keyboard open. */
+@media(max-height:650px){.book{height:auto;min-height:100dvh;overflow:visible}
+.page{grid-template-rows:150px 354px}
+.story:has(.answer-form){min-height:400px}
+}
+
+.page.puzzle{grid-template-rows:minmax(120px,1fr) 400px}
+.puzzle .speech.narrator~.speech.narrator .name{display:none}
+.puzzle .words{font-size:16px;line-height:1.65}
+
+@media(max-width:760px){.page.puzzle{grid-template-rows:minmax(120px,1fr) 440px}
+.puzzle .words{font-size:15px;line-height:1.65}
+.puzzle .story{grid-template-rows:20px minmax(0,1fr) auto 18px}
+}
+
+@media(max-height:650px){.page.puzzle{grid-template-rows:120px 440px}
+}
+
+
+.advance .primary:hover,.advance .primary:active{transform:none}
+.advance .primary{transition:background .2s}
+@media(max-width:760px){.puzzle .words{line-height:1.5}.puzzle .speech{margin-bottom:6px}}
+/* Frame the whole adopted painting, including headscarf, ribbon and table. */
+.art{background:radial-gradient(ellipse at center,#e7d6ad,#cdb58d)}
+.stage-object,.art[data-scene="4"] .stage-object,.art[data-scene="5"] .stage-object{left:calc(50% - var(--scene-width)*.24);right:auto;width:calc(var(--scene-width)*.48)}
+.table-ingredients{left:calc(50% - var(--scene-width)*.47);right:auto;width:calc(var(--scene-width)*.94)}
+/* Give the prose room; reserve the choice area only while a choice is present. */
+.story{grid-template-rows:22px minmax(0,1fr) 0 50px}
+.story:has(.choices){grid-template-rows:22px minmax(0,1fr) 116px 50px}
+.advance{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:center}
+.advance>.primary{grid-column:2;width:100%;height:48px}
+.advance>.secondary{grid-column:1;grid-row:1;width:100%;min-height:48px;font-size:14px}
+.advance .secondary:disabled{visibility:hidden}
+.primary:disabled{cursor:default;background:#a3aa96;border-color:#a3aa96;box-shadow:none;opacity:.7;transform:none}
+.dialogue .speech{margin-bottom:12px}
+.dialogue .question+.speech{margin-top:12px}
+.dialogue .speech.narrator .words{font-size:16px}
+.montage .speech{margin-bottom:16px}
+@media(max-width:760px){
+.story{grid-template-rows:20px minmax(0,1fr) 0 48px}
+.story:has(.choices){grid-template-rows:20px minmax(0,1fr) 116px 48px}
+.advance{gap:10px}
+.advance>.secondary,.advance>.primary{font-size:13px;letter-spacing:0;padding:8px 6px}
+.dialogue .speech.narrator .words{font-size:15px}
+.montage .words{font-size:15px;line-height:1.7}
+.montage .speech{margin-bottom:10px}
+}
+
+.dialogue .speech{margin-bottom:8px}
+
+.dialogue.can-read{cursor:pointer}
+
+/* Responses sit on the bottom rail, clear of the reading target. */
+.advance{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr)}
+.advance>.decisions{grid-column:1;grid-row:1;display:grid;grid-template-columns:1fr 1fr;gap:12px;min-width:0}
+.advance .decisions>button{width:100%;min-width:44px;height:48px;padding:8px;font-size:14px;letter-spacing:0}
+@media(max-width:760px){.advance>.decisions{gap:8px}.advance .decisions>button{font-size:13px;padding:6px 4px}}
+
+/* Keep dishes on the painted worktop, including when the painting is letterboxed. */
+.table-plane{position:absolute;left:50%;top:50%;width:var(--scene-width);height:var(--scene-height);transform:translate(-50%,-50%);pointer-events:none;z-index:1}
+.table-plane .stage-object{left:26%;right:auto;width:48%;bottom:0}
+.art[data-scene="4"] .table-plane .stage-object,.art[data-scene="5"] .table-plane .stage-object{left:26%;right:auto;width:48%;bottom:1%}
+.table-plane .table-ingredients{left:3%;right:auto;width:94%;bottom:3%}
+.table-plane .table-ingredients .ingredient-art,.table-plane .table-ingredients .food-card{height:calc(var(--scene-height)*.27);min-height:0}
+.table-plane .table-ingredients figcaption{font-size:clamp(11px,calc(var(--scene-width)*.035),13px)}
+@media(min-height:651px){
+.page:not(.puzzle){grid-template-rows:var(--art-height,minmax(160px,1fr)) minmax(340px,1fr)}
+}
+@media(min-height:651px) and (max-width:760px){
+.page:not(.puzzle){grid-template-rows:var(--art-height,minmax(150px,1fr)) minmax(354px,1fr)}
+}
+.art.cooking .table-plane .stage-object{bottom:3%}
+/* Movement belongs to heat and oil, never to the heavy cookware itself. */
+.art.cooking .stage-object{animation:none}
+.table-plane .steam{left:43%;top:auto;bottom:29%;width:14%;height:calc(var(--scene-height)*.12)}
+.oil-bubbles{position:absolute;left:40%;bottom:32.5%;width:20%;height:calc(var(--scene-height)*.06);pointer-events:none}
+.oil-bubbles[hidden]{display:none}
+.oil-bubbles i{position:absolute;bottom:0;left:10%;width:5px;height:5px;border:1px solid #ffdf8ba8;border-radius:50%;animation:oil-bubble 1.3s ease-out infinite}
+.oil-bubbles i:nth-child(2){left:35%;animation-delay:-.4s}
+.oil-bubbles i:nth-child(3){left:65%;animation-delay:-.8s}
+.oil-bubbles i:nth-child(4){left:85%;animation-delay:-.2s}
+@keyframes oil-bubble{0%{opacity:0;transform:translateY(3px) scale(.5)}40%{opacity:.8}100%{opacity:0;transform:translateY(-6px) scale(1.2)}}
+.art.effects-paused .steam i,.art.effects-paused .oil-bubbles i{animation-play-state:paused}
+.oven-working .oven-glass{box-shadow:inset 0 0 24px #ffc86eaa;background:radial-gradient(#f4c37a,#795334)}
+/* Match the painted bases, accounting for each transparent canvas's margins. */
+.art.cooking .table-plane .stage-object[data-vessel="pan"],.art.cooking .table-plane .stage-object[data-vessel="covered-pan"]{bottom:0}
+.art.cooking .table-plane .stage-object[data-vessel="bowl"]{bottom:6%}
+.art[data-cookware="pan"] .table-plane .steam,.art[data-cookware="covered-pan"] .table-plane .steam{bottom:26%}
+
+/* Castle artwork shares the fixed 3:2 scene coordinates. Text and notes stay live. */
+.art[data-journey="door"] .journey-art{align-items:center}
+.journey-picture.castle-scene{width:var(--scene-width);height:var(--scene-height);min-width:0;min-height:0;padding:0;border:0;border-radius:0;box-shadow:none;display:block;overflow:hidden;background:linear-gradient(#ded3b9,#95866f)}
+.castle-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
+.castle-backdrop[hidden]{display:none}
+.castle-scene.story-emblem>span,.castle-scene.story-emblem>p{position:relative;top:30%}
+.castle-scene.story-emblem[data-loaded="true"]>span,.castle-scene.story-emblem[data-loaded="true"]>p{display:none}
+.castle-scene.magic-door>.door-inscription{position:absolute;left:41.5%;top:39%;width:17%;height:6.5%;padding:0;display:grid;place-items:center;background:#e6c595;color:#4a2c17;box-shadow:none;font-size:clamp(9px,calc(var(--scene-width)*.026),25px);line-height:1;letter-spacing:.08em;white-space:nowrap}
+.castle-scene.magic-door>.door-inscription[hidden]{display:none}
+.castle-scene .oven-paper{z-index:1;top:37%;left:38%;width:11%;height:13%;min-height:0;padding:2% 0;font-size:clamp(10px,calc(var(--scene-width)*.024),23px);line-height:1.1}
+.castle-scene .oven-paper.pink{left:auto;right:38%;min-height:0;font-size:clamp(8px,calc(var(--scene-width)*.018),17px);writing-mode:horizontal-tb;display:grid;place-items:center;padding:1%;overflow-wrap:anywhere}
+.castle-scene .oven-paper[hidden]{display:none}
+.castle-scene .oven-glass{inset:57% 39% 26%;z-index:1;border:0;border-radius:45% 45% 8% 8%;font-size:0;background:transparent;pointer-events:none}
+.castle-scene.oven-baking .oven-glass{background:radial-gradient(ellipse,#ffe5a787,#eab66b40 50%,transparent 75%);box-shadow:0 0 18px #f8c77844}
+.castle-scene[data-loaded="false"]:before{content:attr(aria-label);position:absolute;left:10%;right:10%;top:12%;font-size:14px;line-height:1.7}
+
+/* The painted door and the accessible controls show the same answer draft. */
+.door-lock{position:absolute;left:35%;top:52%;width:30%;height:13%;display:grid;grid-template-columns:repeat(4,1fr);gap:3%;padding:2% 2.5%;border:2px solid #a97632;border-radius:12% / 28%;background:linear-gradient(#e3bd73,#946024 48%,#d1a655);box-shadow:0 2px 3px #2e190b80,inset 0 0 0 2px #f5d895}
+.door-lock>span{display:grid;place-items:center;min-width:0;background:linear-gradient(#c6a879,#fff4d8 42%,#d8be91);border:1px solid #815c35;border-radius:2px;color:#3c291b;font-family:Georgia,serif;font-size:clamp(10px,calc(var(--scene-width)*.033),30px);line-height:1;box-shadow:inset 0 2px 4px #5b371d40}
+.door-dials{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:340px;width:100%;margin:0 auto;padding:7px;border:1px solid #bc9558;border-radius:10px;background:linear-gradient(#d3b278,#ae854b);box-shadow:inset 0 0 0 2px #f3dbab}
+.door-dial{display:grid;grid-template-rows:44px 44px 44px;min-width:0}
+.door-dial button{min-width:44px;border:1px solid #ad8b59;border-radius:4px;background:#f5e7ca;color:#654925;font-size:19px;line-height:1;touch-action:manipulation}
+.door-dial button:hover{background:#fff3d9}
+.door-dial button:active{background:#dac194}
+.door-dial output{display:grid;place-items:center;margin:2px 0;border:1px solid #947044;border-radius:3px;background:linear-gradient(#d4bc92,#fff5de 45%,#d4bc92);color:#49301b;font-family:Georgia,serif;font-size:30px;line-height:1}
+.answer-form:has(.door-dials){gap:9px}
+.answer-form:has(.door-dials)>label{grid-template-columns:auto minmax(80px,130px);align-items:center;justify-content:center;column-gap:12px}
+.answer-form #door-answer{min-height:44px;text-align:center;letter-spacing:.15em}
+@media(max-width:360px){.door-dials{gap:5px;padding:5px}}
+
+/* Finale cutouts share the existing scene coordinates and never include a kitchen backdrop. */
+.finale-cast{position:absolute;inset:0;clip-path:inset(0 0 27%);pointer-events:none}
+.finale-actor{position:absolute;top:3%;height:auto;aspect-ratio:3/2;width:84%;left:5%;pointer-events:none}
+.finale-actor>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.finale-actor[hidden],.finale-actor>img[hidden]{display:none}
+.finale-cinderella{clip-path:polygon(0 0,49.5% 0,49.5% 42%,44% 42%,44% 60%,49.5% 65%,49.5% 100%,0 100%)}
+.finale-prince,.finale-mother{left:14%;top:4%;width:82%}
+.finale-prince .finale-expression{mask-image:radial-gradient(ellipse 8% 12% at 64% 34%,#000 70%,transparent 100%)}
+.finale-mother .finale-expression{mask-image:radial-gradient(ellipse 8% 12% at 69% 33%,#000 70%,transparent 100%)}
+.finale-sister{left:-36%;clip-path:inset(0 0 0 50%)}
+.finale-sister .finale-expression{mask-image:radial-gradient(ellipse 8.3% 13% at 71% 28.4%,#000 75%,transparent 100%)}
+.finale-scene[data-finale="mail-order"] .finale-cast{clip-path:inset(0 0 35%)}
+.finale-scene[data-finale="thanks"] .finale-cinderella{left:29.5%}
+.finale-table,.finale-table>img{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.finale-table>img[hidden]{display:none}
+.table-fallback:after{content:'';position:absolute;left:0;right:0;bottom:0;height:27%;background:linear-gradient(#bc864e,#a46b37 75%,#704620 76%)}
+.art:is([data-journey="tasting"],[data-journey="investment"],[data-journey="company"],[data-journey="mail-order"]) .table-plane .stage-object{left:33%;width:34%;bottom:7.5%}
+.actions>.secondary:disabled{cursor:default}
+/* Painted parcel silhouettes and the counter belong in front of the cast. */
+.finale-parcels,.mail-order-tableau{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;pointer-events:none}
+.finale-parcels{clip-path:polygon(0 60.5%,12.5% 60.9%,12.8% 68.7%,16.9% 69.4%,17.3% 73%,88.1% 73%,88.3% 69.4%,91.8% 69.8%,91.8% 65.3%,100% 65.9%,100% 100%,0 100%)}
+.mail-order-parcels{clip-path:polygon(0 57%,12.5% 57%,19% 60.5%,19% 65%,87% 65%,87% 57%,100% 57%,100% 100%,0 100%)}
+.finale-parcels[hidden],.mail-order-tableau[hidden]{display:none}
+.finale-scene[data-tableau="true"] .finale-cast,.finale-scene[data-tableau="true"] .finale-parcels{display:none}
