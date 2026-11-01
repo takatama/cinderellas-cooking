@@ -12,6 +12,12 @@
 
 七料理の検証：構文・Node全3テストと `tests/prince-dishes.browser.cjs` が成功。1280／390／320pxで全8組合せ→7皿、正解／別料理の表情、公開前の非表示、保存再開、アマトリチャーナの画像失敗時の代替文と継続を確認。`prince-art.browser.cjs` の人物・表情・食材と再開も6幅で成功。390pxのアマトリチャーナ、320pxの親子丼の実画面を画像でも確認した。
 
+**最新配信（王子の完成七料理）**：2026-11-01 17:49 JST、`succeeded`。GitHub実装 `6e0f552161a3ffa26206bc943a2631f582384e8d`、Sitesソース `5d31741cc7d1314cd4ade2901878b5f193c1bc18`。`dist/`一致を確認。version_id は `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_f6b929d59fec8191accb588cfd2f5266`、deployment_id は `appgdep_6ae6fcfc9998819196fb95365af78265`。同じURL・所有者限定・ドラフトPR #2を維持。以下の「七料理は確認待ち」はこの配信より前の履歴。
+
+七料理追加後の `journey.browser.cjs` も1280／390／320pxで成功。最初から結末、各章の正誤と再挑戦、扉、紙の両順序、保存再開、画像失敗、破損保存を確認した。
+
+GitHub CLIのトークンが期限切れになったため、接続済みGitHubツールのblob→tree→commit→ref更新で同じブランチへ反映した。サーバーのtree SHAとローカルの検証済みtree SHAが一致し、refは旧先頭を指定してfast-forward更新した。通常のfetchは使えたため、同じtreeを確認してローカル先頭も同期。ローカル作業コミットの控えは `codex/prince-dishes-local-copy`。Sitesは従来の短期credentialをstdinだけで渡し、同じmainへpushして配信した。
+
 **前回配信（母親の全食材・王子の人物と食材）**：2026-11-01 16:42 JST、`succeeded`。GitHub実装 `77d204b`、Sitesソース `162353c23e5e9b1103f375b21a45a1f6b319a981`。`dist/`の一致を確認。version_id は `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_4133fde01f78819190f0fe2a3def7e6b`、deployment_id は `appgdep_6ae6ed608c80819188b340d4a24233bf`。既存URLと所有者限定を維持。王子の七料理案は確認待ちでこの配信には含めていない。
 
 検証：構文・Node全3テスト、`prince-art.browser.cjs`（320／390／690／760／1000／1280px、人物・表情・全食材二択画像・選択済み食材と保存再開・退場・人物／表情の画像失敗）、既存の `mother-art`・`mother-dishes`・`scene-layout`・`novel`・`cooking`・`journey` のブラウザーテストが成功。母親の新食材は1280／390／320pxで画像表示と保存再開を確認し、390pxの実画面、王子の依頼と満足顔も画像で確認した。`novel` の900ms×3段階を2850msで待つ既存の時間テストは一度2段階で失敗し、単独の再実行で3幅とも成功。アプリの時間・動作やテストは変更していない。実機ブラウザーでの試遊は未確認。
