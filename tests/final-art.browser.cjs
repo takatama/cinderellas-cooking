@@ -7,7 +7,8 @@ for(const [width,height] of [[1280,900],[1280,720],[390,740],[320,740],[390,420]
 const page=await browser.newPage({viewport:{width,height},reducedMotion:'reduce'}),errors=[];
 page.on('pageerror',e=>errors.push(e.message));
 await page.goto(process.env.TEST_URL||'http://127.0.0.1:4173');
-const decode=()=>page.locator('#journey-art img,#stage-object img').evaluateAll(imgs=>Promise.all(imgs.map(img=>img.decode().catch(()=>{}))));
+const decode=async()=>{await page.locator('#journey-art img,#stage-object img').evaluateAll(imgs=>Promise.all(imgs.map(img=>img.decode().catch(()=>{}))));
+for(const ratio of await page.locator('.finale-actor>img').evaluateAll(imgs=>imgs.filter(i=>i.naturalWidth).map(i=>{const b=i.getBoundingClientRect();return (b.width/b.height)/(i.naturalWidth/i.naturalHeight);})))assert.ok(Math.abs(ratio-1)<.01,'finale characters retain their original aspect ratio');};
 const read=async()=>{for(let i=0;i<12&&await page.locator('#dialogue').getAttribute('data-more')==='true';i++)await page.getByRole('button',{name:'つづきへ',exact:true}).click();};
 const click=async name=>{await read();await page.waitForTimeout(330);await page.getByRole('button',{name:name.replace(/[\s　]*→$/u,''),exact:true}).click();};
 for(const phase of ['room','orange','pink','final-ready','final-cooking']){

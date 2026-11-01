@@ -237,18 +237,19 @@ footer button{min-width:100px;min-height:44px;font-size:14px}
 
 /* Finale cutouts share the existing scene coordinates and never include a kitchen backdrop. */
 .finale-cast{position:absolute;inset:0;clip-path:inset(0 0 27%);pointer-events:none}
-.finale-actor{position:absolute;top:3%;height:84%;width:94%;left:3%;pointer-events:none}
-.finale-actor>img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill}
+.finale-actor{position:absolute;top:3%;height:auto;aspect-ratio:3/2;width:84%;left:5%;pointer-events:none}
+.finale-actor>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .finale-actor[hidden],.finale-actor>img[hidden]{display:none}
 .finale-cinderella{clip-path:polygon(0 0,49.5% 0,49.5% 42%,44% 42%,44% 60%,49.5% 65%,49.5% 100%,0 100%)}
-.finale-prince,.finale-mother{left:10%;top:4%;width:88%;height:82%}
+.finale-prince,.finale-mother{left:14%;top:4%;width:82%}
 .finale-prince .finale-expression{mask-image:radial-gradient(ellipse 8% 12% at 64% 34%,#000 70%,transparent 100%)}
 .finale-mother .finale-expression{mask-image:radial-gradient(ellipse 8% 12% at 69% 33%,#000 70%,transparent 100%)}
-.finale-sister{left:-43%;clip-path:inset(0 0 0 50%)}
+.finale-sister{left:-36%;clip-path:inset(0 0 0 50%)}
 .finale-sister .finale-expression{mask-image:radial-gradient(ellipse 8.3% 13% at 71% 28.4%,#000 75%,transparent 100%)}
 .finale-scene[data-finale="mail-order"] .finale-cast{clip-path:inset(0 0 35%)}
-.finale-scene[data-finale="thanks"] .finale-cinderella{left:27%}
+.finale-scene[data-finale="thanks"] .finale-cinderella{left:29.5%}
 .finale-table,.finale-table>img{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .finale-table>img[hidden]{display:none}
 .table-fallback:after{content:'';position:absolute;left:0;right:0;bottom:0;height:27%;background:linear-gradient(#bc864e,#a46b37 75%,#704620 76%)}
 .art:is([data-journey="tasting"],[data-journey="investment"],[data-journey="company"],[data-journey="mail-order"]) .table-plane .stage-object{left:33%;width:34%;bottom:7.5%}
+.actions>.secondary:disabled{cursor:default}

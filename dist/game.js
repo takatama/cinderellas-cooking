@@ -153,7 +153,7 @@ else if(c.choices){
 const choices=document.createElement('div');choices.className='choices';choiceReadyAt=performance.now()+300;
 for(const name of c.choices){const b=button('',()=>{if(performance.now()<choiceReadyAt)return;choose(name);});b.className='ingredient';b.setAttribute('aria-label',name+'を選ぶ');const text=document.createElement('strong');text.textContent=name;b.append(foodImage(name),text);choices.append(b);}
 $('actions').append(choices);
-}else if(c.form){for(const [label,action] of c.buttons)$('actions').append(button(label,action,true));renderAnswerForm(c.form);}
+}else if(c.form){for(const [label,action,disabled] of c.buttons){const control=button(label,action,true);control.disabled=!!disabled;$('actions').append(control);}renderAnswerForm(c.form);}
 else if(c.paper)renderPaperChoices();
 else {
 const decisions=c.buttons.length>1&&['intro','mother','prince','castle','final-result','resume','complete'].includes(state.phase);
@@ -321,11 +321,11 @@ case 'room':return {lines:[n('部屋の中には、魔法のオーブンが置�
 case 'orange':{
 const lines=[n('この道具は、ある材料を料理するために作られた。その材料の名前を呼ぶと、この紙がはがれ、料理ができるようになる。'),n('その材料とは、カンボジアから伝わった、カンボジアのような名前の野菜だ。')];
 if(state.paperHint)lines.push(n('南の瓜とも呼ばれる、北海道でたくさん取れる、外は緑で、中はオレンジの野菜です。'));
-if(state.message)lines.push(n(state.message));return {lines,form:'orange',buttons:[['紙をもっと調べる',()=>{state.paperHint=true;render();}],['紙を選びなおす',()=>move('room')]]};}
+if(state.message)lines.push(n(state.message));return {lines,form:'orange',buttons:[['紙をもっと調べる',()=>{state.paperHint=true;render();},state.paperHint],['紙を選びなおす',()=>move('room'),state.orange||state.pink]]};}
 case 'pink':{
 const lines=[n('二つの材料の名前を呼ぶと、この紙がはがれ、料理ができるようになる。'),n('材料は二つ。「たさまとごう」')];
 if(state.paperHint)lines.push(n('どうやら、二つの材料の名前がバラバラに書いてあるみたいです。六つの文字を、三文字ずつに並べ替えてみましょう。'));
-if(state.message)lines.push(n(state.message));return {lines,form:'pink',buttons:[['紙をもっと調べる',()=>{state.paperHint=true;render();}],['紙を選びなおす',()=>move('room')]]};}
+if(state.message)lines.push(n(state.message));return {lines,form:'pink',buttons:[['紙をもっと調べる',()=>{state.paperHint=true;render();},state.paperHint],['紙を選びなおす',()=>move('room'),state.orange||state.pink]]};}
 case 'paper-solved':return {lines:[n(state.message),n(state.orange&&state.pink?'二枚の紙がなくなり、魔法のオーブンが使えるようになりました！':state.orange?'ピンク色の紙が残っています。':'オレンジ色の紙が残っています。')],buttons:[['つづきを読む　→',()=>move(state.orange&&state.pink?'final-ready':'room')]]};
 case 'final-ready':return {lines:[line('シンデレラ','かぼちゃと、たまごと、砂糖！ そうだ、これでパンプキンプリンを作ったら、絶対においしいはず！')],buttons:[['魔法のオーブンで料理する　→',()=>move('final-cooking')]]};
 case 'final-cooking':return {lines:[n('シンデレラは、かぼちゃ、たまご、砂糖を使ってプリンを作ります。'),n('魔法のオーブンの中で、プリンがゆっくり焼き上がりました。')],buttons:[['できた料理を見る　→',()=>move('final-result')]]};
