@@ -8,12 +8,14 @@
 
 器具変更の検証：`node --check dist/cooking.js`・`dist/game.js`、`node --test tests/*.test.js`、`tests/cooking.browser.cjs`（通常16料理×4段階×7画面サイズ、プリンのオーブン表示、調理途中の保存再開、画像失敗）、既存の `novel.browser.cjs`・`journey.browser.cjs`・`scene-layout.browser.cjs`・`mother-art.browser.cjs` が全て成功。1280pxのフライパン・揚げ鍋・ボウルと、390pxのふた付きフライパンは画像でも確認。
 
+**最新配信（器具対応）**：2026-11-01 12:46 JST、`succeeded`。既存URL・所有者限定を維持。GitHubの実装コミットは `4ecbb35`、Sitesソースは `acee65df1b83e041d56af5f8cb45360a0dba4184`（`dist/`一致を確認）。version_id は `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_871a7fe441d881919160b3fe35728960`、deployment_id は `appgdep_6ae6b622255c8191b6310935ea44aab0`。以下の母親のみの配信記録と、後半の旧配信情報よりこの記録を優先する。
+
 母親の依頼場面の[構図案](docs/references/mother-request-preview.png)を提示し、ユーザーの「はい」で採用された。母親の独立した透過素材と顔だけの2表情を実装。既存シンデレラの左側をCSSで切り出し、採用原画と台所背景を固定した。[素材・配置の記録](docs/references/mother-request-preview.md)を参照。
 
 母親の六料理は[確認案](docs/references/mother-dishes-preview.png)までで未採用・未反映。食材と料理、王子以降の仮素材の置換はこれから。以下の「今回は資料のみ更新」は前回セッションの記録。
 
 - 母親の実装コミット：`d7b6a9b`（`codex/first-journey`、既存PR #2へpush済み）。
-- 最新配信ソース：`909fea20f534256e7b0b2014b5001d0c55b3c9b6`。`dist/`の一致を確認。
+- 母親反映時の配信ソース（旧）：`909fea20f534256e7b0b2014b5001d0c55b3c9b6`。当時の`dist/`の一致を確認。
 - version_id：`appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_16aec1edbc5481919be7cfc4de784a04`。
 - deployment_id：`appgdep_6ae68cdafe6c81918d25e62b5085047a`。2026-11-01 09:50 JST、`succeeded`。既存URL・所有者のみを維持。
 - 検証：構文・Node判定テスト、`mother-art.browser.cjs`（320／390／690／760／1000／1280px・通常／正解／別料理／再挑戦／退場・人物と表情の読み込み失敗）、既存の`scene-layout.browser.cjs`・`novel.browser.cjs`・`journey.browser.cjs`が全て成功。PCの依頼と390pxの満足顔を画像でも確認。
