@@ -10,4 +10,4 @@
 
 新食材は `pasta.webp`・`rice.webp`・`tomato.webp`・`bacon.webp`・`chicken.webp`。たまごは既存素材を再利用。母親の食材も `ground-meat.webp`・`breadcrumbs.webp`・`cabbage.webp`・`onion.webp`・`aonori.webp` を追加。各食材は透過の512×512。参照は既存のじゃがいもとひき肉の絵柄。生成シートからセルを個別抽出し、パスタはセル境界より少し出た先端を含めて抽出した。
 
-[七料理の確認案](prince-dishes-preview.png)を提示。採用と実装の結果は最新の `HANDOFF.md` を参照。
+[七料理の確認案](prince-dishes-preview.png)をユーザーが「この7料理で進める」と採用。`amatriciana.png`・`tomato-spaghetti.png`・`carbonara.png`・`pilaf.png`・`chicken-rice.png`・`omurice.png`・`oyakodon.png` を `foodAssets` へ登録した。シートから皿ごとに抽出し、1536×1024の透過キャンバスへ配置。幅1440pxを基本に接地位置を840pxへ揃え、背の高い親子丼は高さ720pxに収めて中央へ置いた。完成皿の表示条件と既存の料理別器具は変更していない。最新配信と検証結果は `HANDOFF.md` を参照。
