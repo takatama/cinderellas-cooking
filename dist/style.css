@@ -208,3 +208,19 @@ footer button{min-width:100px;min-height:44px;font-size:14px}
 .art.cooking .table-plane .stage-object[data-vessel="pan"],.art.cooking .table-plane .stage-object[data-vessel="covered-pan"]{bottom:0}
 .art.cooking .table-plane .stage-object[data-vessel="bowl"]{bottom:6%}
 .art[data-cookware="pan"] .table-plane .steam,.art[data-cookware="covered-pan"] .table-plane .steam{bottom:26%}
+
+/* Castle artwork shares the fixed 3:2 scene coordinates. Text and notes stay live. */
+.art[data-journey="door"] .journey-art{align-items:center}
+.journey-picture.castle-scene{width:var(--scene-width);height:var(--scene-height);min-width:0;min-height:0;padding:0;border:0;border-radius:0;box-shadow:none;display:block;overflow:hidden;background:linear-gradient(#ded3b9,#95866f)}
+.castle-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
+.castle-backdrop[hidden]{display:none}
+.castle-scene.story-emblem>span,.castle-scene.story-emblem>p{position:relative;top:30%}
+.castle-scene.story-emblem[data-loaded="true"]>span,.castle-scene.story-emblem[data-loaded="true"]>p{display:none}
+.castle-scene.magic-door>.door-inscription{position:absolute;left:41.5%;top:39%;width:17%;height:6.5%;padding:0;display:grid;place-items:center;background:#e6c595;color:#4a2c17;box-shadow:none;font-size:clamp(9px,calc(var(--scene-width)*.026),25px);line-height:1;letter-spacing:.08em;white-space:nowrap}
+.castle-scene.magic-door>.door-inscription[hidden]{display:none}
+.castle-scene .oven-paper{z-index:1;top:37%;left:38%;width:11%;height:13%;min-height:0;padding:2% 0;font-size:clamp(10px,calc(var(--scene-width)*.024),23px);line-height:1.1}
+.castle-scene .oven-paper.pink{left:auto;right:38%;min-height:0;font-size:clamp(8px,calc(var(--scene-width)*.018),17px);writing-mode:horizontal-tb;display:grid;place-items:center;padding:1%;overflow-wrap:anywhere}
+.castle-scene .oven-paper[hidden]{display:none}
+.castle-scene .oven-glass{inset:57% 39% 26%;z-index:1;border:0;border-radius:45% 45% 8% 8%;font-size:0;background:transparent;pointer-events:none}
+.castle-scene.oven-baking .oven-glass{background:radial-gradient(ellipse,#ffe5a787,#eab66b40 50%,transparent 75%);box-shadow:0 0 18px #f8c77844}
+.castle-scene[data-loaded="false"]:before{content:attr(aria-label);position:absolute;left:10%;right:10%;top:12%;font-size:14px;line-height:1.7}
