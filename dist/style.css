@@ -86,8 +86,6 @@ footer button{min-width:100px;min-height:44px;font-size:14px}
 .story-emblem{padding:8px;min-width:150px}
 .story-emblem>span{font-size:45px}
 .story-emblem p{font-size:17px;margin:4px 0}
-.secret-order:before{content:'';position:absolute;z-index:2;bottom:10px;right:12%;width:95px;height:42px;border-radius:60px 60px 9px 9px;background:linear-gradient(110deg,#9ba2a0,#f4f5ed 44%,#a8aeac);border:2px solid #7e8580;box-shadow:0 4px 0 #d0d1c4}
-.secret-order:after{content:'✧';position:absolute;inset:auto 12% 52px auto;width:95px;text-align:center;color:#eceade;box-shadow:none}
 .story:has(.answer-form){grid-template-rows:22px minmax(110px,1fr) auto 30px}
 .story:has(.answer-form) .actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .story:has(.answer-form) .actions>button{width:100%;font-size:13px}
@@ -116,8 +114,6 @@ footer button{min-width:100px;min-height:44px;font-size:14px}
 .answer-form .primary{width:100%;min-width:0}
 .answer-form label{flex-basis:40%}
 .story:has(.answer-form) .actions>button{font-size:12px;padding:7px}
-.secret-order:before{width:75px;height:35px}
-.secret-order:after{width:75px;bottom:45px}
 }
 
 /* Reading remains accessible at zoom and with the software keyboard open. */

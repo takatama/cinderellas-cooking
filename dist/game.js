@@ -165,7 +165,6 @@ $('dialogue').classList.toggle('can-read',!![...$('advance').querySelectorAll('.
 if(c.montage)updateCookingControls();
 $('guidance').hidden=true;
 updateStageArt();$('art-caption').hidden=true;
-$('art').classList.toggle('secret-order',state.chapter===2&&!isCastle()&&!['cooking','result'].includes(state.phase));
 saveProgress();
 if(focus){$('dialogue').setAttribute('tabindex','-1');$('dialogue').focus({preventScroll:true});}
 if(speechOverride!=='')say(speechOverride??((c.question?c.question+'。':'')+c.lines.map(l=>l.text).join('。')));
