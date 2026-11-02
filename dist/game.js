@@ -282,6 +282,7 @@ function render(focus = true, speechOverride = null) {
   updateStageArt();
   $("art-caption").hidden = true;
   saveProgress();
+  scenes.prepareNext();
   if (focus) {
     $("dialogue").setAttribute("tabindex", "-1");
     $("dialogue").focus({ preventScroll: true });

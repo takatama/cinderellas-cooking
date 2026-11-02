@@ -51,14 +51,21 @@ const { settleImages } = require("./assets.cjs");
         pauseCooking();
       });
       await settleImages(page);
+      await page.waitForFunction(() =>
+        performance
+          .getEntriesByType("resource")
+          .some((r) => /hamburg-steak\./.test(r.name)),
+      );
       assert.equal(
-        await page.evaluate(() =>
-          performance
-            .getEntriesByType("resource")
-            .some((r) => /hamburg-steak\./.test(r.name)),
-        ),
-        false,
-        "completed dish stays unloaded during cooking",
+        await page.locator("#stage-object").getAttribute("data-food"),
+        "お料理中",
+      );
+      assert.equal(
+        await page
+          .locator('#stage-object img[data-asset="hamburg-steak.png"]')
+          .count(),
+        0,
+        "preparing the dish must not reveal it",
       );
       await page.evaluate(() => {
         cookingStep = 3;

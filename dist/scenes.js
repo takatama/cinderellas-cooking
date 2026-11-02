@@ -44,8 +44,7 @@
         card.textContent = foodSymbol(name);
         return card;
       }
-      const img = document.createElement("img");
-      root.Assets.assign(img, foodAssets[name]);
+      const img = root.Assets.image(foodAssets[name]);
       img.alt = stage ? name : "";
       img.width = stage ? 600 : 300;
       img.height = stage ? 400 : 200;
@@ -88,6 +87,51 @@
               actor + "-" + (state.dish === target() ? "delighted" : "pleased"),
             );
         }
+    }
+    function prepareNext() {
+      const state = getState();
+      const files = [];
+      if (state.phase === "select") {
+        for (const name of state.round[state.step + 1]?.options || [])
+          files.push(foodAssets[name]);
+      } else if (state.phase === "ready") {
+        const dish = root.Journey.dishFor(state.items, state.chapter);
+        files.push(
+          root.CookingArt.vessels[root.CookingArt.stageFor(dish, 0).vessel]
+            .file,
+        );
+      } else if (state.phase === "cooking") {
+        const plan = root.CookingArt.planFor(state.dish);
+        for (const stage of plan.stages.slice(getCookingStep() + 1))
+          files.push(root.CookingArt.vessels[stage.vessel].file);
+        files.push(foodAssets[state.dish]);
+        const actor = ["sister", "mother", "prince"][state.chapter];
+        files.push(
+          $(actor + "-" + (state.dish === target() ? "delighted" : "pleased"))
+            .dataset.source,
+        );
+      } else if (["final-ready", "final-cooking"].includes(state.phase)) {
+        files.push(
+          "tasting-table.png",
+          "pumpkin-pudding.png",
+          "prince-delighted.png",
+          "prince.png",
+          "help-characters.png",
+        );
+      } else if (state.phase === "result" && state.dish === target()) {
+        files.push(
+          ["mother.png", "prince.png", "castle-exterior.png"][state.chapter],
+        );
+      } else if (state.phase === "castle") {
+        files.push("castle-door-closed.png");
+      } else if (state.phase === "door-open") {
+        files.push("magic-room.png");
+      } else if (state.phase === "ending") {
+        if (state.storyStep === 0) files.push("company-workshop.png");
+        if (state.storyStep === 1)
+          files.push("mail-order-home.png", "mail-order-epilogue.png");
+      }
+      root.Assets.prepare(files);
     }
     function updateSister() {
       ensureSceneImages();
@@ -244,8 +288,7 @@
         object.replaceChildren();
         if (stage) {
           const vessel = CookingArt.vessels[stage.vessel],
-            img = document.createElement("img");
-          root.Assets.assign(img, vessel.file);
+            img = root.Assets.image(vessel.file);
           img.alt = vessel.alt;
           img.width = 600;
           img.height = 400;
@@ -378,8 +421,7 @@
       if (scene === "tasting" || scene === "investment") {
         const table = document.createElement("div");
         table.className = "finale-table";
-        const img = document.createElement("img");
-        root.Assets.assign(img, "tasting-table.png");
+        const img = root.Assets.image("tasting-table.png");
         img.alt = "";
         img.draggable = false;
         img.addEventListener("asseterror", () => {
@@ -694,6 +736,7 @@
       updateTable,
       updateStageArt,
       fitScene,
+      prepareNext,
     };
   }
   root.SceneRenderer = { create };
