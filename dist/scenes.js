@@ -316,6 +316,20 @@
             img.replaceWith(note);
           });
           object.append(img);
+          if (stage.vessel === "pan") {
+            const shadow = document.createElement("span");
+            shadow.className = "pan-contact-shadow";
+            shadow.setAttribute("aria-hidden", "true");
+            const front = document.createElement("span");
+            front.className = "pan-front";
+            front.setAttribute("aria-hidden", "true");
+            // Reuse the decoded pan pixels; only its near wall is exposed by CSS.
+            root.Assets.onReady(img, () => {
+              front.style.backgroundImage = `url("${img.currentSrc || img.src}")`;
+              front.dataset.ready = "true";
+            });
+            object.append(shadow, front);
+          }
         } else if (name) object.append(foodImage(name, true));
       }
       if (stage?.vessel === "pan") {
