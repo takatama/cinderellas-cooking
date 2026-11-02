@@ -42,15 +42,15 @@
 
 | 項目 | 最終確認した値 |
 | --- | --- |
-| 配信 | 2026-11-02 21:49 JST、version 56 / succeeded、所有者限定 |
+| 配信 | 2026-11-03 07:10 JST、version 57 / succeeded、所有者限定 |
 | Site project_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c` |
-| GitHubの配信一致実装 | `d0d264a369f3af5656e810c67ad8a81e2f49bd17` |
-| Sitesソースコミット | `617cb3dc2e8818a46ea4cf1a4aa0a9fd5a2bd64a` |
-| 共通のdist tree | `97c8e289a20654d5cfcb5085dafe3a80186fac06` |
-| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_d8318067a93c81918e56585824c10c50` |
-| deployment_id | `appgdep_6ae886c7b05081919f00e5fea486c510` |
+| GitHubの配信一致実装 | `782226f772911732082e66b96a234b9021403dc4` |
+| Sitesソースコミット | `26f787bed3169607385b9a630bc0681a80ea365b` |
+| 共通のdist tree | `b78a7aef9f37ab89ca9675a2a965caed4f8bb09c` |
+| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_68191da15bb48191ae3a25254c79b65f` |
+| deployment_id | `appgdep_6ae90a4992e88191aa6b972133621388` |
 
-上表のコミットはクリーム系パスタ追加を含む。その後の配信記録追記は資料のみ。変更した配信物を公開するときは、最新のSitesスキルに従い、同じSiteと公開範囲を保って両ソースのdist一致を確認する。`.openai/hosting.json` がSiteの識別元。新規サイトは作らない。前回セッションの認証情報や `/tmp` の補助スクリプトが残ることを前提にしない。今回の環境にはSitesソース補助スクリプトが配置されていなかったため、ネイティブの書込み資格情報を標準入力で受けて通常のGitで同期し、同一コミットの `.openai/hosting.json` と `dist/` をtarに梱包して `save_version_and_deploy_private` へ渡した。資格情報はソース・ファイルに保存していない。
+上表のコミットは今回の調理食材15点の実装を含む。その後の配信記録追記は資料のみ。変更した配信物を公開するときは、最新のSitesスキルに従い、同じSiteと公開範囲を保って両ソースのdist一致を確認する。`.openai/hosting.json` がSiteの識別元。新規サイトは作らない。前回セッションの認証情報や `/tmp` の補助スクリプトが残ることを前提にしない。今回の環境にはSitesソース補助スクリプトが配置されていなかったため、ネイティブの書込み資格情報を標準入力で受けて通常のGitで今回の追加・変更32ファイルだけを反映し（削除なし）、同一コミットの `.openai/hosting.json` と `dist/` をtarに梱包して `save_version_and_deploy_private` へ渡した。資格情報はソース・ファイルに保存していない。
 
 ## 起動・確認・既知のテスト状況
 
@@ -71,7 +71,7 @@ CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs journey.browser
 
 最終原画で上記は合格。配信画像73点の寸法・透過・可視画素・ハッシュ、PC/390/320pxのプレビュー・保存隔離・比率・一時停止・動きを控える設定、全16料理×4段階×7画面サイズの調理・完成公開・保存再開・画像失敗を確認した。カルボナーラ専用テストでは、既存v1セーブのバイト単位の保護と再開、食材・器具の読み込み遅延と失敗、設定・履歴・非表示での一時停止を追加確認した。
 
-以前の広範囲テストでは `door-dials.browser.cjs`、`prefetch.browser.cjs`、`scene-prefetch.browser.cjs` が失敗。変更前の公開ソース `a84827e` でも同じ箇所で再現済みで、このPRでは修正していない。扉の前面スナップショットと自動オーブン演出の導入後、テスト側の前提が古い可能性があるため、次回は実際の差分と失敗箇所を切り分ける。単に待ち時間を増やして通った扱いにしない。`journey.browser.cjs` はChromiumパスの明示指定で全編が合格した。今回の残素材追加では check・check:assets・remaining-food・pan-food・rice-food・cream-pasta・cooking-preview・cooking.browser・journey.browser を実行する。既知の失敗3件は今回の対象外。
+以前の広範囲テストでは `door-dials.browser.cjs`、`prefetch.browser.cjs`、`scene-prefetch.browser.cjs` が失敗。変更前の公開ソース `a84827e` でも同じ箇所で再現済みで、このPRでは修正していない。扉の前面スナップショットと自動オーブン演出の導入後、テスト側の前提が古い可能性があるため、次回は実際の差分と失敗箇所を切り分ける。単に待ち時間を増やして通った扱いにしない。`journey.browser.cjs` はChromiumパスの明示指定で全編が合格した。今回の残素材追加では check・check:assets・remaining-food・pan-food・rice-food・cream-pasta・cooking-preview・cooking.browser・journey.browser がすべて合格。全16料理×4段階×7画面サイズと、PC/390/320pxの結末までの全編・画像失敗・破損セーブからの回復を確認した。既知の失敗3件は今回の対象外。
 
 ## 維持する素材と動作
 
@@ -104,3 +104,5 @@ CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs journey.browser
 - [制作範囲](docs/PRODUCTION_SCOPE.md)、[調理器具の根拠](docs/COOKWARE_RESEARCH.md)
 
 過去の配信・試行の時系列はGit履歴に残している。再開時はこの資料と現行コードを優先し、古い配信URL・古い位置指定へ戻さない。
+
+公開用ソースの更新は、検証した変更ファイルに限定する。全ファイルの削除を含み得る同期処理は自動承認レビューで拒否されたため、同一Site ID・変更一覧・削除なしを読み取りで確認し、32ファイルだけを更新して配信した。Sitesが指定する公開ソースのmainへのpushと、GitHubのPRマージは別操作。GitHub mainは変更せず、PR #7は未マージ。
