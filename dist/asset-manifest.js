@@ -355,6 +355,12 @@ const manifest={
     "height": 1024,
     "bytes": 1633496
   },
+  "stir-fry-in-pan.png": {
+    "src": "assets/stir-fry-in-pan.71f19fdf4f79f429.webp",
+    "width": 1918,
+    "height": 820,
+    "bytes": 1732580
+  },
   "tasting-table.png": {
     "src": "assets/tasting-table.d7199aa597aab3e5.webp",
     "width": 1536,

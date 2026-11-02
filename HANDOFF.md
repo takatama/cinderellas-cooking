@@ -93,3 +93,11 @@ CHROMIUM_PATH=/usr/bin/chromium npm run test:browser
 追加検証: `CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs journey` で全編・両方の紙順序・保存復元・画像失敗を確認。ブラウザー全スイートでは扉・先読みの既存3件（`door-dials`、`prefetch`、`scene-prefetch`）が失敗。今回の変更前の公開ソース `a84827e` でも同じ失敗を再現した。通常の `journey` の初回実行はChromiumパス未指定で起動失敗したが、上記の明示指定で合格。既存16スイートと追加の `pan-food` は合格。
 
 GitHub反映: ユーザーの明示許可後、`codex/cooking-food-effects` を `takatama/cinderellas-cooking` へ送信済み。Sites version 46 の配信物は変更していない。
+
+## 2026-11-02 野菜炒めの描き直しと調理プレビュー
+
+野菜炒めのSVG食材を、焼き色とつやを付けた透過原画 `stir-fry-in-pan.png` に置換。原画は1点だけ追加し、他の料理は従来のまま。フライパンを柄側を軸に小さくあおり、食材が少し遅れて浮いて戻る3秒の動きを追加した。設定・履歴・タブ非表示で停止し、OSとアプリの動きを控える設定にも対応。
+
+`?preview=cooking&dish=vegetable-stir-fry` で直接調理中を開ける。初期段階1を自動で進めず、元の完成公開ボタンで先へ進め、「調理を見直す」で戻せる。プレビュー中は既存セーブを読み込まず、`saveProgress` も書き込まない。通常プレイのタイマーと保存は維持する。未登録IDは通常の入口に戻す。
+
+検証: `npm run check`、`npm run check:assets`、`cooking-preview.browser.cjs`（1000/390/320px、直リンク・再読み込み・保存隔離・完成公開・再試行・設定の停止・動きを控える設定・通常入口）、既存の `pan-food` と `cooking` ブラウザーテスト。

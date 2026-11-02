@@ -31,3 +31,9 @@ CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs
 料理表・調理演出は `content/`、採用原画・旧素材は `artwork/originals/` に保存しています。`dist/assets/` は配信用の生成物です。画像を再生成する場合だけ `python3 -m pip install -r requirements-assets.txt` と `python3 scripts/build-assets.py` が必要です。内容だけの変更は `node scripts/build-content.mjs` で反映します。
 
 現在遊べる範囲は日本語の一周目。二・三周目は原作表のデータのみ、英語版は確認待ちです。続きからの再開は同じブラウザーのlocalStorageを使い、従来の保存を引き続き読み込めます。
+
+## 調理シーンを直接確認する
+
+[野菜炒めの調理プレビュー](https://cinderella-first-dish.halvedfable.chatgpt.site/?preview=cooking&dish=vegetable-stir-fry) は、調理中の表示を保ちます。「できあがりまで進む」→「できた料理を見る」で完成を確認し、「調理を見直す」で戻れます。保存済みのプレイ記録は読み込まず、上書きもしません。「通常のゲームへ」で元の入口に戻ります。
+
+クエリは `?preview=cooking&dish=vegetable-stir-fry`。`dish` には一周目の料理ID（例: `hamburg-steak`、`amatriciana`）も使えます。未登録のIDは通常の入口として扱います。

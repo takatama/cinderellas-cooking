@@ -10,6 +10,14 @@
     return node;
   }
   function create(method, step) {
+    if (method === "stir-fry") {
+      const food = root.Assets.image("stir-fry-in-pan.png");
+      food.className = "pan-food painted-pan-food";
+      food.alt = "";
+      food.setAttribute("aria-hidden", "true");
+      food.draggable = false;
+      return food;
+    }
     const svg = element("svg", { viewBox: "0 0 1536 1024", class: "pan-food", "aria-hidden": "true" });
     const food = element("g", { class: "pan-food-pieces", "stroke-linejoin": "round" }, svg);
     const browned = step >= 1;
