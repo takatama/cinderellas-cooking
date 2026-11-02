@@ -71,3 +71,5 @@
 `cooking-preview.browser.cjs` にカルボナーラ段階2・3の比率・素材・非加熱・動きを控える設定を追加。`cream-pasta.browser.cjs` は既存v1セーブのバイト単位の保護、材料・出題順・下書き・紙・履歴を含む再開、設定・履歴・タブ非表示の一時停止、食材と器具の遅延・失敗時の非表示と手動完成公開を検証する。
 
 上記の関連テストはすべて合格。2026-11-02 19:16 JST、既存の所有者限定Siteへversion 53として配信成功。GitHub実装 `35688d4` とSitesソース `b25974c` のdist treeは `3977e6afeced94a0dbaa468f9ef6c297a2fe753d` で一致。配信の完全なIDは `HANDOFF.md` を参照。
+
+位置修正: 2026-11-02 20:39 JST、version 54 / succeeded。クリーム系パスタだけ `bottom:39.5%` → `29%` へ下げた。PC・390・320pxで見た目を確認し、`cooking-preview` と `cream-pasta` が合格。GitHub `d09ac79` とSites `076e3c0` のdist treeは `3d3d25acfd14d5fdfff4891f1d813b0ab2917fee` で一致。原画・比率・肉の配置は維持。
