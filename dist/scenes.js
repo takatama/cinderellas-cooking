@@ -627,6 +627,7 @@
         syncDoorDials();
       }
       if (scene === "oven") {
+        picture.classList.toggle("oven-awake", state.orange && state.pink);
         picture.classList.toggle(
           "oven-baking",
           state.phase === "final-cooking",

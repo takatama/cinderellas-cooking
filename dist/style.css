@@ -272,3 +272,21 @@ img[data-asset-state="loading"]{visibility:hidden}
 
 /* The approved CEO scene includes its own foreground pudding. */
 .art:is([data-journey="company"],[data-journey="thanks"]):has(.finale-scene:is([data-tableau="true"],[data-tableau="loading"])) .table-plane{visibility:hidden}
+
+/* Viewport-wide magic light, independent of the clipped illustration frame. */
+.oven-transition{position:fixed;inset:0;z-index:100;pointer-events:none;overflow:hidden}
+.oven-transition-glow{position:absolute;border-radius:50%;background:radial-gradient(circle,#fffef5 0%,#fff5cd 22%,#ffd77b99 45%,#ffd77b00 70%);will-change:transform,opacity}
+.oven-transition-white{position:absolute;inset:0;background:#fff;opacity:0;will-change:opacity}
+
+/* Puzzle rewards stay inside the illustration and never block story controls. */
+.puzzle-effect{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.puzzle-effect .unlock-snapshot{position:absolute;inset:0;width:100%;height:100%;margin:0}
+.door-unlock-light{position:absolute;left:48%;top:20%;width:4%;height:61%;background:linear-gradient(90deg,#fff3c400,#fff8d9cc 45%,#fffdf4 50%,#fff8d9cc 55%,#fff3c400);filter:blur(3px);transform-origin:center}
+.paper-spark{position:absolute;width:clamp(3px,.5vw,6px);height:clamp(3px,.5vw,6px);border-radius:50%;box-shadow:0 0 7px 2px #fff5cb99}
+.oven-awakening-light{position:absolute;inset:54% 36% 23%;border-radius:50%;background:radial-gradient(ellipse,#fff1b9bd,#ffc66655 45%,transparent 72%)}
+.castle-scene.oven-awake:not(.oven-baking) .oven-glass{background:radial-gradient(ellipse,#ffe7a655,#ffd27a22 50%,transparent 75%);box-shadow:0 0 14px #f8c77833}
+
+/* A quiet opening onto Cinderella's flourishing workshop. */
+.company-arriving{opacity:0}
+.company-reveal-light{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden}
+.company-sunray{position:absolute;inset:-20% -60%;background:linear-gradient(115deg,transparent 32%,#fff6d766 46%,#fffdf191 50%,#fff6d744 54%,transparent 68%)}
