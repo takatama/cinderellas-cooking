@@ -259,3 +259,13 @@ footer button{min-width:100px;min-height:44px;font-size:14px}
 .mail-order-parcels{clip-path:polygon(0 57%,12.5% 57%,19% 60.5%,19% 65%,87% 65%,87% 57%,100% 57%,100% 100%,0 100%)}
 .finale-parcels[hidden],.mail-order-tableau[hidden]{display:none}
 .finale-scene[data-tableau="true"] .finale-cast,.finale-scene[data-tableau="true"] .finale-parcels{display:none}
+
+/* Pending art stays neutral. Only confirmed failures reveal fallback artwork/text. */
+img[data-asset-state="loading"]{visibility:hidden}
+.story-emblem:not([data-fallback="true"]):not(.castle-scene)>span,.story-emblem:not([data-fallback="true"]):not(.castle-scene)>p{display:none}
+.castle-scene.story-emblem>span,.castle-scene.story-emblem>p{display:none}
+.castle-scene.story-emblem[data-loaded="false"]>span,.castle-scene.story-emblem[data-loaded="false"]>p{display:block}
+.finale-scene[data-tableau="loading"] .finale-cast,.finale-scene[data-tableau="loading"] .finale-parcels{visibility:hidden}
+
+.art-fallback[hidden]{display:none}
+.story-emblem:not(.castle-scene):not([data-fallback="true"]){visibility:hidden}

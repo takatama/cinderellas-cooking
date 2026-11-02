@@ -1,3 +1,4 @@
+const {assetUrl,assetPattern}=require('./assets.cjs');
 // Run against a local static server: NODE_PATH=<playwright modules> node tests/journey.browser.cjs
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');

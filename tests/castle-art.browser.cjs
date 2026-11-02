@@ -1,3 +1,4 @@
+const {assetUrl,assetPattern}=require('./assets.cjs');
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 (async()=>{
@@ -9,12 +10,12 @@ await page.goto(process.env.TEST_URL||'http://127.0.0.1:4173');
 const moveTo=async phase=>{await page.evaluate(p=>{state.chapter=2;state.orange=false;state.pink=false;move(p);},phase);await page.locator('.castle-backdrop').evaluate(img=>img.decode());};
 await moveTo('door');
 assert.equal(await page.locator('.door-inscription').innerText(),'おえかき');
-assert.equal(await page.locator('.castle-backdrop').getAttribute('src'),'assets/castle-door-closed.png');
+assert.equal(await page.locator('.castle-backdrop').getAttribute('src'),assetUrl('castle-door-closed.png'));
 const bounds=await page.locator('.castle-scene').boundingBox();
 assert.ok(bounds.x>=-1&&bounds.x+bounds.width<=width+1);
 assert.ok(Math.abs(bounds.width/bounds.height-1.5)<.01);
 await page.evaluate(()=>move('door-open'));await page.locator('.castle-backdrop').evaluate(img=>img.decode());
-assert.equal(await page.locator('.castle-backdrop').getAttribute('src'),'assets/castle-door-open.png');
+assert.equal(await page.locator('.castle-backdrop').getAttribute('src'),assetUrl('castle-door-open.png'));
 assert.equal(await page.locator('.door-inscription').isVisible(),false);
 await moveTo('room');
 for(const [orange,pink] of [[false,false],[true,false],[false,true],[true,true]]){
@@ -35,7 +36,7 @@ await moveTo('door');
 if(process.env.SCREENSHOTS)await page.screenshot({path:`${process.env.SCREENSHOTS}/${width}-${height}-door.png`,fullPage:true});
 await moveTo('room');
 if(process.env.SCREENSHOTS)await page.screenshot({path:`${process.env.SCREENSHOTS}/${width}-${height}-room.png`,fullPage:true});
-await page.route('**/assets/castle-door-closed.png',r=>r.abort());
+await page.route(assetPattern('castle-door-closed.png'),r=>r.abort());
 await page.evaluate(()=>move('door-open'));await page.evaluate(()=>move('door'));
 await page.waitForFunction(()=>document.querySelector('.castle-scene').dataset.loaded==='false');
 assert.equal(await page.locator('.door-inscription').isVisible(),true);
