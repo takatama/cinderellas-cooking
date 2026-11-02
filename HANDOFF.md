@@ -87,3 +87,7 @@ CHROMIUM_PATH=/usr/bin/chromium npm run test:browser
 完成料理の手動公開時は既存の料理画像を使い、温かい料理のみ湯気の広がりを追加。完成後の湯気も設定・履歴・タブ非表示で停止し、戻ると再開する。動きを控える設定とOSの設定では食材の動き・完成時の移動を省く。ポテトサラダとプリンには湯気を出さない。保存形式と物語の進行は変更しない。
 
 検証: `npm run check`、既存 `cooking.browser.cjs`（全16料理×4段階、7画面サイズ、保存再開、画像失敗）、追加 `pan-food.browser.cjs`（1000／390px、料理・段階の切替、ふた、公開前の完成画像非表示、完成後の湯気、設定での停止、動きを控える設定、器具の読み込み失敗）。
+
+配信成功: 2026-11-02 14:45 JST、既存URL・所有者限定を維持。Sitesソース `471bcd9e22f05665fcb5ea48d20f66f5158d0697`、ローカル実装 `de81b52`、双方の `dist/` tree は `79b4cd1bd08866f66cbc936075d7f2dfa216f5de` で一致。version_id `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_fa370539b590819181a93b4f16dace02`、deployment_id `appgdep_6ae82362ca5481918bb9df17b93fecda`（succeeded）。GitHub送信は自動承認レビューで明示承認不足として拒否され、送信せずローカルブランチ `codex/cooking-food-effects` に保存した。
+
+追加検証: `CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs journey` で全編・両方の紙順序・保存復元・画像失敗を確認。ブラウザー全スイートでは扉・先読みの既存3件（`door-dials`、`prefetch`、`scene-prefetch`）が失敗。今回の変更前の公開ソース `a84827e` でも同じ失敗を再現した。通常の `journey` の初回実行はChromiumパス未指定で起動失敗したが、上記の明示指定で合格。その他17スイートは合格（追加の `pan-food` は別途合格）。
