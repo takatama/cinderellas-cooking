@@ -15,10 +15,10 @@ const click=async name=>{await read();await page.waitForTimeout(330);await page.
 for(const phase of ['room','orange','pink','final-ready','final-cooking']){
 await page.evaluate(p=>{state.chapter=2;state.orange=true;state.pink=true;move(p);},phase);
 assert.equal(await page.locator('#stage-object').textContent(),'');
-assert.equal(await page.locator('#stage-object img,.finale-cast,.finale-table').count(),0,'no final dish, cast or table before manual reveal');
+assert.equal(await page.locator('#stage-object img,.finale-cast,.finale-table').count(),0,'no final dish, cast or table before the light reveal');
 assert.equal(await page.locator('.castle-backdrop').getAttribute('src'),assetUrl('magic-room.png'));
 }
-await click('できた料理を見る　→');await decode();
+await click('できた料理を見る　→');await page.waitForFunction(()=>state.phase==='final-result');await page.waitForFunction(()=>!document.querySelector('.oven-transition'));await decode();
 assert.equal(await page.evaluate(()=>state.phase),'final-result');
 assert.equal(await page.locator('#stage-object img').getAttribute('src'),assetUrl('pumpkin-pudding.png'));
 assert.equal(await page.locator('#stage-object').evaluate(el=>el.parentElement.id),'table-plane');

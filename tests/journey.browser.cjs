@@ -36,7 +36,7 @@ await click('名前を唱える');assert.equal(await phase(),color);assert.match
 if(color==='pink'){await page.getByLabel('一つ目の材料').fill('さとう');await page.getByLabel('二つ目の材料').fill('卵');}else await page.getByLabel('野菜の名前').fill('カボチャ');
 await click('名前を唱える');assert.equal(await phase(),'paper-solved');await shot(`solved-${color}`);await page.reload();await click('つづきから遊ぶ');assert.equal(await phase(),'paper-solved');await click('つづきを読む');
 }
-assert.equal(await phase(),'final-ready');await click('魔法のオーブンで料理する');await click('できた料理を見る');await shot('pudding');await click('またあとで');await click('お話を再開する');await click('はい');
+assert.equal(await phase(),'final-ready');await click('魔法のオーブンで料理する');await page.waitForFunction(()=>state.phase==='final-result');await page.waitForFunction(()=>!document.querySelector('.oven-transition'));await shot('pudding');await click('またあとで');await click('お話を再開する');await click('はい');
 for(let i=0;i<3;i++)await click('つづきを読む');assert.equal(await phase(),'complete');await shot('complete');
 await click('ここまでのお話を読む');assert.match(await page.locator('#history-content').innerText(),/お取り寄せ/);await click('お話にもどる');
 await page.reload();await click('つづきから遊ぶ');assert.equal(await phase(),'complete');await click('最初から遊ぶ');assert.equal(await phase(),'intro');assert.equal(await page.locator('#dialogue .words').count(),1);

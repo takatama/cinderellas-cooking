@@ -5,15 +5,22 @@ const recipe = () => Journey.recipes[state.chapter || 0];
 const target = () => recipe().target;
 const initialState = Progress.initialState;
 
+let ovenTransition = null, puzzleEffects = null, companyReveal = null;
 let cookingStep = 0,
   cookingTimer;
 function pauseCooking() {
+  ovenTransition?.pause();
+  puzzleEffects?.pause();
+  companyReveal?.pause();
   clearTimeout(cookingTimer);
   $("art").classList.add("effects-paused");
 }
-// Only cookware stages advance on a timer. Revealing the dish is manual.
+// Ordinary dishes are revealed manually; the magic oven has its own transition.
 function scheduleCooking() {
   pauseCooking();
+  ovenTransition?.sync();
+  puzzleEffects?.sync();
+  companyReveal?.sync();
   if (
     state.phase !== "cooking" ||
     document.hidden ||
@@ -48,6 +55,25 @@ try {
 } catch {}
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 $("reduce").checked = reduced.matches;
+companyReveal = CompanyReveal.create({
+  isCompany: () => state.phase === "ending" && state.storyStep === 1,
+  getReduced: () => $("reduce").checked || reduced.matches,
+});
+puzzleEffects = PuzzleEffects.create({
+  getPhase: () => state.phase,
+  getReduced: () => $("reduce").checked || reduced.matches,
+});
+ovenTransition = OvenTransition.create({
+  getPhase: () => state.phase,
+  getReduced: () => $("reduce").checked || reduced.matches,
+  reveal: () => {
+    state.phase = "final-result";
+    state.message = "";
+    stopAudio();
+    render();
+    log(journeyTitle(), content().lines);
+  },
+});
 const story = JapaneseStory.create({
   getState: () => state,
   actions: {
@@ -141,6 +167,8 @@ function dialoguePages(lines) {
 }
 let choiceReadyAt = 0;
 function render(focus = true, speechOverride = null) {
+  const enteringCompany = $("journey-art").dataset.visual === "investment" &&
+    state.phase === "ending" && state.storyStep === 1;
   audio.scene(state.phase);
   updateSister();
   updateTable();
@@ -283,6 +311,10 @@ function render(focus = true, speechOverride = null) {
   $("art-caption").hidden = true;
   saveProgress();
   scenes.prepareNext();
+  ovenTransition.sync();
+  puzzleEffects.sync();
+  if (enteringCompany) companyReveal.play();
+  companyReveal.sync();
   if (focus) {
     $("dialogue").setAttribute("tabindex", "-1");
     $("dialogue").focus({ preventScroll: true });
@@ -530,6 +562,10 @@ function isCastle() {
 }
 
 function move(phase) {
+  if (state.phase === "final-cooking" && phase === "final-result") {
+    ovenTransition.finish();
+    return;
+  }
   pauseCooking();
   stopAudio();
   state.phase = phase;
@@ -699,8 +735,10 @@ function renderAnswerForm(kind) {
       $("actions").querySelector("input")?.focus();
       return;
     }
+    const solvedArt = puzzleEffects.capture(kind);
     if (kind === "door") {
       move("door-open");
+      puzzleEffects.play(kind, solvedArt);
       return;
     }
     state[kind] = true;
@@ -711,6 +749,7 @@ function renderAnswerForm(kind) {
         : "「たまご」と「砂糖」を唱えると、ピンク色の紙が消えてなくなりました！";
     render();
     log("紙のなぞ", content().lines);
+    puzzleEffects.play(kind, solvedArt, state.orange && state.pink);
   };
   $("actions").prepend(form);
 }
