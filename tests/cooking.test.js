@@ -11,7 +11,7 @@ for(const dish of dishes){
 const plan=art.planFor(dish);
 if(dish==='パンプキンプリン'){assert.equal(plan.method,'oven');assert.equal(art.stageFor(dish,0),null);continue;}
 assert.equal(plan.beats.length,4);assert.equal(plan.stages.length,4);
-for(const stage of plan.stages){assert.ok(art.vessels[stage.vessel]);assert.ok(fs.existsSync(require('node:path').join(__dirname,'../dist/assets',art.vessels[stage.vessel].file)));assert.ok(['steam','oil','none'].includes(stage.effect));}
+for(const stage of plan.stages){assert.ok(art.vessels[stage.vessel]);assert.ok(fs.existsSync(require('node:path').join(__dirname,'../dist',require('./assets.cjs').assetUrl(art.vessels[stage.vessel].file))));assert.ok(['steam','oil','none'].includes(stage.effect));}
 for(const other of dishes)assert.ok(!plan.beats.flat().join('').includes(other),'do not name the completed dish before revealing it');
 }
 assert.throws(()=>art.planFor('未登録料理'));

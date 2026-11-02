@@ -1,0 +1,20 @@
+{
+  "name": "cinderellas-cooking",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Buildless story game; development dependencies are for browser verification only.",
+  "scripts": {
+    "build:content": "node scripts/build-content.mjs",
+    "build:assets": "python3 scripts/build-assets.py",
+    "check": "node scripts/build-content.mjs --check && node --test tests/*.test.js",
+    "check:assets": "python3 scripts/check-assets.py",
+    "test:browser": "node scripts/test-browser.mjs",
+    "audit": "node scripts/audit-content.mjs --write"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,3 +1,4 @@
+const {assetUrl,assetPattern,settleImages}=require('./assets.cjs');
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 (async()=>{
@@ -7,11 +8,10 @@ for(const width of [1280,1000,760,690,390,320]){
 const page=await browser.newPage({viewport:{width,height:width===1280?720:900},reducedMotion:'reduce'}),errors=[];
 page.on('pageerror',e=>errors.push(e.message));
 await page.goto(process.env.TEST_URL||'http://127.0.0.1:4173');
-await page.evaluate(()=>Promise.all(['help-scene','prince-normal','prince-delighted','prince-pleased'].map(id=>$(id).decode())));
-await page.evaluate(()=>move('prince'));
+await page.evaluate(()=>move('prince'));await settleImages(page);
 assert.equal(await page.locator('#prince-normal').isVisible(),true);
 assert.equal(await page.locator('#journey-art').isVisible(),false);
-assert.equal(await page.locator('#help-scene').getAttribute('src'),'assets/help-characters.png');
+assert.equal(await page.locator('#help-scene').getAttribute('src'),assetUrl('help-characters.png'));
 assert.equal(await page.locator('#help-scene').evaluate(i=>i.classList.contains('cinderella-only')),true);
 assert.equal(await page.locator('#stage-object').textContent(),'');
 await page.evaluate(()=>start());
@@ -26,7 +26,7 @@ await page.reload();await page.waitForTimeout(350);
 await page.getByRole('button',{name:'つづきから遊ぶ',exact:true}).click();
 assert.equal(await page.locator('#table-ingredients img').count(),3);
 for(const dish of ['アマトリチャーナ','カルボナーラ']){
-await page.evaluate(dish=>{start();for(const pair of state.round){choose(pair.options[0]);}state.phase='result';state.dish=dish;render();},dish);
+await page.evaluate(dish=>{start();for(const pair of state.round){choose(pair.options[0]);}state.phase='result';state.dish=dish;render();},dish);await settleImages(page);
 const mood=dish==='アマトリチャーナ'?'delighted':'pleased';
 assert.equal(await page.locator('#prince-'+mood).isVisible(),true);
 assert.equal(await page.locator('#prince-'+(mood==='pleased'?'delighted':'pleased')).isVisible(),false);
@@ -45,11 +45,11 @@ assert.equal(await page.locator('#help-scene').evaluate(i=>i.classList.contains(
 assert.deepEqual(errors,[]);await page.close();console.log(`PASS prince layers, expressions, retry, exit, ${width}px`);
 }
 for(const file of ['prince.png','prince-delighted.png','prince-pleased.png','help-characters.png']){
-const page=await browser.newPage();await page.route('**/assets/'+file,r=>r.abort());
+const page=await browser.newPage();await page.route(assetPattern(file),r=>r.abort());
 await page.goto(process.env.TEST_URL||'http://127.0.0.1:4173');
-await page.evaluate(()=>move('prince'));await page.waitForTimeout(150);
+await page.evaluate(()=>move('prince'));await settleImages(page);await settleImages(page);
 if(file==='prince.png'||file==='help-characters.png')assert.equal(await page.locator('#journey-art').isVisible(),true);
-else{await page.evaluate(file=>{state.phase='result';state.dish=file==='prince-delighted.png'?'アマトリチャーナ':'カルボナーラ';render();},file);assert.equal(await page.locator('#prince-normal').isVisible(),true);}
+else{await page.evaluate(file=>{state.phase='result';state.dish=file==='prince-delighted.png'?'アマトリチャーナ':'カルボナーラ';render();},file);await settleImages(page);assert.equal(await page.locator('#prince-normal').isVisible(),true);}
 assert.ok(await page.locator('#actions button, #advance button').count()>0);await page.close();console.log(`PASS missing ${file}`);
 }
 }finally{await browser.close();}

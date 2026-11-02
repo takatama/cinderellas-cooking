@@ -1,0 +1,680 @@
+{
+  "vessels": {
+    "pot": {
+      "file": "covered-pot.png"
+    },
+    "pan": {
+      "file": "frying-pan.png"
+    },
+    "covered-pan": {
+      "file": "covered-frying-pan.png"
+    },
+    "fryer": {
+      "file": "frying-pot.png"
+    },
+    "bowl": {
+      "file": "mixing-bowl.png"
+    }
+  },
+  "plans": {
+    "curry": {
+      "method": "simmer",
+      "stages": [
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        }
+      ],
+      "servedSteam": true
+    },
+    "oden": {
+      "method": "simmer",
+      "stages": [
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        }
+      ],
+      "servedSteam": true
+    },
+    "curry-oden": {
+      "method": "simmer",
+      "stages": [
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        }
+      ],
+      "servedSteam": true
+    },
+    "hamburg-steak": {
+      "method": "sear",
+      "stages": [
+        {
+          "vessel": "bowl",
+          "effect": "none"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "covered-pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "covered-pan",
+          "effect": "steam"
+        }
+      ],
+      "servedSteam": true
+    },
+    "menchi-katsu": {
+      "method": "deep-fry",
+      "stages": [
+        {
+          "vessel": "bowl",
+          "effect": "none"
+        },
+        {
+          "vessel": "fryer",
+          "effect": "oil"
+        },
+        {
+          "vessel": "fryer",
+          "effect": "oil"
+        },
+        {
+          "vessel": "fryer",
+          "effect": "oil"
+        }
+      ],
+      "servedSteam": true
+    },
+    "cabbage-rolls": {
+      "method": "simmer",
+      "stages": [
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        }
+      ],
+      "servedSteam": true
+    },
+    "vegetable-stir-fry": {
+      "method": "stir-fry",
+      "stages": [
+        {
+          "vessel": "pan",
+          "effect": "none"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        }
+      ],
+      "servedSteam": true
+    },
+    "potato-croquettes": {
+      "method": "deep-fry",
+      "stages": [
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "bowl",
+          "effect": "none"
+        },
+        {
+          "vessel": "fryer",
+          "effect": "oil"
+        },
+        {
+          "vessel": "fryer",
+          "effect": "oil"
+        }
+      ],
+      "servedSteam": true
+    },
+    "potato-salad": {
+      "method": "mix",
+      "stages": [
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "bowl",
+          "effect": "none"
+        },
+        {
+          "vessel": "bowl",
+          "effect": "none"
+        },
+        {
+          "vessel": "bowl",
+          "effect": "none"
+        }
+      ],
+      "servedSteam": false
+    },
+    "amatriciana": {
+      "method": "pasta",
+      "stages": [
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        }
+      ],
+      "servedSteam": true
+    },
+    "tomato-spaghetti": {
+      "method": "pasta",
+      "stages": [
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        }
+      ],
+      "servedSteam": true
+    },
+    "carbonara": {
+      "method": "pasta-egg",
+      "stages": [
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "none"
+        },
+        {
+          "vessel": "pan",
+          "effect": "none"
+        }
+      ],
+      "servedSteam": true
+    },
+    "pilaf": {
+      "method": "pilaf",
+      "stages": [
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "covered-pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "covered-pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "covered-pan",
+          "effect": "steam"
+        }
+      ],
+      "servedSteam": true
+    },
+    "chicken-rice": {
+      "method": "rice-fry",
+      "stages": [
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        }
+      ],
+      "servedSteam": true
+    },
+    "omurice": {
+      "method": "omelet-rice",
+      "stages": [
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        }
+      ],
+      "servedSteam": true
+    },
+    "oyakodon": {
+      "method": "egg-simmer",
+      "stages": [
+        {
+          "vessel": "pot",
+          "effect": "steam"
+        },
+        {
+          "vessel": "pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "covered-pan",
+          "effect": "steam"
+        },
+        {
+          "vessel": "covered-pan",
+          "effect": "steam"
+        }
+      ],
+      "servedSteam": true
+    },
+    "pumpkin-pudding": {
+      "method": "oven",
+      "servedSteam": false,
+      "stages": []
+    }
+  },
+  "locales": {
+    "ja": {
+      "vessels": {
+        "pot": "ふた付きの鍋で煮込んでいます。",
+        "pan": "フライパンで材料に火を通しています。",
+        "covered-pan": "ふたをしたフライパンで火を通しています。",
+        "fryer": "ふたのない揚げ鍋で衣をからりと揚げています。",
+        "bowl": "ボウルで材料を合わせています。"
+      },
+      "beats": {
+        "curry": [
+          [
+            "とん、とん、とん。",
+            "シンデレラは、選んだ材料を手ぎわよく切っていきます。"
+          ],
+          [
+            "ことこと、ぐつぐつ。",
+            "お鍋の中で、材料たちがゆっくり煮えています。"
+          ],
+          [
+            "……いいにおい！",
+            "ふわりと、おいしそうな香りが広がりました。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "oden": [
+          [
+            "とん、とん、とん。",
+            "シンデレラは、選んだ材料を手ぎわよく切っていきます。"
+          ],
+          [
+            "ことこと、ぐつぐつ。",
+            "お鍋の中で、材料たちがゆっくり煮えています。"
+          ],
+          [
+            "……いいにおい！",
+            "ふわりと、おいしそうな香りが広がりました。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "curry-oden": [
+          [
+            "とん、とん、とん。",
+            "シンデレラは、選んだ材料を手ぎわよく切っていきます。"
+          ],
+          [
+            "ことこと、ぐつぐつ。",
+            "お鍋の中で、材料たちがゆっくり煮えています。"
+          ],
+          [
+            "……いいにおい！",
+            "ふわりと、おいしそうな香りが広がりました。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "hamburg-steak": [
+          [
+            "こね、こね。",
+            "ボウルで材料を合わせ、形を整えます。"
+          ],
+          [
+            "じゅう、じゅう。",
+            "フライパンで両面に焼き色をつけます。"
+          ],
+          [
+            "じっくり、ふっくら。",
+            "ふたをして、中まで火を通します。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "menchi-katsu": [
+          [
+            "こね、こね。",
+            "ボウルで材料を合わせ、形を整えて衣をつけます。"
+          ],
+          [
+            "からり、じゅわっ。",
+            "揚げ鍋の油で、衣をきつね色に揚げます。"
+          ],
+          [
+            "……いいにおい！",
+            "ふわりと、おいしそうな香りが広がりました。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "cabbage-rolls": [
+          [
+            "とん、とん、とん。",
+            "シンデレラは、選んだ材料を手ぎわよく切っていきます。"
+          ],
+          [
+            "ことこと、ぐつぐつ。",
+            "お鍋の中で、材料たちがゆっくり煮えています。"
+          ],
+          [
+            "……いいにおい！",
+            "ふわりと、おいしそうな香りが広がりました。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "vegetable-stir-fry": [
+          [
+            "とん、とん、とん。",
+            "シンデレラは、選んだ材料を手ぎわよく切っていきます。"
+          ],
+          [
+            "じゅう、じゅう。",
+            "フライパンで、材料を手ぎわよく炒めます。"
+          ],
+          [
+            "……いいにおい！",
+            "ふわりと、おいしそうな香りが広がりました。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "potato-croquettes": [
+          [
+            "ほくほく。",
+            "じゃがいもを鍋でゆでます。"
+          ],
+          [
+            "つぶして、ころん。",
+            "ボウルで材料を合わせ、形を整えて衣をつけます。"
+          ],
+          [
+            "からり、じゅわっ。",
+            "揚げ鍋の油で、衣をきつね色に揚げます。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "potato-salad": [
+          [
+            "ほくほく。",
+            "じゃがいもを鍋でゆでます。"
+          ],
+          [
+            "さっくり、さっくり。",
+            "ボウルでじゃがいもをつぶし、粗熱を取ります。"
+          ],
+          [
+            "くるり、さっと。",
+            "用意した具材を合わせて仕上げます。"
+          ],
+          [
+            "できたよ！",
+            "やさしく混ぜて、できあがり。"
+          ]
+        ],
+        "amatriciana": [
+          [
+            "ぐつぐつ。",
+            "鍋にたっぷりのお湯を沸かし、パスタをゆでます。"
+          ],
+          [
+            "じゅう、じゅう。",
+            "フライパンで具材とソースを用意します。"
+          ],
+          [
+            "くるり、さっと。",
+            "ゆでたパスタに、ソースをからめて仕上げます。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "tomato-spaghetti": [
+          [
+            "ぐつぐつ。",
+            "鍋にたっぷりのお湯を沸かし、パスタをゆでます。"
+          ],
+          [
+            "じゅう、じゅう。",
+            "フライパンで具材とソースを用意します。"
+          ],
+          [
+            "くるり、さっと。",
+            "ゆでたパスタに、ソースをからめて仕上げます。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "carbonara": [
+          [
+            "ぐつぐつ。",
+            "鍋にたっぷりのお湯を沸かし、パスタをゆでます。"
+          ],
+          [
+            "じゅう、じゅう。",
+            "フライパンで具材とソースを用意します。"
+          ],
+          [
+            "くるり、さっと。",
+            "フライパンの火を止め、パスタに卵のソースをからめます。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "pilaf": [
+          [
+            "じゅう、じゅう。",
+            "深めのフライパンで、お米と具材を炒めます。"
+          ],
+          [
+            "ことこと。",
+            "スープを加え、ふたをして炊きます。"
+          ],
+          [
+            "ふっくら。",
+            "火を止めて蒸らし、仕上げます。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "chicken-rice": [
+          [
+            "ふっくら。",
+            "鍋でお米を炊き、具材を用意します。"
+          ],
+          [
+            "じゅう、じゅう。",
+            "フライパンで具材を炒めます。"
+          ],
+          [
+            "くるり、さっと。",
+            "炊いたご飯を加え、味をなじませながら炒めます。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "omurice": [
+          [
+            "ふっくら。",
+            "鍋でお米を炊き、具材を用意します。"
+          ],
+          [
+            "じゅう、じゅう。",
+            "フライパンで、ご飯と具材を炒めます。"
+          ],
+          [
+            "くるり。",
+            "卵を焼いて、ご飯をやさしく包みます。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "oyakodon": [
+          [
+            "ふっくら。",
+            "鍋でお米を炊き、具材を用意します。"
+          ],
+          [
+            "ことこと。",
+            "小さめのフライパンで、具材を煮ます。"
+          ],
+          [
+            "とろり。",
+            "溶いた卵を流し入れ、ふたをして火を通します。"
+          ],
+          [
+            "できたよ！",
+            "あたたかいうちに、召し上がれ。"
+          ]
+        ],
+        "pumpkin-pudding": []
+      }
+    }
+  }
+}
