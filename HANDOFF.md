@@ -79,3 +79,11 @@ CHROMIUM_PATH=/usr/bin/chromium npm run test:browser
 検証: `node --test tests/*.test.js`、`node tests/company-reveal.browser.cjs`（1280／390／320px、一時停止、保存、次場面の片付け、画像失敗）、`node tests/final-art.browser.cjs`。
 
 最新の演出配信は2026-11-02 13:42 JSTに成功。Sitesソース `a84827e297a6b42c8073d962ffb5e38b90224238`、version_id `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_ca17f0eafc9c81919b51def50f2d5669`、deployment_id `appgdep_6ae814a3e2f881918ac149fece9cb76c`。GitHubへはこの公開済み実装を最新mainにまとめて取り込む。
+
+## 2026-11-02 フライパンの食材と完成時の湯気
+
+`dist/pan-food.js` に再利用できる小さなSVG食材を追加。既存フライパンの内側に野菜・肉・ソース・麺・ご飯を重ね、調理法と段階に合わせて切り替える。器具や完成料理の画像は増やさず、ふた付き器具には重ねない。器具のデコード完了後だけ食材を表示し、画像失敗時は食材を隠して既存の代替文を維持する。
+
+完成料理の手動公開時は既存の料理画像を使い、温かい料理のみ湯気の広がりを追加。完成後の湯気も設定・履歴・タブ非表示で停止し、戻ると再開する。動きを控える設定とOSの設定では食材の動き・完成時の移動を省く。ポテトサラダとプリンには湯気を出さない。保存形式と物語の進行は変更しない。
+
+検証: `npm run check`、既存 `cooking.browser.cjs`（全16料理×4段階、7画面サイズ、保存再開、画像失敗）、追加 `pan-food.browser.cjs`（1000／390px、料理・段階の切替、ふた、公開前の完成画像非表示、完成後の湯気、設定での停止、動きを控える設定、器具の読み込み失敗）。

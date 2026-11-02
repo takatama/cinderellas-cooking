@@ -22,12 +22,12 @@ function scheduleCooking() {
   puzzleEffects?.sync();
   companyReveal?.sync();
   if (
-    state.phase !== "cooking" ||
     document.hidden ||
     document.querySelector("dialog[open]")
   )
     return;
   $("art").classList.remove("effects-paused");
+  if (state.phase !== "cooking") return;
   if (cookingStep >= 3) return;
   cookingTimer = setTimeout(() => {
     cookingStep++;
@@ -451,6 +451,7 @@ function result() {
   pauseCooking();
   state.phase = "result";
   render();
+  scheduleCooking();
   log("できたての一皿", content().lines);
 }
 function end() {

@@ -318,8 +318,22 @@
           object.append(img);
         } else if (name) object.append(foodImage(name, true));
       }
+      if (stage?.vessel === "pan") {
+        const method = CookingArt.planFor(state.dish).method;
+        const foodKey = method + "|" + cookingStep;
+        if (object.dataset.panFoodKey !== foodKey) {
+          object.querySelector(".pan-food")?.remove();
+          object.append(root.PanFood.create(method, cookingStep));
+          object.dataset.panFoodKey = foodKey;
+        }
+      } else {
+        object.querySelector(".pan-food")?.remove();
+        delete object.dataset.panFoodKey;
+      }
       const warm =
         state.phase === "result" && CookingArt.planFor(state.dish).servedSteam;
+      $("art").classList.toggle("served-warm", warm);
+      $("art").classList.toggle("dish-served", ["result", "final-result"].includes(state.phase));
       $("steam").classList.toggle("active", stage?.effect === "steam" || warm);
       $("oil-bubbles").hidden = stage?.effect !== "oil";
       $("art").classList.toggle("cooking", cooking);
