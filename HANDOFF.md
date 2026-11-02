@@ -33,15 +33,15 @@
 
 | 項目 | 最終確認した値 |
 | --- | --- |
-| 配信 | 2026-11-02 18:35 JST、succeeded、所有者限定 |
+| 配信 | 2026-11-02 19:16 JST、version 53 / succeeded、所有者限定 |
 | Site project_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c` |
-| GitHubの配信一致実装 | `82a3b2e0dd3b15b6159a1592296bbd8eb0ca8281` |
-| Sitesソースコミット | `fd6037ee132f6a49e820c9b31dba352578e32aff` |
-| 共通のdist tree | `cc6ff5c35a5c0b88d26a920d2abcbab81d072ba7` |
-| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_386a9b1957508191a4f639dafb141bda` |
-| deployment_id | `appgdep_6ae8595109d88191911d2964b7f7d485` |
+| GitHubの配信一致実装 | `35688d4bb9cf191cf4193c65b86b7e27d0481633` |
+| Sitesソースコミット | `b25974cc07e61312af2c860667d71e75b584a010` |
+| 共通のdist tree | `3977e6afeced94a0dbaa468f9ef6c297a2fe753d` |
+| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_3ca65f6b25948191ab306087d7defc14` |
+| deployment_id | `appgdep_6ae86305de4c8191a7b8dfb1d031eb7c` |
 
-その後のコミットは引き継ぎ資料のみ。変更した配信物を公開するときは、最新のSitesスキルに従い、同じSiteと公開範囲を保って両ソースのdist一致を確認する。`.openai/hosting.json` がSiteの識別元。新規サイトは作らない。前回セッションの認証情報や `/tmp` の補助スクリプトが残ることを前提にしない。
+上表のコミットはクリーム系パスタ追加を含む。その後の配信記録追記は資料のみ。変更した配信物を公開するときは、最新のSitesスキルに従い、同じSiteと公開範囲を保って両ソースのdist一致を確認する。`.openai/hosting.json` がSiteの識別元。新規サイトは作らない。前回セッションの認証情報や `/tmp` の補助スクリプトが残ることを前提にしない。今回の環境にはSitesソース補助スクリプトが配置されていなかったため、ネイティブの書込み資格情報を標準入力で受けて通常のGitで同期し、同一コミットの `.openai/hosting.json` と `dist/` をtarに梱包して `save_version_and_deploy_private` へ渡した。資格情報はソース・ファイルに保存していない。
 
 ## 起動・確認・既知のテスト状況
 
@@ -57,9 +57,9 @@ CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs pan-food
 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs cooking.browser
 ```
 
-最終原画で上記は合格。配信画像62点の寸法・透過・可視画素・ハッシュ、PC/390/320pxのプレビュー・保存隔離・比率・一時停止・動きを控える設定、全16料理×4段階×7画面サイズの調理・完成公開・保存再開・画像失敗を確認した。
+最終原画で上記は合格。配信画像62点の寸法・透過・可視画素・ハッシュ、PC/390/320pxのプレビュー・保存隔離・比率・一時停止・動きを控える設定、全16料理×4段階×7画面サイズの調理・完成公開・保存再開・画像失敗を確認した。カルボナーラ専用テストでは、既存v1セーブのバイト単位の保護と再開、食材・器具の読み込み遅延と失敗、設定・履歴・非表示での一時停止を追加確認した。
 
-以前の広範囲テストでは `door-dials.browser.cjs`、`prefetch.browser.cjs`、`scene-prefetch.browser.cjs` が失敗。変更前の公開ソース `a84827e` でも同じ箇所で再現済みで、このPRでは修正していない。扉の前面スナップショットと自動オーブン演出の導入後、テスト側の前提が古い可能性があるため、次回は実際の差分と失敗箇所を切り分ける。単に待ち時間を増やして通った扱いにしない。`journey.browser.cjs` はChromiumパスの明示指定で全編が合格した。今回の変更では上記の関連スイートを再実行する。既知の失敗3件は今回の対象外。
+以前の広範囲テストでは `door-dials.browser.cjs`、`prefetch.browser.cjs`、`scene-prefetch.browser.cjs` が失敗。変更前の公開ソース `a84827e` でも同じ箇所で再現済みで、このPRでは修正していない。扉の前面スナップショットと自動オーブン演出の導入後、テスト側の前提が古い可能性があるため、次回は実際の差分と失敗箇所を切り分ける。単に待ち時間を増やして通った扱いにしない。`journey.browser.cjs` はChromiumパスの明示指定で全編が合格した。今回の変更では上記の関連スイートを再実行し、すべて合格した。既知の失敗3件は今回の対象外。
 
 ## 維持する素材と動作
 
