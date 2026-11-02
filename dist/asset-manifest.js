@@ -361,6 +361,18 @@ const manifest={
     "height": 1024,
     "bytes": 1633496
   },
+  "buttered-rice-in-pan.png": {
+    "src": "assets/buttered-rice-in-pan.23a5e97ef9f3f2f8.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1475064
+  },
+  "tomato-rice-in-pan.png": {
+    "src": "assets/tomato-rice-in-pan.201740127ded0687.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1750732
+  },
   "cream-pasta-in-pan.png": {
     "src": "assets/cream-pasta-in-pan.374893e217cdea4b.webp",
     "width": 1942,

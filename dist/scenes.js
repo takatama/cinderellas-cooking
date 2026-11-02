@@ -361,7 +361,8 @@
       $("art").dataset.beat = String(cookingStep);
       object.classList.toggle("pan-toss", stage?.vessel === "pan" &&
         (CookingArt.planFor(state.dish).method === "stir-fry" ||
-          (["pasta", "pasta-egg"].includes(CookingArt.planFor(state.dish).method) && cookingStep >= 2)));
+          (["pasta", "pasta-egg", "rice-fry"].includes(CookingArt.planFor(state.dish).method) && cookingStep >= 2) ||
+          (CookingArt.planFor(state.dish).method === "omelet-rice" && cookingStep === 1)));
     }
     function fitScene() {
       const ratio = $("scene").naturalWidth

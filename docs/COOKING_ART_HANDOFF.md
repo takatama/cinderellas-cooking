@@ -1,6 +1,6 @@
 # 調理素材の制作・引き継ぎ
 
-更新: 2026-11-02（日本時間）。野菜・肉・赤いパスタにクリーム系パスタを加えた食材4点。フライパン原画の深さ修正と肉の配置を維持。ユーザーから「OK.なおりました」と確認済み。最新のPR・配信情報は [引き継ぎ入口](../HANDOFF.md) を参照。
+更新: 2026-11-02（日本時間）。野菜・肉・赤いパスタ・クリーム系パスタに、ご飯2種を加えた食材6点。フライパン原画の深さ修正と肉の配置を維持。フライパン原画は「OK.なおりました」、クリーム系パスタの縮小・低い配置は「OK。残りは何？次に進めよう」とユーザー確認済み。最新のPR・配信情報は [引き継ぎ入口](../HANDOFF.md) を参照。
 
 ## 採用方針
 
@@ -14,12 +14,13 @@
 | `hamburg-in-pan.png` | ハンバーグ | ふたをする前の段階1 |
 | `tomato-pasta-in-pan.png` | アマトリチャーナ、トマトスパゲティ | 麺を合わせた段階2・3 |
 | `cream-pasta-in-pan.png` | カルボナーラ | 火を止め、卵ソースをからめる段階2・3 |
+| `buttered-rice-in-pan.png` | ピラフ | 米を炒める段階0（ふたの前だけ） |
+| `tomato-rice-in-pan.png` | チキンライス、オムライス | チキンライス段階2・3、オムライス段階1 |
 
 原画: `artwork/originals/`。登録: `artwork/assets.json`。配信画像とmanifestは `python3 scripts/build-assets.py` で生成する。原画を残し、生成された画像を直接編集しない。赤いパスタはベーコン・鶏肉を固定で描かず、麺とトマトソースの共通ベースにする。
 
 ## 続きで追加する候補
 
-- 白系・ケチャップ系のご飯2点（ピラフ、チキンライス、オムライスのご飯）。
 - 卵の素材1〜2点。オムライスの薄い卵と親子丼の卵とじは形が違うため、無理な使い回しを避けて必要点数を判断する。
 - 現時点のパスタ段階1は従来のソース描画。必要なら麺のない共通ソース素材を追加する。
 - ボウル・揚げ物はまだ今回の描き直しの対象外。追加点数は別途判断する。
@@ -35,7 +36,7 @@
 - 赤いパスタ: https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=amatriciana&step=2
 - 野菜: https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=vegetable-stir-fry
 
-検証: `npm run check`、`npm run check:assets`、`node scripts/test-browser.mjs cooking-preview`、`node scripts/test-browser.mjs cream-pasta`、`node scripts/test-browser.mjs pan-food`、`node scripts/test-browser.mjs cooking.browser`。必要なChromiumパスは `/usr/bin/chromium`。
+検証: `npm run check`、`npm run check:assets`、`node scripts/test-browser.mjs cooking-preview`、`node scripts/test-browser.mjs cream-pasta`、`node scripts/test-browser.mjs rice-food`、`node scripts/test-browser.mjs pan-food`、`node scripts/test-browser.mjs cooking.browser`。必要なChromiumパスは `/usr/bin/chromium`。
 
 公開先は既存の所有者限定Site。project_id は `.openai/hosting.json`。ソースと配信物を照合して公開する。GitHubは `codex/cooking-food-effects` / PR #7 を更新し、勝手にマージしない。最新の配信結果は `HANDOFF.md` へ記録する。
 
@@ -51,13 +52,13 @@
 
 ## フライパン内側の原画修正
 
-`artwork/originals/frying-pan.png` の内側にあった明るい弧状の境界線を除去し、底へ連続的に暗くなる陰影へ修正。1536×1024のRGBA原画を維持し、外形・緑の側面・柄・前面マスクの構成はそのまま。修正前は `frying-pan-before-depth.png` に保存（配信登録せず、制作比較用のみ）。この修正は同じ論理名の置換。今回のクリーム系パスタ追加で配信画像は62点。
+`artwork/originals/frying-pan.png` の内側にあった明るい弧状の境界線を除去し、底へ連続的に暗くなる陰影へ修正。1536×1024のRGBA原画を維持し、外形・緑の側面・柄・前面マスクの構成はそのまま。修正前は `frying-pan-before-depth.png` に保存（配信登録せず、制作比較用のみ）。この修正は同じ論理名の置換。今回のご飯2種追加で配信画像は64点。
 
 ## 次の作業の進め方
 
 1. PR #7とブランチの最新状態を確認し、採用済みの肉・パスタ・野菜を直リンクで見る。修正済みのフライパンを再生成する必要はない。
 2. クリーム系パスタは実装済み。カルボナーラの段階2・3だけに表示し、肉具材を固定しない麺と卵ソースの透過素材を使う。5.5秒周期の小さな傾きでからめ、火を止める工程のため加熱の湯気・油の泡を出さない。段階0・1と完成料理は従来通り。
-3. ご飯2点、卵1〜2点はその次の候補。追加点数は実際の料理と工程を確認して判断する。ボウル・揚げ物の描き直しは未着手で、今回の完了範囲に含めない。
+3. ご飯2点は実装済み。次は卵1〜2点（オムライスの薄焼き卵・親子丼の卵とじ）。追加点数は実際の料理と工程を確認して判断する。ボウル・揚げ物の描き直しは未着手で、今回の完了範囲に含めない。
 4. 新しい食材も原画の比率を保ち、既存の前面マスクと影を使う。食材と器具の読み込み失敗、ふた、完成公開、保存再開、動きを控える設定を確認してから同じSiteへ反映する。
 
 次回の依頼文の例：
@@ -77,3 +78,11 @@
 山盛り感の調整: クリーム系パスタだけ幅を64%から54%へ縮小し、中央を維持するためleftを9%から14%へ、bottomを29%から27%へ下げた。左右にフライパン内側の余白を作り、見える麺の高さを抑える。接地影も幅50%・left16%へ合わせた。原画比率、器具・肉・赤いパスタの形と位置は維持。
 
 縮小版の配信: 2026-11-02 21:39 JST、version 55 / succeeded、所有者限定。PC・390・320pxで見た目を確認し、`cooking-preview` と `cream-pasta` が合格。GitHub `d596768` とSites `9ec4684` のdist treeは `82e6facbcc7821308c657e1f221d1fc4d4c205fa` で一致。
+
+## ご飯2種の追加
+
+白系はピラフの米炒め（段階0）だけ、ケチャップ系はチキンライス段階2・3とオムライスのご飯炒め（段階1）だけに使う。原画は肉具材を固定せず、米と少量の玉ねぎの共通ベース。どちらも `left:14%;width:54%;bottom:27%;height:auto`、接地影は幅50%・left16%。確定したクリーム系パスタと同様、余白と側面による隠れを保つ。米自体は跳ねさせず、チキンライスとオムライスの炒め工程ではフライパンを小さく傾ける。ピラフはふたへ切り替わると米・前面・影を片付ける。
+
+オムライス段階2・3の薄焼き卵は未制作。今回のご飯素材を卵の代わりには表示しない。既存の工程描画は次の卵制作で更新する。親子丼の卵とじも未制作。
+
+確認URL: [ピラフの米炒め](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=pilaf&step=0)、[チキンライス](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=chicken-rice&step=2)、[オムライスのご飯](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=omurice&step=1)。
