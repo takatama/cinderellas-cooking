@@ -19,6 +19,10 @@ assert.equal(await page.evaluate(()=>state.dish),c.dish);
 for(let step=0;step<4;step++){
 await page.evaluate(step=>{cookingStep=step;updateCookingControls();},step);
 await page.locator('#stage-object .cookware-art').evaluate(i=>i.decode());
+if(await page.locator('#stage-object').getAttribute('data-vessel')==='pan'||await page.locator('#stage-object').getAttribute('data-vessel')==='bowl'||await page.locator('#stage-object').getAttribute('data-vessel')==='fryer'){
+ await page.locator('.painted-pan-food').evaluate(i=>i.decode());
+ assert.equal(await page.locator('.painted-pan-food').isVisible(),true,'every uncovered vessel has decoded painted ingredients');
+}
 const status=await page.evaluate(()=>{
 const f=CookingArt.stageFor(state.dish,cookingStep),c=$('table-plane').getBoundingClientRect(),o=$('stage-object').getBoundingClientRect();
 return {vessel:$('stage-object').dataset.vessel,expected:f.vessel,src:document.querySelector('#stage-object img').getAttribute('src'),file:CookingArt.vessels[f.vessel].file,steam:$('steam').classList.contains('active'),oil:!$('oil-bubbles').hidden,effect:f.effect,food:$('stage-object').dataset.food,inside:o.x>=c.x-1&&o.right<=c.right+1&&o.y>=c.y-1&&o.bottom<=c.bottom+1,overflow:document.documentElement.scrollWidth>innerWidth,advance:$('advance').getBoundingClientRect().y+scrollY};});

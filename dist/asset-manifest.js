@@ -414,6 +414,60 @@ const manifest={
     "width": 1536,
     "height": 1024,
     "bytes": 1379062
+  },
+  "thin-egg-in-pan.png": {
+    "src": "assets/thin-egg-in-pan.18c399e6713d9739.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1335050
+  },
+  "egg-simmer-in-pan.png": {
+    "src": "assets/egg-simmer-in-pan.6040da491974bc8e.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1507308
+  },
+  "tomato-sauce-in-pan.png": {
+    "src": "assets/tomato-sauce-in-pan.e9f57b2196237da3.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1451016
+  },
+  "sauteed-onions-in-pan.png": {
+    "src": "assets/sauteed-onions-in-pan.2a6b7ca3ccb1cda2.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1283688
+  },
+  "meat-mixture-in-bowl.png": {
+    "src": "assets/meat-mixture-in-bowl.b08c5f557f086aed.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1692548
+  },
+  "mashed-potato-in-bowl.png": {
+    "src": "assets/mashed-potato-in-bowl.c305de6850710e38.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1271026
+  },
+  "potato-mixture-in-bowl.png": {
+    "src": "assets/potato-mixture-in-bowl.df8fdcb84691a56f.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1350748
+  },
+  "breaded-cutlets-in-oil.png": {
+    "src": "assets/breaded-cutlets-in-oil.71927f38ce5e27b0.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1534194
+  },
+  "chicken-onion-in-pan.png": {
+    "src": "assets/chicken-onion-in-pan.b47de99b9864b6db.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1358444
   }
 };
 root.AssetManifest=manifest;

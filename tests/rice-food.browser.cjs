@@ -40,12 +40,12 @@ const cases=[['pilaf',0,'buttered-rice-in-pan.png'],['chicken-rice',2,'tomato-ri
     assert.equal(await p.evaluate(()=>cookingStep),step);
     assert.equal(await p.evaluate(()=>localStorage.getItem(Progress.KEY)),'keep-existing-save');
    }
-   // Rice appears only in its actual cooking stage, never over a lid or as an egg substitute.
+   // Rice appears only in its actual cooking stage, never over a lid.
    for(const [dish,steps] of [['pilaf',[1,2,3]],['chicken-rice',[0,1]],['omurice',[0,2,3]]])
     for(const step of steps){
      await p.goto(link(dish,step));
      await settleImages(p);
-     assert.equal(await p.locator('.painted-pan-food').count(),0,dish+' stage '+step);
+     assert.equal(await p.locator('.painted-pan-food[data-asset="tomato-rice-in-pan.png"],.painted-pan-food[data-asset="buttered-rice-in-pan.png"]').count(),0,dish+' stage '+step+' must not substitute rice for other ingredients');
     }
    assert.deepEqual(errors,[]);
    await p.close();

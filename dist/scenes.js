@@ -316,14 +316,14 @@
             img.replaceWith(note);
           });
           object.append(img);
-          if (stage.vessel === "pan") {
+          if (["pan", "bowl", "fryer"].includes(stage.vessel)) {
             const shadow = document.createElement("span");
             shadow.className = "pan-contact-shadow";
             shadow.setAttribute("aria-hidden", "true");
             const front = document.createElement("span");
             front.className = "pan-front";
             front.setAttribute("aria-hidden", "true");
-            // Reuse the decoded pan pixels; only its near wall is exposed by CSS.
+            // Reuse decoded cookware pixels for the near wall and the bowl spoon.
             root.Assets.onReady(img, () => {
               front.style.backgroundImage = `url("${img.currentSrc || img.src}")`;
               front.dataset.ready = "true";
@@ -332,12 +332,14 @@
           }
         } else if (name) object.append(foodImage(name, true));
       }
-      if (stage?.vessel === "pan") {
+      if (stage && ["pan", "bowl", "fryer"].includes(stage.vessel)) {
         const method = CookingArt.planFor(state.dish).method;
-        const foodKey = method + "|" + cookingStep;
+        const dishId = Catalog.idFor(state.dish);
+        const foodKey = method + "|" + cookingStep + "|" + dishId;
         if (object.dataset.panFoodKey !== foodKey) {
           object.querySelector(".pan-food")?.remove();
-          object.append(root.PanFood.create(method, cookingStep));
+          const ingredients = root.PanFood.create(method, cookingStep, stage.vessel, dishId);
+          if (ingredients) object.append(ingredients);
           object.dataset.panFoodKey = foodKey;
         }
       } else {
