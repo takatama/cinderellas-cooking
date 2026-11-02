@@ -345,7 +345,7 @@ body.reduced .art.cooking[data-cooking-method="pasta"] .stage-object.pan-toss:ha
 .stage-object .cookware-art{position:relative;z-index:0}
 .stage-object .pan-food{z-index:2}
 .stage-object .painted-pan-food{bottom:39.5%;filter:drop-shadow(0 1px 1px #30201655)}
-.stage-object .painted-pan-food[data-food-kind="sear"]{bottom:38%}
+.stage-object .painted-pan-food[data-food-kind="sear"]{bottom:22%}
 .pan-front,.pan-contact-shadow{position:absolute;pointer-events:none;visibility:hidden}
 .pan-front{inset:0;z-index:3;background-size:100% 100%;background-repeat:no-repeat;mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1536 1024'%3E%3Cpath fill='white' d='M48 486 C82 555 324 610 635 608 C935 606 1189 552 1218 486 L1536 1024 H0 Z'/%3E%3C/svg%3E");mask-size:100% 100%;mask-repeat:no-repeat}
 .pan-contact-shadow{z-index:1;left:12%;bottom:37.5%;width:60%;height:10%;border-radius:50%;background:radial-gradient(ellipse,#25170ed9,transparent 68%);filter:blur(1px)}
