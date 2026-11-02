@@ -315,7 +315,7 @@ body.reduced .art.served-warm .steam::after{display:none}
 
 /* The handle leads the pan; food follows a fraction later and settles inside it. */
 .art.cooking .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]){transform-origin:82% 39%;animation:pan-toss 3s ease-in-out infinite}
-.stage-object .painted-pan-food{inset:auto;left:9%;bottom:42%;width:64%;height:auto;object-fit:contain;filter:drop-shadow(0 3px 2px #3a251a66);animation:vegetables-toss 3s ease-in-out infinite}
+.stage-object .painted-pan-food{inset:auto;left:14%;bottom:27%;width:54%;height:auto;object-fit:contain;filter:drop-shadow(0 3px 2px #3a251a66);animation:vegetables-toss 3s ease-in-out infinite}
 .stage-object .painted-pan-food:not([data-asset-state="ready"]){visibility:hidden}
 @keyframes pan-toss{0%,25%,65%,100%{transform:translate(0,0) rotate(0)}36%{transform:translate(-3%,-1%) rotate(-5deg)}44%{transform:translate(1%,-2%) rotate(6deg)}54%{transform:translate(0,0) rotate(-1deg)}}
 @keyframes vegetables-toss{0%,32%,65%,100%{transform:translate(0,0) rotate(0)}43%{transform:translate(-2%,-17%) rotate(-2deg)}52%{transform:translate(1%,-5%) rotate(1deg)}}
@@ -349,29 +349,23 @@ body.reduced .art.cooking[data-cooking-method="pasta-egg"] .stage-object.pan-tos
 /* Back pan, contact shadow, food, then the near rim: all share one pan canvas. */
 .stage-object .cookware-art{position:relative;z-index:0}
 .stage-object .pan-food{z-index:2}
-.stage-object .painted-pan-food{bottom:39.5%;filter:drop-shadow(0 1px 1px #30201655)}
+.stage-object .painted-pan-food{filter:drop-shadow(0 1px 1px #30201655)}
 .stage-object .painted-pan-food[data-food-kind="sear"]{bottom:22%}
-.stage-object .painted-pan-food[data-food-kind="pasta-egg"]{left:14%;width:54%;bottom:27%}
-.stage-object .painted-pan-food:is([data-food-kind="pilaf"],[data-food-kind="rice-fry"],[data-food-kind="omelet-rice"]){left:14%;width:54%;bottom:27%;animation:none}
+.stage-object .painted-pan-food:is([data-food-kind="pilaf"],[data-food-kind="rice-fry"],[data-food-kind="omelet-rice"]){animation:none}
 .art.cooking:is([data-cooking-method="rice-fry"],[data-cooking-method="omelet-rice"]) .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]){animation-name:pan-fold;animation-duration:4s}
 body.reduced .art.cooking:is([data-cooking-method="rice-fry"],[data-cooking-method="omelet-rice"]) .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]){animation:none}
 @media(prefers-reduced-motion:reduce){.art.cooking:is([data-cooking-method="rice-fry"],[data-cooking-method="omelet-rice"]) .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]){animation:none}}
 .pan-front,.pan-contact-shadow{position:absolute;pointer-events:none;visibility:hidden}
 .pan-front{inset:0;z-index:3;background-size:100% 100%;background-repeat:no-repeat;mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1536 1024'%3E%3Cpath fill='white' d='M48 486 C82 555 324 610 635 608 C935 606 1189 552 1218 486 L1536 1024 H0 Z'/%3E%3C/svg%3E");mask-size:100% 100%;mask-repeat:no-repeat}
-.pan-contact-shadow{z-index:1;left:12%;bottom:37.5%;width:60%;height:10%;border-radius:50%;background:radial-gradient(ellipse,#25170ed9,transparent 68%);filter:blur(1px)}
-.art[data-cooking-method="pasta-egg"] .pan-contact-shadow{left:16%;width:50%}
-.art:is([data-cooking-method="pilaf"],[data-cooking-method="rice-fry"],[data-cooking-method="omelet-rice"]) .pan-contact-shadow{left:16%;width:50%}
+.pan-contact-shadow{z-index:1;left:16%;bottom:37.5%;width:50%;height:10%;border-radius:50%;background:radial-gradient(ellipse,#25170ed9,transparent 68%);filter:blur(1px)}
 .art[data-cooking-method="sear"] .pan-contact-shadow{left:14%;width:57%;height:9%;bottom:37%;background:radial-gradient(ellipse at 26% 33%,#21150fe6,transparent 35%),radial-gradient(ellipse at 76% 64%,#21150fe6,transparent 35%)}
 .stage-object:has(.cookware-art[data-asset-state="ready"]) .pan-front[data-ready="true"],.stage-object:has(.cookware-art[data-asset-state="ready"]):has(svg.pan-food,.painted-pan-food[data-asset-state="ready"]) .pan-contact-shadow{visibility:visible}
 /* Remaining foods use the accepted low, modest portions and keep their source ratio. */
-.stage-object .painted-pan-food[data-food-kind="egg-simmer"]{left:14%;width:54%;bottom:27%;animation:none}
+.stage-object .painted-pan-food[data-food-kind="egg-simmer"]{animation:none}
 .stage-object .painted-pan-food:is([data-food-file="thin-egg-in-pan.png"],[data-food-file="tomato-sauce-in-pan.png"],[data-food-file="sauteed-onions-in-pan.png"]){animation:none}
-.stage-object .painted-pan-food[data-food-file="tomato-sauce-in-pan.png"]{left:14%;width:54%;bottom:27%}
-.stage-object:has([data-food-file="tomato-sauce-in-pan.png"]) .pan-contact-shadow{left:16%;width:50%}
 .stage-object[data-vessel="bowl"] .painted-pan-food{left:20%;width:60%;bottom:28%;animation:none}
 .stage-object[data-vessel="fryer"] .painted-pan-food{left:23%;width:54%;bottom:38%;animation:none}
 .stage-object[data-vessel="bowl"] .pan-front{mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1536 1024'%3E%3Cpath fill='white' d='M118 390 C180 500 1350 520 1418 390 L1536 1024 H0 Z M810 478 Q800 420 1020 382 L1380 74 Q1450 62 1415 144 L1070 450 Z'/%3E%3C/svg%3E")}
 .stage-object[data-vessel="fryer"] .pan-front{mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1536 1024'%3E%3Cpath fill='white' d='M135 345 C220 475 1300 495 1400 345 L1536 1024 H0 Z'/%3E%3C/svg%3E")}
 .stage-object[data-vessel="bowl"] .pan-contact-shadow{left:22%;width:56%;bottom:48%;height:8%}
 .stage-object[data-vessel="fryer"] .pan-contact-shadow{left:25%;width:50%;bottom:55%;height:6%}
-.art[data-cooking-method="egg-simmer"] .pan-contact-shadow{left:16%;width:50%}
