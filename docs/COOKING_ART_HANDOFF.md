@@ -86,3 +86,5 @@
 オムライス段階2・3の薄焼き卵は未制作。今回のご飯素材を卵の代わりには表示しない。既存の工程描画は次の卵制作で更新する。親子丼の卵とじも未制作。
 
 確認URL: [ピラフの米炒め](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=pilaf&step=0)、[チキンライス](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=chicken-rice&step=2)、[オムライスのご飯](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=omurice&step=1)。
+
+ご飯版の検証と配信: `npm run check`、`check:assets`（64点）、`rice-food`・`cooking-preview`・`cooking.browser` が合格。専用テストでPC/390/320pxの比率・工程指定・ふた・動きの停止・動きを控える設定・保存隔離・両ご飯と器具の画像失敗・完成公開を確認し、全16料理×4段階×7画面サイズも合格。2026-11-02 21:49 JST、version 56 / succeeded、所有者限定。GitHub `d0d264a369f3af5656e810c67ad8a81e2f49bd17` とSites `617cb3dc2e8818a46ea4cf1a4aa0a9fd5a2bd64a` のdist treeは `97c8e289a20654d5cfcb5085dafe3a80186fac06` で一致。
