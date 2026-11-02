@@ -111,3 +111,5 @@ GitHub反映: ユーザーの明示許可後、`codex/cooking-food-effects` を 
 [制作状況・残り素材・再開手順](docs/COOKING_ART_HANDOFF.md) を追加。今回追加したのは肉と赤いパスタの2点。クリーム系パスタ、ご飯、卵、ボウルと揚げ物の描き直しは未着手であることを明記している。
 
 検証: `npm run check`、`python3 scripts/check-assets.py`、`cooking-preview`（1000/390/320px、肉/パスタの段階指定・保存隔離・設定での停止・OS/アプリの動きを控える設定）、`pan-food`、`cooking.browser`（16料理×4段階×7画面サイズ）。
+
+配信成功: 2026-11-02 16:52 JST。Sitesソース `c7204ec8bc3e006d38e87efa4f0cd6a3f896d236`、GitHub実装 `eb55a54`、双方の `dist/` tree は `1c8fea1fe61e0498bd6690ba3a9c90c2cdb3c2d1` で一致。version_id `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_8fc7c178ef848191964a02540d054d63`、deployment_id `appgdep_6ae8412a36b481918e50f1afd377ecea`（succeeded）。所有者限定を維持。今回の配信結果が返した現行URLは https://cinderella-first-dish.takatama.chatgpt.site 。最新の確認リンクはこのホストを使う。

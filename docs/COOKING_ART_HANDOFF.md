@@ -30,9 +30,9 @@
 
 調理プレビューは `?preview=cooking&dish=<料理ID>&step=<0〜3>`。段階省略時は1。再表示も指定段階を保つ。プレビューで既存セーブを読み込んだり上書きしたりしない。
 
-- 肉: https://cinderella-first-dish.halvedfable.chatgpt.site/?preview=cooking&dish=hamburg-steak&step=1
-- 赤いパスタ: https://cinderella-first-dish.halvedfable.chatgpt.site/?preview=cooking&dish=amatriciana&step=2
-- 野菜: https://cinderella-first-dish.halvedfable.chatgpt.site/?preview=cooking&dish=vegetable-stir-fry
+- 肉: https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=hamburg-steak&step=1
+- 赤いパスタ: https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=amatriciana&step=2
+- 野菜: https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=vegetable-stir-fry
 
 検証: `npm run check`、`npm run check:assets`、`node scripts/test-browser.mjs cooking-preview`、`node scripts/test-browser.mjs pan-food`、`node scripts/test-browser.mjs cooking.browser`。必要なChromiumパスは `/usr/bin/chromium`。
 
