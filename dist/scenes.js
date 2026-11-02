@@ -141,9 +141,10 @@
       } else if (state.phase === "final-result") {
         files.push("prince-pleased.png");
       } else if (state.phase === "ending") {
-        if (state.storyStep === 0) files.push("company-workshop.png");
+        if (state.storyStep === 0) files.push("company-ceo.png");
         if (state.storyStep === 1)
           files.push("mail-order-home.png", "mail-order-epilogue.png");
+        if (state.storyStep === 2) files.push("company-ceo.png");
       }
       root.Assets.prepare(files);
     }
@@ -392,11 +393,14 @@
           );
       }
       picture.append(cast);
-      if (scene === "mail-order") {
+      if (["company", "thanks", "mail-order"].includes(scene)) {
         picture.dataset.tableau = "loading";
         // This scene has its own poses. The adopted cutouts remain a fallback on failure.
-        const tableau = root.Assets.image("mail-order-epilogue.png");
-        tableau.className = "mail-order-tableau";
+        const company = scene !== "mail-order";
+        const tableau = root.Assets.image(
+          company ? "company-ceo.png" : "mail-order-epilogue.png",
+        );
+        tableau.className = company ? "company-tableau" : "mail-order-tableau";
         tableau.alt = "";
         tableau.hidden = true;
         tableau.draggable = false;
@@ -570,11 +574,11 @@
                 "魔法の部屋で、テーブルのパンプキンプリンに感動する王子様とシンデレラ。",
               investment: "王子様がシンデレラに会社への出資を申し出ています。",
               company:
-                "発送用の箱が並ぶ繁盛した工房で、シンデレラと王子様が微笑んでいます。",
+                "青いスーツ姿のシンデレラが、木製のクリップボードとペンを手に、繁盛したプリン工房を仕切っています。",
               "mail-order":
                 "お姉さんとお母さんが、こっそり取り寄せた箱を開け、パンプキンプリンを楽しんでいます。",
               thanks:
-                "温かな工房から、シンデレラがこちらへ手を差し出してお礼を伝えています。",
+                "会社を設立したシンデレラが、青いスーツとリボン姿で温かなプリン工房からお礼を伝えています。",
             }[scene],
           );
         }

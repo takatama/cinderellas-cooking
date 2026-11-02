@@ -94,6 +94,17 @@ const manifest={
     "height": 512,
     "bytes": 49656
   },
+  "company-ceo.png": {
+    "src": "assets/company-ceo.175ae5ca27260096.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 1921260,
+    "small": {
+      "src": "assets/company-ceo-768.2aa299bc85ca100e.webp",
+      "width": 768,
+      "bytes": 637128
+    }
+  },
   "company-workshop.png": {
     "src": "assets/company-workshop.4bd9662ca8818fe7.webp",
     "width": 1536,
