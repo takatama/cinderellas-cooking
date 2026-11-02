@@ -91,7 +91,17 @@
     function prepareNext() {
       const state = getState();
       const files = [];
-      if (state.phase === "select") {
+      if (state.phase === "intro" && state.introStep !== 2) {
+        if (state.introBeat > 0 || state.introStep > 0)
+          files.push("help-characters.png");
+      } else if (
+        (state.phase === "intro" && state.introStep === 2) ||
+        ["mother", "prince"].includes(state.phase)
+      ) {
+        // The first shuffled pair is not decided until the player agrees to help.
+        for (const name of root.Journey.recipes[state.chapter].pairs.flat())
+          files.push(foodAssets[name]);
+      } else if (state.phase === "select") {
         for (const name of state.round[state.step + 1]?.options || [])
           files.push(foodAssets[name]);
       } else if (state.phase === "ready") {
@@ -124,8 +134,12 @@
         );
       } else if (state.phase === "castle") {
         files.push("castle-door-closed.png");
+      } else if (state.phase === "door") {
+        files.push("castle-door-open.png", "magic-room.png");
       } else if (state.phase === "door-open") {
         files.push("magic-room.png");
+      } else if (state.phase === "final-result") {
+        files.push("prince-pleased.png");
       } else if (state.phase === "ending") {
         if (state.storyStep === 0) files.push("company-workshop.png");
         if (state.storyStep === 1)
@@ -344,8 +358,7 @@
       const actor = (name, file, expression) => {
         const group = document.createElement("div");
         group.className = "finale-actor finale-" + name;
-        const base = document.createElement("img");
-        root.Assets.assign(base, file);
+        const base = root.Assets.image(file);
         base.alt = "";
         base.draggable = false;
         base.addEventListener("asseterror", () => {
@@ -353,8 +366,7 @@
         });
         group.append(base);
         if (expression) {
-          const face = document.createElement("img");
-          root.Assets.assign(face, expression);
+          const face = root.Assets.image(expression);
           face.alt = "";
           face.className = "finale-expression";
           face.draggable = false;
@@ -383,12 +395,12 @@
       if (scene === "mail-order") {
         picture.dataset.tableau = "loading";
         // This scene has its own poses. The adopted cutouts remain a fallback on failure.
-        const tableau = document.createElement("img");
+        const tableau = root.Assets.image("mail-order-epilogue.png");
         tableau.className = "mail-order-tableau";
         tableau.alt = "";
         tableau.hidden = true;
         tableau.draggable = false;
-        tableau.addEventListener("assetready", () => {
+        root.Assets.onReady(tableau, () => {
           tableau.hidden = false;
           picture.dataset.tableau = "true";
         });
@@ -396,12 +408,15 @@
           tableau.hidden = true;
           picture.dataset.tableau = "false";
         });
-        root.Assets.assign(tableau, "mail-order-epilogue.png");
         picture.append(tableau);
       }
       if (["company", "mail-order", "thanks"].includes(scene)) {
         // Reuse the exact painted boxes above the people, without repainting the workshop.
-        const parcels = document.createElement("img");
+        const parcels = root.Assets.image(
+          scene === "mail-order"
+            ? "mail-order-home.png"
+            : "company-workshop.png",
+        );
         parcels.className =
           "finale-parcels" +
           (scene === "mail-order" ? " mail-order-parcels" : "");
@@ -410,12 +425,6 @@
         parcels.addEventListener("asseterror", () => {
           parcels.hidden = true;
         });
-        root.Assets.assign(
-          parcels,
-          scene === "mail-order"
-            ? "mail-order-home.png"
-            : "company-workshop.png",
-        );
         picture.append(parcels);
       }
       if (scene === "tasting" || scene === "investment") {
@@ -572,19 +581,7 @@
         if (["castle", "door", "oven"].includes(scene) || finale) {
           picture.classList.add("castle-scene");
           picture.dataset.loaded = "loading";
-          const backdrop = document.createElement("img");
-          backdrop.className = "castle-backdrop";
-          backdrop.alt = "";
-          backdrop.setAttribute("aria-hidden", "true");
-          backdrop.addEventListener("assetready", () => {
-            picture.dataset.loaded = "true";
-          });
-          backdrop.addEventListener("asseterror", () => {
-            backdrop.hidden = true;
-            picture.dataset.loaded = "false";
-          });
-          root.Assets.assign(
-            backdrop,
+          const backdrop = root.Assets.image(
             scene === "castle"
               ? "castle-exterior.png"
               : scene === "door"
@@ -597,6 +594,16 @@
                     ? "mail-order-home.png"
                     : "magic-room.png",
           );
+          backdrop.className = "castle-backdrop";
+          backdrop.alt = "";
+          backdrop.setAttribute("aria-hidden", "true");
+          root.Assets.onReady(backdrop, () => {
+            picture.dataset.loaded = "true";
+          });
+          backdrop.addEventListener("asseterror", () => {
+            backdrop.hidden = true;
+            picture.dataset.loaded = "false";
+          });
           picture.prepend(backdrop);
         }
         if (finale) addFinaleCast(picture, scene);

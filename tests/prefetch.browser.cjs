@@ -1,28 +1,16 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { chromium } = require("playwright");
-const { assetPattern, settleImages } = require("./assets.cjs");
+const {
+  assetPattern,
+  settleImages,
+  tracePreparedArt: trace,
+} = require("./assets.cjs");
 const startFinal = () => {
   state.chapter = 2;
   state.orange = true;
   state.pink = true;
   move("final-cooking");
-};
-const trace = () => {
-  window.preparedArt = {};
-  window.prefetchFailures = [];
-  const Native = window.Image;
-  window.Image = function (...args) {
-    const img = new Native(...args);
-    img.addEventListener("assetready", () => {
-      if (!img.isConnected) window.preparedArt[img.dataset.asset] = img;
-    });
-    img.addEventListener("asseterror", () => {
-      if (!img.isConnected) window.prefetchFailures.push(img.dataset.asset);
-    });
-    return img;
-  };
-  window.Image.prototype = Native.prototype;
 };
 (async () => {
   const browser = await chromium.launch({

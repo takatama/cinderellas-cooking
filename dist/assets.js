@@ -78,7 +78,12 @@
   const prepared = new Map();
   const MAX_PREPARED = 6;
   function preload(file) {
-    if (prepared.has(file)) return prepared.get(file).promise;
+    if (prepared.has(file)) {
+      const item = prepared.get(file);
+      prepared.delete(file);
+      prepared.set(file, item);
+      return item.promise;
+    }
     const img = new root.Image();
     img.fetchPriority = "low";
     const item = { img, promise: null };
@@ -107,6 +112,10 @@
       return item.img;
     }
     return assign(new root.Image(), file);
+  }
+  function onReady(img, handler) {
+    img.addEventListener("assetready", handler);
+    if (img.dataset.assetState === "ready") handler();
   }
 
   let upcoming = [],
@@ -161,6 +170,6 @@
   root.document?.addEventListener("close", kick, true);
   root.document?.addEventListener("assetready", kick, true);
   root.document?.addEventListener("asseterror", kick, true);
-  root.Assets = { manifest, url, assign, observe, image, prepare };
+  root.Assets = { manifest, url, assign, observe, image, prepare, onReady };
   if (typeof module !== "undefined") module.exports = root.Assets;
 })(typeof window !== "undefined" ? window : globalThis);
