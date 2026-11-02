@@ -101,3 +101,5 @@ GitHub反映: ユーザーの明示許可後、`codex/cooking-food-effects` を 
 `?preview=cooking&dish=vegetable-stir-fry` で直接調理中を開ける。初期段階1を自動で進めず、元の完成公開ボタンで先へ進め、「調理を見直す」で戻せる。プレビュー中は既存セーブを読み込まず、`saveProgress` も書き込まない。通常プレイのタイマーと保存は維持する。未登録IDは通常の入口に戻す。
 
 検証: `npm run check`、`npm run check:assets`、`cooking-preview.browser.cjs`（1000/390/320px、直リンク・再読み込み・保存隔離・完成公開・再試行・設定の停止・動きを控える設定・通常入口）、既存の `pan-food` と `cooking` ブラウザーテスト。
+
+配信成功: 2026-11-02 15:43 JST。Sitesソース `950a929e0b7b45e3b0b863a3a748aa9b93d2f6d1`、GitHub実装 `de0bfcb`、双方の `dist/` tree は `49b1039d001517f157ab9e9439601f180ab3e809` で一致。version_id `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_5fd1e6d380488191a66ae085398efdde`、deployment_id `appgdep_6ae830e7ab1481918e0e0734cefac8db`（succeeded）。公開範囲は所有者限定を維持。
