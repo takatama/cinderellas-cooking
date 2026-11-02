@@ -75,3 +75,5 @@
 位置修正: 2026-11-02 20:39 JST、version 54 / succeeded。クリーム系パスタだけ `bottom:39.5%` → `29%` へ下げた。PC・390・320pxで見た目を確認し、`cooking-preview` と `cream-pasta` が合格。GitHub `d09ac79` とSites `076e3c0` のdist treeは `3d3d25acfd14d5fdfff4891f1d813b0ab2917fee` で一致。原画・比率・肉の配置は維持。
 
 山盛り感の調整: クリーム系パスタだけ幅を64%から54%へ縮小し、中央を維持するためleftを9%から14%へ、bottomを29%から27%へ下げた。左右にフライパン内側の余白を作り、見える麺の高さを抑える。接地影も幅50%・left16%へ合わせた。原画比率、器具・肉・赤いパスタの形と位置は維持。
+
+縮小版の配信: 2026-11-02 21:39 JST、version 55 / succeeded、所有者限定。PC・390・320pxで見た目を確認し、`cooking-preview` と `cream-pasta` が合格。GitHub `d596768` とSites `9ec4684` のdist treeは `82e6facbcc7821308c657e1f221d1fc4d4c205fa` で一致。

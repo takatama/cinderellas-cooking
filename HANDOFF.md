@@ -33,13 +33,13 @@
 
 | 項目 | 最終確認した値 |
 | --- | --- |
-| 配信 | 2026-11-02 20:39 JST、version 54 / succeeded、所有者限定 |
+| 配信 | 2026-11-02 21:39 JST、version 55 / succeeded、所有者限定 |
 | Site project_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c` |
-| GitHubの配信一致実装 | `d09ac79cf4caad55973428ca11486b26516c2d53` |
-| Sitesソースコミット | `076e3c01240d3a6a9c933f95ca329df847283c64` |
-| 共通のdist tree | `3d3d25acfd14d5fdfff4891f1d813b0ab2917fee` |
-| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_89c6eb0f1d088191b1eb1f5de1243e25` |
-| deployment_id | `appgdep_6ae8766de4ac81919572265bc3307617` |
+| GitHubの配信一致実装 | `d59676883e24b34df81b2e99b4e91afcf958e7f9` |
+| Sitesソースコミット | `9ec4684366e254ea9b9b951e4ea6d9f2b0c58b66` |
+| 共通のdist tree | `82e6facbcc7821308c657e1f221d1fc4d4c205fa` |
+| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_8a5cde35cc4481918c3a8ba732e73512` |
+| deployment_id | `appgdep_6ae88482d6888191978fb0b5b8f31a64` |
 
 上表のコミットはクリーム系パスタ追加を含む。その後の配信記録追記は資料のみ。変更した配信物を公開するときは、最新のSitesスキルに従い、同じSiteと公開範囲を保って両ソースのdist一致を確認する。`.openai/hosting.json` がSiteの識別元。新規サイトは作らない。前回セッションの認証情報や `/tmp` の補助スクリプトが残ることを前提にしない。今回の環境にはSitesソース補助スクリプトが配置されていなかったため、ネイティブの書込み資格情報を標準入力で受けて通常のGitで同期し、同一コミットの `.openai/hosting.json` と `dist/` をtarに梱包して `save_version_and_deploy_private` へ渡した。資格情報はソース・ファイルに保存していない。
 
