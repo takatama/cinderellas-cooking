@@ -148,10 +148,10 @@ const manifest={
     "bytes": 55992
   },
   "frying-pan.png": {
-    "src": "assets/frying-pan.33019029004ebe05.webp",
+    "src": "assets/frying-pan.073360131ba2811f.webp",
     "width": 1536,
     "height": 1024,
-    "bytes": 1027004
+    "bytes": 976396
   },
   "frying-pot.png": {
     "src": "assets/frying-pot.ab377e6f43535a87.webp",
