@@ -91,3 +91,5 @@ CHROMIUM_PATH=/usr/bin/chromium npm run test:browser
 配信成功: 2026-11-02 14:45 JST、既存URL・所有者限定を維持。Sitesソース `471bcd9e22f05665fcb5ea48d20f66f5158d0697`、ローカル実装 `de81b52`、双方の `dist/` tree は `79b4cd1bd08866f66cbc936075d7f2dfa216f5de` で一致。version_id `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_fa370539b590819181a93b4f16dace02`、deployment_id `appgdep_6ae82362ca5481918bb9df17b93fecda`（succeeded）。GitHub送信は自動承認レビューで明示承認不足として拒否され、送信せずローカルブランチ `codex/cooking-food-effects` に保存した。
 
 追加検証: `CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs journey` で全編・両方の紙順序・保存復元・画像失敗を確認。ブラウザー全スイートでは扉・先読みの既存3件（`door-dials`、`prefetch`、`scene-prefetch`）が失敗。今回の変更前の公開ソース `a84827e` でも同じ失敗を再現した。通常の `journey` の初回実行はChromiumパス未指定で起動失敗したが、上記の明示指定で合格。既存16スイートと追加の `pan-food` は合格。
+
+GitHub反映: ユーザーの明示許可後、`codex/cooking-food-effects` を `takatama/cinderellas-cooking` へ送信済み。Sites version 46 の配信物は変更していない。
