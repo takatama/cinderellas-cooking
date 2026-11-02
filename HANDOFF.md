@@ -117,3 +117,5 @@ GitHub反映: ユーザーの明示許可後、`codex/cooking-food-effects` を 
 ## 2026-11-02 調理中の食材の縦横比修正
 
 CSSの幅・高さを別々の割合で指定していたため、透過食材が縦につぶれていた。3種類すべてを幅指定＋`height:auto` に変更し、下端を `bottom:42%` で器具へ合わせる。ハンバーグ個別の高さ指定も削除した。PC/390/320pxで原画と表示の比率が一致することをプレビューのブラウザーテストへ追加。画像原画や動き自体は変更していない。
+
+縦横比修正の配信成功: 2026-11-02 17:07 JST。Sitesソース `ddcdbe025af959d948221c36cfc2b8f05d00666a`、GitHub実装 `ede339c`、双方の `dist/` tree は `53a52183261ac550b3b971edbeb73b6d90ab3ceb`。version_id `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_ae6d8b92b0b88191bdf5f4558b93d198`、deployment_id `appgdep_6ae844ce06a481919c08bf3c24dcaa71`（succeeded）。URL・所有者限定を維持。
