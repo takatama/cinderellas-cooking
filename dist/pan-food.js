@@ -12,7 +12,8 @@
   function create(method, step) {
     const paintedFile = method === "stir-fry" ? "stir-fry-in-pan.png"
       : method === "sear" ? "hamburg-in-pan.png"
-      : method === "pasta" && step >= 2 ? "tomato-pasta-in-pan.png" : null;
+      : method === "pasta" && step >= 2 ? "tomato-pasta-in-pan.png"
+      : method === "pasta-egg" && step >= 2 ? "cream-pasta-in-pan.png" : null;
     if (paintedFile) {
       const food = root.Assets.image(paintedFile);
       food.className = "pan-food painted-pan-food";

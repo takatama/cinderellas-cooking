@@ -1,6 +1,6 @@
 # シンデレラの料理：次セッションへの引き継ぎ
 
-更新：2026-11-02（日本時間）。**フライパン原画の修正まで配信済み。ユーザーから「OK.なおりました」と確認を得た状態。** この資料整理ではコード・画像・配信物は変更していない。
+更新：2026-11-02（日本時間）。**確認済みのフライパン原画・肉の配置を維持し、カルボナーラ仕上げ用のクリーム系パスタを追加。** PR #7を継続し、マージしない。
 
 ## 最初に確認すること
 
@@ -12,7 +12,7 @@
 
 ## 今回の確定した状態
 
-食材の透過画像は野菜・ハンバーグ・赤いパスタの3点。工程ごとの一枚絵や連続画像は増やしていない。野菜はフライパンをあおり、肉は静かに焼き、赤いパスタは小さく傾けてからめる。
+食材の透過画像は野菜・ハンバーグ・赤いパスタ・クリーム系パスタの4点。工程ごとの一枚絵や連続画像は増やしていない。野菜はフライパンをあおり、肉は静かに焼き、赤いパスタは小さく傾けてからめる。カルボナーラは段階2・3でクリーム系パスタを表示し、火を止めた仕上げに合わせて5.5秒周期でゆっくり傾ける。加熱の湯気・油の泡は出さない。
 
 原画の縦横比を保ち、器具→接地影→食材→手前の縁・緑の側面の順に重ねる。手前部分は同じフライパン画像をマスクして再利用する。肉は緑の側面で半分以上を隠すのがユーザーの指定。`bottom:22%` とし、約66%を隠して上部だけ見せる。
 
@@ -23,6 +23,7 @@
 [通常の入口](https://cinderella-first-dish.takatama.chatgpt.site/)（所有者限定）。古い `halvedfable` ホストの記録より、現行の `takatama` ホストを使う。
 
 - [ハンバーグ・焼き工程](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=hamburg-steak&step=1)
+- [カルボナーラ・仕上げ](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=carbonara&step=2)
 - [赤いパスタ・仕上げ](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=amatriciana&step=2)
 - [野菜炒め](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=vegetable-stir-fry)
 
@@ -51,13 +52,14 @@ python3 -m http.server 4173 --directory dist
 npm run check
 npm run check:assets
 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs cooking-preview
+CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs cream-pasta
 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs pan-food
 CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs cooking.browser
 ```
 
-最終原画で上記は合格。配信画像61点の寸法・透過・可視画素・ハッシュ、PC/390/320pxのプレビュー・保存隔離・比率・一時停止・動きを控える設定、全16料理×4段階×7画面サイズの調理・完成公開・保存再開・画像失敗を確認した。
+最終原画で上記は合格。配信画像62点の寸法・透過・可視画素・ハッシュ、PC/390/320pxのプレビュー・保存隔離・比率・一時停止・動きを控える設定、全16料理×4段階×7画面サイズの調理・完成公開・保存再開・画像失敗を確認した。
 
-以前の広範囲テストでは `door-dials.browser.cjs`、`prefetch.browser.cjs`、`scene-prefetch.browser.cjs` が失敗。変更前の公開ソース `a84827e` でも同じ箇所で再現済みで、このPRでは修正していない。扉の前面スナップショットと自動オーブン演出の導入後、テスト側の前提が古い可能性があるため、次回は実際の差分と失敗箇所を切り分ける。単に待ち時間を増やして通った扱いにしない。`journey.browser.cjs` はChromiumパスの明示指定で全編が合格した。今回の資料整理では実装テストを再実行せず、資料リンクと配信済みdistの一致を再確認した。
+以前の広範囲テストでは `door-dials.browser.cjs`、`prefetch.browser.cjs`、`scene-prefetch.browser.cjs` が失敗。変更前の公開ソース `a84827e` でも同じ箇所で再現済みで、このPRでは修正していない。扉の前面スナップショットと自動オーブン演出の導入後、テスト側の前提が古い可能性があるため、次回は実際の差分と失敗箇所を切り分ける。単に待ち時間を増やして通った扱いにしない。`journey.browser.cjs` はChromiumパスの明示指定で全編が合格した。今回の変更では上記の関連スイートを再実行する。既知の失敗3件は今回の対象外。
 
 ## 維持する素材と動作
 

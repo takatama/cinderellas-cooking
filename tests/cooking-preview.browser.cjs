@@ -38,7 +38,7 @@ const assert=require('node:assert/strict');
   await p.goto(base+'/?preview=cooking&dish=unknown');
   assert.equal(await p.locator('.cooking-preview-toolbar').count(),0);
   const saveBeforeNewPreviews=await p.evaluate(()=>localStorage.getItem(Progress.KEY));
-  for(const [dish,step,kind] of [['hamburg-steak',1,'sear'],['amatriciana',2,'pasta'],['tomato-spaghetti',2,'pasta']]){
+  for(const [dish,step,kind] of [['hamburg-steak',1,'sear'],['amatriciana',2,'pasta'],['tomato-spaghetti',2,'pasta'],['carbonara',2,'pasta-egg'],['carbonara',3,'pasta-egg']]){
    await p.goto(base+'/?preview=cooking&dish='+dish+'&step='+step);
    await p.locator('.cookware-art').evaluate(i=>i.decode());
    await p.locator('.painted-pan-food').evaluate(i=>i.decode());
@@ -46,6 +46,12 @@ const assert=require('node:assert/strict');
    assert.equal(await p.evaluate(()=>cookingStep),step);
    assert.equal(await p.locator('.painted-pan-food').getAttribute('data-food-kind'),kind);
    assert.equal(await p.locator('.painted-pan-food').isVisible(),true);
+   if(kind==='pasta-egg'){
+    assert.equal(await p.locator('.painted-pan-food').getAttribute('data-asset'),'cream-pasta-in-pan.png');
+    assert.equal(await p.locator('#steam').evaluate(e=>e.classList.contains('active')),false,'egg sauce finishes off the heat');
+    assert.equal(await p.locator('#oil-bubbles').isVisible(),false);
+    assert.equal(await p.locator('.pan-toss').evaluate(e=>getComputedStyle(e).animationDuration),'5.5s');
+   }
    if(kind==='sear'){
     assert.equal(await p.locator('.pan-toss').count(),0,'patties are not tossed');
     assert.equal(await p.locator('.painted-pan-food').evaluate(e=>getComputedStyle(e).animationName),'none');

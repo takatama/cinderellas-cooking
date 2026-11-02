@@ -1,6 +1,6 @@
 # 調理素材の制作・引き継ぎ
 
-更新: 2026-11-02（日本時間）。野菜・肉・赤いパスタの食材3点と、フライパン原画の深さ修正まで反映済み。ユーザーから「OK.なおりました」と確認済み。最新のPR・配信情報は [引き継ぎ入口](../HANDOFF.md) を参照。
+更新: 2026-11-02（日本時間）。野菜・肉・赤いパスタにクリーム系パスタを加えた食材4点。フライパン原画の深さ修正と肉の配置を維持。ユーザーから「OK.なおりました」と確認済み。最新のPR・配信情報は [引き継ぎ入口](../HANDOFF.md) を参照。
 
 ## 採用方針
 
@@ -13,12 +13,12 @@
 | `stir-fry-in-pan.png` | 野菜炒め | フライパンの段階 |
 | `hamburg-in-pan.png` | ハンバーグ | ふたをする前の段階1 |
 | `tomato-pasta-in-pan.png` | アマトリチャーナ、トマトスパゲティ | 麺を合わせた段階2・3 |
+| `cream-pasta-in-pan.png` | カルボナーラ | 火を止め、卵ソースをからめる段階2・3 |
 
 原画: `artwork/originals/`。登録: `artwork/assets.json`。配信画像とmanifestは `python3 scripts/build-assets.py` で生成する。原画を残し、生成された画像を直接編集しない。赤いパスタはベーコン・鶏肉を固定で描かず、麺とトマトソースの共通ベースにする。
 
 ## 続きで追加する候補
 
-- クリーム色のパスタ1点（カルボナーラの仕上げ）。
 - 白系・ケチャップ系のご飯2点（ピラフ、チキンライス、オムライスのご飯）。
 - 卵の素材1〜2点。オムライスの薄い卵と親子丼の卵とじは形が違うため、無理な使い回しを避けて必要点数を判断する。
 - 現時点のパスタ段階1は従来のソース描画。必要なら麺のない共通ソース素材を追加する。
@@ -31,10 +31,11 @@
 調理プレビューは `?preview=cooking&dish=<料理ID>&step=<0〜3>`。段階省略時は1。再表示も指定段階を保つ。プレビューで既存セーブを読み込んだり上書きしたりしない。
 
 - 肉: https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=hamburg-steak&step=1
+- クリーム系パスタ: https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=carbonara&step=2
 - 赤いパスタ: https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=amatriciana&step=2
 - 野菜: https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=vegetable-stir-fry
 
-検証: `npm run check`、`npm run check:assets`、`node scripts/test-browser.mjs cooking-preview`、`node scripts/test-browser.mjs pan-food`、`node scripts/test-browser.mjs cooking.browser`。必要なChromiumパスは `/usr/bin/chromium`。
+検証: `npm run check`、`npm run check:assets`、`node scripts/test-browser.mjs cooking-preview`、`node scripts/test-browser.mjs cream-pasta`、`node scripts/test-browser.mjs pan-food`、`node scripts/test-browser.mjs cooking.browser`。必要なChromiumパスは `/usr/bin/chromium`。
 
 公開先は既存の所有者限定Site。project_id は `.openai/hosting.json`。ソースと配信物を照合して公開する。GitHubは `codex/cooking-food-effects` / PR #7 を更新し、勝手にマージしない。最新の配信結果は `HANDOFF.md` へ記録する。
 
@@ -50,15 +51,21 @@
 
 ## フライパン内側の原画修正
 
-`artwork/originals/frying-pan.png` の内側にあった明るい弧状の境界線を除去し、底へ連続的に暗くなる陰影へ修正。1536×1024のRGBA原画を維持し、外形・緑の側面・柄・前面マスクの構成はそのまま。修正前は `frying-pan-before-depth.png` に保存（配信登録せず、制作比較用のみ）。配信画像は同じ論理名の置換であり、画像数は61点のまま。
+`artwork/originals/frying-pan.png` の内側にあった明るい弧状の境界線を除去し、底へ連続的に暗くなる陰影へ修正。1536×1024のRGBA原画を維持し、外形・緑の側面・柄・前面マスクの構成はそのまま。修正前は `frying-pan-before-depth.png` に保存（配信登録せず、制作比較用のみ）。この修正は同じ論理名の置換。今回のクリーム系パスタ追加で配信画像は62点。
 
 ## 次の作業の進め方
 
 1. PR #7とブランチの最新状態を確認し、採用済みの肉・パスタ・野菜を直リンクで見る。修正済みのフライパンを再生成する必要はない。
-2. 次の制作候補はクリーム色のパスタ1点。まずはカルボナーラの仕上げ（段階2・3）用として、肉具材を固定しない麺と卵ソースの共通素材を作る。火を止める工程なので、強い加熱・激しいあおりの演出を付けない。
+2. クリーム系パスタは実装済み。カルボナーラの段階2・3だけに表示し、肉具材を固定しない麺と卵ソースの透過素材を使う。5.5秒周期の小さな傾きでからめ、火を止める工程のため加熱の湯気・油の泡を出さない。段階0・1と完成料理は従来通り。
 3. ご飯2点、卵1〜2点はその次の候補。追加点数は実際の料理と工程を確認して判断する。ボウル・揚げ物の描き直しは未着手で、今回の完了範囲に含めない。
 4. 新しい食材も原画の比率を保ち、既存の前面マスクと影を使う。食材と器具の読み込み失敗、ふた、完成公開、保存再開、動きを控える設定を確認してから同じSiteへ反映する。
 
 次回の依頼文の例：
 
-> HANDOFF.mdとdocs/COOKING_ART_HANDOFF.mdを読み、PR #7の続きとしてクリーム系パスタの透過食材を追加してください。ユーザー確認済みのフライパンの形と深さ、肉の隠れ方、原画の縦横比は維持してください。既存の工程指定プレビューと保存隔離を使って検証してください。
+> HANDOFF.mdとdocs/COOKING_ART_HANDOFF.mdを読み、PR #7の最新状態を確認して、残りのご飯・卵素材の制作を進めてください。ユーザー確認済みのフライパンの形と深さ、肉の隠れ方、原画の縦横比は維持してください。既存の工程指定プレビューと保存隔離を使って検証してください。
+
+## クリーム系パスタの検証
+
+原画は参照した赤いパスタと同じ横長の低い構図。透過PNGを保存し、lossless WebPを生成。`height:auto` と共通の `bottom:39.5%`、既存の前面マスク・接地影を使う。フライパン原画・ハンバーグ原画・肉の `bottom:22%` は変更していない。
+
+`cooking-preview.browser.cjs` にカルボナーラ段階2・3の比率・素材・非加熱・動きを控える設定を追加。`cream-pasta.browser.cjs` は既存v1セーブのバイト単位の保護、材料・出題順・下書き・紙・履歴を含む再開、設定・履歴・タブ非表示の一時停止、食材と器具の遅延・失敗時の非表示と手動完成公開を検証する。

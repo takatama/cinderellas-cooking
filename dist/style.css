@@ -340,6 +340,11 @@ body.reduced .art.cooking .stage-object.pan-toss:has(.cookware-art[data-asset-st
 @keyframes pasta-follow{0%,28%,70%,100%{transform:translate(0,0)}44%{transform:translate(-1%,-5%)}56%{transform:translate(1%,0)}}
 body.reduced .art.cooking[data-cooking-method="pasta"] .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]),body.reduced .painted-pan-food[data-food-kind="pasta"]{animation:none}
 @media(prefers-reduced-motion:reduce){.art.cooking[data-cooking-method="pasta"] .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]),.painted-pan-food[data-food-kind="pasta"]{animation:none}}
+/* Fold egg sauce gently off the heat, without the vegetable toss. */
+.art.cooking[data-cooking-method="pasta-egg"] .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]){animation-name:pan-fold;animation-duration:5.5s}
+.stage-object .painted-pan-food[data-food-kind="pasta-egg"]{animation-name:pasta-follow;animation-duration:5.5s}
+body.reduced .art.cooking[data-cooking-method="pasta-egg"] .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]),body.reduced .painted-pan-food[data-food-kind="pasta-egg"]{animation:none}
+@media(prefers-reduced-motion:reduce){.art.cooking[data-cooking-method="pasta-egg"] .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]),.painted-pan-food[data-food-kind="pasta-egg"]{animation:none}}
 
 /* Back pan, contact shadow, food, then the near rim: all share one pan canvas. */
 .stage-object .cookware-art{position:relative;z-index:0}

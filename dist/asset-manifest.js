@@ -361,6 +361,12 @@ const manifest={
     "height": 1024,
     "bytes": 1633496
   },
+  "cream-pasta-in-pan.png": {
+    "src": "assets/cream-pasta-in-pan.374893e217cdea4b.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1460316
+  },
   "stir-fry-in-pan.png": {
     "src": "assets/stir-fry-in-pan.71f19fdf4f79f429.webp",
     "width": 1918,
