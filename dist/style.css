@@ -315,7 +315,7 @@ body.reduced .art.served-warm .steam::after{display:none}
 
 /* The handle leads the pan; food follows a fraction later and settles inside it. */
 .art.cooking .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]){transform-origin:82% 39%;animation:pan-toss 3s ease-in-out infinite}
-.stage-object .painted-pan-food{inset:auto;left:9%;top:39.5%;width:64%;height:18%;object-fit:fill;filter:drop-shadow(0 3px 2px #3a251a66);animation:vegetables-toss 3s ease-in-out infinite}
+.stage-object .painted-pan-food{inset:auto;left:9%;bottom:42%;width:64%;height:auto;object-fit:contain;filter:drop-shadow(0 3px 2px #3a251a66);animation:vegetables-toss 3s ease-in-out infinite}
 .stage-object .painted-pan-food:not([data-asset-state="ready"]){visibility:hidden}
 @keyframes pan-toss{0%,25%,65%,100%{transform:translate(0,0) rotate(0)}36%{transform:translate(-3%,-1%) rotate(-5deg)}44%{transform:translate(1%,-2%) rotate(6deg)}54%{transform:translate(0,0) rotate(-1deg)}}
 @keyframes vegetables-toss{0%,32%,65%,100%{transform:translate(0,0) rotate(0)}43%{transform:translate(-2%,-17%) rotate(-2deg)}52%{transform:translate(1%,-5%) rotate(1deg)}}
@@ -333,7 +333,7 @@ body.reduced .art.cooking .stage-object.pan-toss:has(.cookware-art[data-asset-st
 @media(prefers-reduced-motion:reduce){.art.cooking .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]){animation:none}}
 .book:has(.cooking-preview-toolbar) .request{display:none}
 /* Patties stay on the hot surface; pasta is folded by a slower, smaller tilt. */
-.stage-object .painted-pan-food[data-food-kind="sear"]{left:14%;top:40%;width:57%;height:18%;animation:none}
+.stage-object .painted-pan-food[data-food-kind="sear"]{left:14%;width:57%;animation:none}
 .art.cooking[data-cooking-method="pasta"] .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]){animation-name:pan-fold;animation-duration:4s}
 .stage-object .painted-pan-food[data-food-kind="pasta"]{animation-name:pasta-follow;animation-duration:4s}
 @keyframes pan-fold{0%,25%,70%,100%{transform:translate(0,0) rotate(0)}40%{transform:translate(-1%,-.5%) rotate(-2deg)}53%{transform:translate(1%,-.5%) rotate(2deg)}}

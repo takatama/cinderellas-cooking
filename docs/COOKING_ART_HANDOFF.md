@@ -37,3 +37,7 @@
 検証: `npm run check`、`npm run check:assets`、`node scripts/test-browser.mjs cooking-preview`、`node scripts/test-browser.mjs pan-food`、`node scripts/test-browser.mjs cooking.browser`。必要なChromiumパスは `/usr/bin/chromium`。
 
 公開先は既存の所有者限定Site。project_id は `.openai/hosting.json`。ソースと配信物を照合して公開する。GitHubは `codex/cooking-food-effects` / PR #7 を更新し、勝手にマージしない。最新の配信結果は `HANDOFF.md` へ記録する。
+
+## 食材画像の縦横比
+
+透過食材は幅だけを指定し、`height:auto` で原画の比率を保つ。上下位置は器具の底側へ `bottom:42%` で合わせる。幅と高さを別々の割合で指定したり、`object-fit:fill` で押しつぶしたりしない。料理画像の表示比率は `cooking-preview.browser.cjs` でPCとスマートフォン幅の両方を検証する。
