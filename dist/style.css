@@ -332,3 +332,11 @@ body.reduced .art.cooking .stage-object.pan-toss,body.reduced .painted-pan-food{
 body.reduced .art.cooking .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]){animation:none}
 @media(prefers-reduced-motion:reduce){.art.cooking .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]){animation:none}}
 .book:has(.cooking-preview-toolbar) .request{display:none}
+/* Patties stay on the hot surface; pasta is folded by a slower, smaller tilt. */
+.stage-object .painted-pan-food[data-food-kind="sear"]{left:14%;top:40%;width:57%;height:18%;animation:none}
+.art.cooking[data-cooking-method="pasta"] .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]){animation-name:pan-fold;animation-duration:4s}
+.stage-object .painted-pan-food[data-food-kind="pasta"]{animation-name:pasta-follow;animation-duration:4s}
+@keyframes pan-fold{0%,25%,70%,100%{transform:translate(0,0) rotate(0)}40%{transform:translate(-1%,-.5%) rotate(-2deg)}53%{transform:translate(1%,-.5%) rotate(2deg)}}
+@keyframes pasta-follow{0%,28%,70%,100%{transform:translate(0,0)}44%{transform:translate(-1%,-5%)}56%{transform:translate(1%,0)}}
+body.reduced .art.cooking[data-cooking-method="pasta"] .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]),body.reduced .painted-pan-food[data-food-kind="pasta"]{animation:none}
+@media(prefers-reduced-motion:reduce){.art.cooking[data-cooking-method="pasta"] .stage-object.pan-toss:has(.cookware-art[data-asset-state="ready"]),.painted-pan-food[data-food-kind="pasta"]{animation:none}}

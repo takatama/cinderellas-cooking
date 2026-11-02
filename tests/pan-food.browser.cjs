@@ -10,6 +10,7 @@ const {assetPattern}=require('./assets.cjs');
    await page.goto(process.env.TEST_URL||'http://127.0.0.1:4173');
    await page.evaluate(()=>{state.phase='cooking';state.dish='ハンバーグ';cookingStep=1;render();pauseCooking();});
    await page.locator('.cookware-art').evaluate(i=>i.decode());
+   await page.locator('.painted-pan-food').evaluate(i=>i.decode());
    assert.equal(await page.locator('.pan-food:visible').count(),1);
    const meat=await page.locator('.pan-food').innerHTML();
    await page.evaluate(()=>{state.dish='アマトリチャーナ';cookingStep=1;render();pauseCooking();});

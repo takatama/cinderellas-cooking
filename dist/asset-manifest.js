@@ -165,6 +165,12 @@ const manifest={
     "height": 512,
     "bytes": 193246
   },
+  "hamburg-in-pan.png": {
+    "src": "assets/hamburg-in-pan.d441cacbc113ceba.webp",
+    "width": 1994,
+    "height": 789,
+    "bytes": 1640322
+  },
   "hamburg-steak.png": {
     "src": "assets/hamburg-steak.08170132b6cc3686.webp",
     "width": 1536,
@@ -366,6 +372,12 @@ const manifest={
     "width": 1536,
     "height": 1024,
     "bytes": 871916
+  },
+  "tomato-pasta-in-pan.png": {
+    "src": "assets/tomato-pasta-in-pan.4bc459648de479fa.webp",
+    "width": 1945,
+    "height": 808,
+    "bytes": 1613744
   },
   "tomato-spaghetti.png": {
     "src": "assets/tomato-spaghetti.f07683a6c9b29cf9.webp",

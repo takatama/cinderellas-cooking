@@ -10,6 +10,8 @@ const previewDishId = previewParams.get("preview") === "cooking"
 const previewRecipe = previewDishId && Journey.recipes.find(r =>
   r.dishes.some(dish => Catalog.idFor(dish) === previewDishId));
 const isCookingPreview = Boolean(previewRecipe);
+const previewStep = /^[0-3]$/.test(previewParams.get("step") || "")
+  ? Number(previewParams.get("step")) : 1;
 
 let ovenTransition = null, puzzleEffects = null, companyReveal = null;
 let cookingStep = 0,
@@ -813,7 +815,7 @@ if (isCookingPreview) {
     state.step = 2;
     state.dish = Catalog.label(previewDishId);
     state.phase = "cooking";
-    cookingStep = 1;
+    cookingStep = previewStep;
     render(false);
     scheduleCooking();
   }

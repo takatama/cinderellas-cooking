@@ -10,9 +10,13 @@
     return node;
   }
   function create(method, step) {
-    if (method === "stir-fry") {
-      const food = root.Assets.image("stir-fry-in-pan.png");
+    const paintedFile = method === "stir-fry" ? "stir-fry-in-pan.png"
+      : method === "sear" ? "hamburg-in-pan.png"
+      : method === "pasta" && step >= 2 ? "tomato-pasta-in-pan.png" : null;
+    if (paintedFile) {
+      const food = root.Assets.image(paintedFile);
       food.className = "pan-food painted-pan-food";
+      food.dataset.foodKind = method;
       food.alt = "";
       food.setAttribute("aria-hidden", "true");
       food.draggable = false;
@@ -21,13 +25,7 @@
     const svg = element("svg", { viewBox: "0 0 1536 1024", class: "pan-food", "aria-hidden": "true" });
     const food = element("g", { class: "pan-food-pieces", "stroke-linejoin": "round" }, svg);
     const browned = step >= 1;
-    if (method === "sear") {
-      for (const [x, y, angle] of [[440, 508, -8], [830, 510, 9]]) {
-        const patty = element("g", { transform: `translate(${x} ${y}) rotate(${angle})` }, food);
-        element("path", { d: "M-147 0C-150-66-71-86 16-77C110-80 155-35 144 8C131 58 51 68-37 56C-109 52-143 34-147 0Z", fill: browned ? "#875132" : "#b97162", stroke: "#68432f", "stroke-width": 7 }, patty);
-        element("path", { d: "M-111-23Q-44-65 65-38M-87 4Q-4-30 101-6M-57 32Q14 5 91 21", fill: "none", stroke: browned ? "#573c29" : "#d3957a", "stroke-width": 12, "stroke-linecap": "round", opacity: ".65" }, patty);
-      }
-    } else if (["pasta", "pasta-egg"].includes(method)) {
+    if (["pasta", "pasta-egg"].includes(method)) {
       const sauce = method === "pasta-egg" ? "#e5bd6f" : "#b96139";
       element("ellipse", { cx: 640, cy: 516, rx: 420, ry: 61, fill: sauce, opacity: ".8" }, food);
       if (step >= 2) for (let i = 0; i < 19; i++) {

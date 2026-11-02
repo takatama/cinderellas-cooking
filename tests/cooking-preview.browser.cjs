@@ -36,7 +36,34 @@ const assert=require('node:assert/strict');
   assert.equal(await p.evaluate(()=>state.phase),'intro');
   await p.goto(base+'/?preview=cooking&dish=unknown');
   assert.equal(await p.locator('.cooking-preview-toolbar').count(),0);
+  const saveBeforeNewPreviews=await p.evaluate(()=>localStorage.getItem(Progress.KEY));
+  for(const [dish,step,kind] of [['hamburg-steak',1,'sear'],['amatriciana',2,'pasta'],['tomato-spaghetti',2,'pasta']]){
+   await p.goto(base+'/?preview=cooking&dish='+dish+'&step='+step);
+   await p.locator('.cookware-art').evaluate(i=>i.decode());
+   await p.locator('.painted-pan-food').evaluate(i=>i.decode());
+   assert.equal(await p.evaluate(()=>cookingStep),step);
+   assert.equal(await p.locator('.painted-pan-food').getAttribute('data-food-kind'),kind);
+   assert.equal(await p.locator('.painted-pan-food').isVisible(),true);
+   if(kind==='sear'){
+    assert.equal(await p.locator('.pan-toss').count(),0,'patties are not tossed');
+    assert.equal(await p.locator('.painted-pan-food').evaluate(e=>getComputedStyle(e).animationName),'none');
+   }else{
+    assert.equal(await p.locator('.pan-toss').evaluate(e=>getComputedStyle(e).animationName),'pan-fold');
+    await p.locator('#settings').click();
+    assert.equal(await p.locator('.pan-toss').evaluate(e=>getComputedStyle(e).animationPlayState),'paused');
+    await p.locator('#reduce').check();
+    assert.equal(await p.locator('.pan-toss').evaluate(e=>getComputedStyle(e).animationName),'none');
+    await p.locator('#reduce').uncheck();
+    await p.locator('#settings-dialog .close').click();
+    await p.emulateMedia({reducedMotion:'reduce'});
+    assert.equal(await p.locator('.pan-toss').evaluate(e=>getComputedStyle(e).animationName),'none');
+    await p.emulateMedia({reducedMotion:'no-preference'});
+   }
+   await p.getByRole('button',{name:'調理を見直す',exact:true}).click();
+   assert.equal(await p.evaluate(()=>cookingStep),step,'replay retains the requested stage');
+   assert.equal(await p.evaluate(()=>localStorage.getItem(Progress.KEY)),saveBeforeNewPreviews);
+  }
   assert.deepEqual(errors,[]);
-  await p.close();console.log(`PASS ${width}px: cooking deep link, animation, pause, reduced motion, reveal/replay, save isolation, exit, invalid query`);
+  await p.close();console.log(`PASS ${width}px: cooking deep link, animation, pause, reduced motion, reveal/replay, save isolation, exit, invalid query, meat/pasta stage links`);
  }}finally{await b.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

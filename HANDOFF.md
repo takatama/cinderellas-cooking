@@ -103,3 +103,11 @@ GitHub反映: ユーザーの明示許可後、`codex/cooking-food-effects` を 
 検証: `npm run check`、`npm run check:assets`、`cooking-preview.browser.cjs`（1000/390/320px、直リンク・再読み込み・保存隔離・完成公開・再試行・設定の停止・動きを控える設定・通常入口）、既存の `pan-food` と `cooking` ブラウザーテスト。
 
 配信成功: 2026-11-02 15:43 JST。Sitesソース `950a929e0b7b45e3b0b863a3a748aa9b93d2f6d1`、GitHub実装 `de0bfcb`、双方の `dist/` tree は `49b1039d001517f157ab9e9439601f180ab3e809` で一致。version_id `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_5fd1e6d380488191a66ae085398efdde`、deployment_id `appgdep_6ae830e7ab1481918e0e0734cefac8db`（succeeded）。公開範囲は所有者限定を維持。
+
+## 2026-11-02 肉と赤いパスタへの横展開
+
+透過食材2点（`hamburg-in-pan.png`、`tomato-pasta-in-pan.png`）を追加。ハンバーグは段階1で静かに焼き、赤いパスタ2料理は段階2・3でゆっくりフライパンを傾けてからめる。赤いパスタの素材には肉具材を固定で描かず、料理をまたいで使える共通ベースとした。`&step=0`〜`&step=3` でプレビュー工程を指定でき、再表示もその段階に戻る。完成料理は従来の手動公開を維持。
+
+[制作状況・残り素材・再開手順](docs/COOKING_ART_HANDOFF.md) を追加。今回追加したのは肉と赤いパスタの2点。クリーム系パスタ、ご飯、卵、ボウルと揚げ物の描き直しは未着手であることを明記している。
+
+検証: `npm run check`、`python3 scripts/check-assets.py`、`cooking-preview`（1000/390/320px、肉/パスタの段階指定・保存隔離・設定での停止・OS/アプリの動きを控える設定）、`pan-food`、`cooking.browser`（16料理×4段階×7画面サイズ）。
