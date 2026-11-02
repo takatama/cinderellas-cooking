@@ -42,13 +42,13 @@
 
 | 項目 | 最終確認した値 |
 | --- | --- |
-| 配信 | 2026-11-03 07:10 JST、version 57 / succeeded、所有者限定 |
+| 配信 | 2026-11-03 07:32 JST、version 58 / succeeded、所有者限定 |
 | Site project_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c` |
-| GitHubの配信一致実装 | `782226f772911732082e66b96a234b9021403dc4` |
-| Sitesソースコミット | `26f787bed3169607385b9a630bc0681a80ea365b` |
-| 共通のdist tree | `b78a7aef9f37ab89ca9675a2a965caed4f8bb09c` |
-| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_68191da15bb48191ae3a25254c79b65f` |
-| deployment_id | `appgdep_6ae90a4992e88191aa6b972133621388` |
+| GitHubの配信一致実装 | `2cacf2def89fb82a641fcdbbd05d777948d709df` |
+| Sitesソースコミット | `603b75ab14f4df737e5334f0ff9a03e6d92de49a` |
+| 共通のdist tree | `5cfdfbab4dc7b7ec92dbe9cd1128bc9beb0104f4` |
+| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_67d8bcd668548191a22bd1a00bf80226` |
+| deployment_id | `appgdep_6ae90f571d348191af7b22c8fca663b6` |
 
 上表のコミットは今回の調理食材15点の実装を含む。その後の配信記録追記は資料のみ。変更した配信物を公開するときは、最新のSitesスキルに従い、同じSiteと公開範囲を保って両ソースのdist一致を確認する。`.openai/hosting.json` がSiteの識別元。新規サイトは作らない。前回セッションの認証情報や `/tmp` の補助スクリプトが残ることを前提にしない。今回の環境にはSitesソース補助スクリプトが配置されていなかったため、ネイティブの書込み資格情報を標準入力で受けて通常のGitで今回の追加・変更32ファイルだけを反映し（削除なし）、同一コミットの `.openai/hosting.json` と `dist/` をtarに梱包して `save_version_and_deploy_private` へ渡した。資格情報はソース・ファイルに保存していない。
 
@@ -110,3 +110,5 @@ CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs journey.browser
 ## 配置値の全点検
 
 2026-11-03、赤いパスタと野菜だけに残っていた旧配置（幅64%・下端39.5%）を、共通の `left:14%;width:54%;bottom:27%` へ修正。共通の接地影はleft16%・幅50%。15素材×1000/390/320pxを比較し、他13素材の配置と全原画の比率は維持した。全素材一覧と数値表は [配置点検](docs/references/COOKING_LAYOUT_AUDIT.md)。`cooking.browser.cjs` に、器具の内側の余白と手前の壁に隠れる深さの検証を追加した。
+
+配置修正後は `cooking.browser`（全16料理×4段階×7画面サイズ）、`cooking-preview`、`pan-food` が合格。version 58へ所有者限定で配信成功。原画と配信画像は変更しておらず、画像の再生成は不要だった。
