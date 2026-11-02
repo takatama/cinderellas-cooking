@@ -9,7 +9,7 @@ const page=await browser.newPage({viewport:{width,height},reducedMotion:'reduce'
 page.on('pageerror',e=>errors.push(e.message));
 await page.goto(process.env.TEST_URL||'http://127.0.0.1:4173');
 const decode=async()=>{await page.locator('#journey-art img,#stage-object img').evaluateAll(imgs=>Promise.all(imgs.map(img=>img.decode().catch(()=>{}))));
-for(const ratio of await page.locator('.finale-actor>img,.mail-order-tableau').evaluateAll(imgs=>imgs.filter(i=>i.naturalWidth&&i.getBoundingClientRect().height).map(i=>{const b=i.getBoundingClientRect();return (b.width/b.height)/(i.naturalWidth/i.naturalHeight);})))assert.ok(Math.abs(ratio-1)<.01,'finale characters retain their original aspect ratio');};
+for(const ratio of await page.locator('.finale-actor>img,.mail-order-tableau,.company-tableau').evaluateAll(imgs=>imgs.filter(i=>i.naturalWidth&&i.getBoundingClientRect().height).map(i=>{const b=i.getBoundingClientRect();return (b.width/b.height)/(i.naturalWidth/i.naturalHeight);})))assert.ok(Math.abs(ratio-1)<.01,'finale characters retain their original aspect ratio');};
 const read=async()=>{for(let i=0;i<12&&await page.locator('#dialogue').getAttribute('data-more')==='true';i++)await page.getByRole('button',{name:'つづきへ',exact:true}).click();};
 const click=async name=>{await read();await page.waitForTimeout(330);await page.getByRole('button',{name:name.replace(/[\s　]*→$/u,''),exact:true}).click();};
 for(const phase of ['room','orange','pink','final-ready','final-cooking']){
@@ -37,7 +37,7 @@ assert.equal(await page.locator('.finale-scene').getAttribute('data-finale'),sce
 assert.equal(await page.locator('.castle-backdrop').getAttribute('src'),assetUrl(file));
 assert.equal(await page.locator('#stage-object img').getAttribute('src'),assetUrl('pumpkin-pudding.png'));
 if(step===0)assert.equal(await page.locator('.finale-prince .finale-expression').getAttribute('src'),assetUrl('prince-pleased.png'));
-if(step===1)assert.equal(await page.locator('.finale-parcels').isVisible(),true);
+if(step===1){assert.equal(await page.locator('.company-tableau').isVisible(),true);assert.equal(await page.locator('.finale-parcels').isVisible(),false);assert.equal(await page.locator('#stage-object').isVisible(),false);}
 if(step===2){assert.equal(await page.locator('.finale-prince,.finale-cinderella').count(),0);assert.equal(await page.locator('.mail-order-tableau').isVisible(),true);assert.equal(await page.locator('.finale-cast').isVisible(),false);assert.equal(await page.locator('.finale-parcels').isVisible(),false);}
 await page.reload();await page.waitForTimeout(330);await page.getByRole('button',{name:'つづきから遊ぶ',exact:true}).click();await decode();
 assert.equal(await page.locator('.finale-scene').getAttribute('data-finale'),scene);
@@ -52,11 +52,13 @@ await click('つづきへ');await decode();
 assert.equal(await page.evaluate(()=>state.phase),'complete');
 assert.equal(await page.locator('.finale-scene').getAttribute('data-finale'),'thanks');
 assert.equal(await page.locator('.finale-cinderella').count(),1);
+assert.equal(await page.locator('.company-tableau').isVisible(),true);
+assert.equal(await page.locator('.finale-cast').isVisible(),false);
 assert.equal(await page.locator('.finale-prince,.finale-sister,.finale-mother,#stage-object img').count(),0);
 if(process.env.SCREENSHOTS)await page.screenshot({path:`${process.env.SCREENSHOTS}/${width}-${height}-thanks.png`,fullPage:true});
 assert.deepEqual(errors,[]);await page.close();console.log(`PASS final art ${width}x${height}: reveal, cast, expressions, pause, saves, endings, resize`);
 }
-for(const files of [['pumpkin-pudding.png'],['prince-delighted.png'],['help-characters.png','prince.png','mother.png'],['magic-room.png','tasting-table.png','company-workshop.png','mail-order-home.png'],['mail-order-epilogue.png']]){
+for(const files of [['pumpkin-pudding.png'],['prince-delighted.png'],['help-characters.png','prince.png','mother.png'],['magic-room.png','tasting-table.png','company-workshop.png','mail-order-home.png'],['mail-order-epilogue.png'],['company-ceo.png']]){
 const page=await browser.newPage();for(const file of files)await page.route(assetPattern(file),r=>r.abort());
 await page.goto(process.env.TEST_URL||'http://127.0.0.1:4173');
 const click=async name=>{for(let i=0;i<12&&await page.locator('#dialogue').getAttribute('data-more')==='true';i++)await page.getByRole('button',{name:'つづきへ',exact:true}).click();await page.waitForTimeout(330);await page.getByRole('button',{name,exact:true}).click();};
@@ -69,6 +71,7 @@ for(let step=0;step<3;step++){
 assert.equal(await page.evaluate(()=>state.storyStep),step);
 assert.ok(await page.locator('#advance button').count()>0);
 assert.ok((await page.locator('#dialogue').innerText()).length>0);
+if(step===1&&files.includes('company-ceo.png')){await page.waitForFunction(()=>document.querySelector('.finale-scene').dataset.tableau==='false');await settleImages(page);assert.equal(await page.locator('.finale-cast').isVisible(),true);assert.equal(await page.locator('.finale-parcels').isVisible(),true);assert.equal(await page.locator('#stage-object').isVisible(),true);}
 if(step===2&&files.includes('mail-order-epilogue.png')){await page.waitForFunction(()=>document.querySelector('.finale-scene').dataset.tableau==='false');await settleImages(page);assert.equal(await page.locator('.finale-cast').isVisible(),true);assert.equal(await page.locator('.finale-parcels').isVisible(),true);}
 await click('つづきへ');
 }

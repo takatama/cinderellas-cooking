@@ -38,6 +38,9 @@
   "chikuwabu.webp": {
     "responsive": false
   },
+  "company-ceo.png": {
+    "responsive": true
+  },
   "company-workshop.png": {
     "responsive": false
   },

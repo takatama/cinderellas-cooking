@@ -139,9 +139,9 @@ const { settleImages, tracePreparedArt } = require("./assets.cjs");
         true,
         "investment uses its prepared expression",
       );
-      await prepared(["company-workshop.png"]);
+      await prepared(["company-ceo.png"]);
       await click("つづきへ");
-      assert.equal(await same(".castle-backdrop"), true);
+      assert.equal(await same(".company-tableau"), true);
       assert.equal(
         await page.locator("#journey-art").getAttribute("data-visual"),
         "company",
