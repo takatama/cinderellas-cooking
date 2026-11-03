@@ -148,10 +148,10 @@ const manifest={
     "bytes": 55992
   },
   "frying-pan.png": {
-    "src": "assets/frying-pan.33019029004ebe05.webp",
+    "src": "assets/frying-pan.073360131ba2811f.webp",
     "width": 1536,
     "height": 1024,
-    "bytes": 1027004
+    "bytes": 976396
   },
   "frying-pot.png": {
     "src": "assets/frying-pot.ab377e6f43535a87.webp",
@@ -164,6 +164,12 @@ const manifest={
     "width": 512,
     "height": 512,
     "bytes": 193246
+  },
+  "hamburg-in-pan.png": {
+    "src": "assets/hamburg-in-pan.d441cacbc113ceba.webp",
+    "width": 1994,
+    "height": 789,
+    "bytes": 1640322
   },
   "hamburg-steak.png": {
     "src": "assets/hamburg-steak.08170132b6cc3686.webp",
@@ -355,11 +361,41 @@ const manifest={
     "height": 1024,
     "bytes": 1633496
   },
+  "buttered-rice-in-pan.png": {
+    "src": "assets/buttered-rice-in-pan.23a5e97ef9f3f2f8.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1475064
+  },
+  "tomato-rice-in-pan.png": {
+    "src": "assets/tomato-rice-in-pan.201740127ded0687.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1750732
+  },
+  "cream-pasta-in-pan.png": {
+    "src": "assets/cream-pasta-in-pan.374893e217cdea4b.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1460316
+  },
+  "stir-fry-in-pan.png": {
+    "src": "assets/stir-fry-in-pan.71f19fdf4f79f429.webp",
+    "width": 1918,
+    "height": 820,
+    "bytes": 1732580
+  },
   "tasting-table.png": {
     "src": "assets/tasting-table.d7199aa597aab3e5.webp",
     "width": 1536,
     "height": 1024,
     "bytes": 871916
+  },
+  "tomato-pasta-in-pan.png": {
+    "src": "assets/tomato-pasta-in-pan.4bc459648de479fa.webp",
+    "width": 1945,
+    "height": 808,
+    "bytes": 1613744
   },
   "tomato-spaghetti.png": {
     "src": "assets/tomato-spaghetti.f07683a6c9b29cf9.webp",
@@ -378,6 +414,60 @@ const manifest={
     "width": 1536,
     "height": 1024,
     "bytes": 1379062
+  },
+  "thin-egg-in-pan.png": {
+    "src": "assets/thin-egg-in-pan.18c399e6713d9739.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1335050
+  },
+  "egg-simmer-in-pan.png": {
+    "src": "assets/egg-simmer-in-pan.6040da491974bc8e.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1507308
+  },
+  "tomato-sauce-in-pan.png": {
+    "src": "assets/tomato-sauce-in-pan.e9f57b2196237da3.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1451016
+  },
+  "sauteed-onions-in-pan.png": {
+    "src": "assets/sauteed-onions-in-pan.2a6b7ca3ccb1cda2.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1283688
+  },
+  "meat-mixture-in-bowl.png": {
+    "src": "assets/meat-mixture-in-bowl.b08c5f557f086aed.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1692548
+  },
+  "mashed-potato-in-bowl.png": {
+    "src": "assets/mashed-potato-in-bowl.c305de6850710e38.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1271026
+  },
+  "potato-mixture-in-bowl.png": {
+    "src": "assets/potato-mixture-in-bowl.df8fdcb84691a56f.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1350748
+  },
+  "breaded-cutlets-in-oil.png": {
+    "src": "assets/breaded-cutlets-in-oil.71927f38ce5e27b0.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1534194
+  },
+  "chicken-onion-in-pan.png": {
+    "src": "assets/chicken-onion-in-pan.b47de99b9864b6db.webp",
+    "width": 1942,
+    "height": 809,
+    "bytes": 1358444
   }
 };
 root.AssetManifest=manifest;

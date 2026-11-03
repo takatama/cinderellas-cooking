@@ -2,7 +2,7 @@
 
 日本語の一周目を、カレーからパンプキンプリンと会社設立の結末まで遊べるウェブ版。三組の二択、違う料理と再挑戦、四桁の扉、順序自由の二色の紙を実装しています。
 
-[デモ](https://cinderella-first-dish.halvedfable.chatgpt.site/)（所有者のみ）
+[デモ](https://cinderella-first-dish.takatama.chatgpt.site/)（所有者のみ）
 
 ## 起動と確認
 
@@ -26,8 +26,17 @@ CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs
 
 - [改修後の構成と作業手順](docs/REFACTORING.md)
 - [周回ごとの素材・料理・英語確認状況](docs/CONTENT_STATUS.md)
-- [最新の引き継ぎと配信情報](HANDOFF.md)
+- [次セッションへの引き継ぎ・PR・配信情報](HANDOFF.md)
+- [調理素材の採用条件・残りの制作項目](docs/COOKING_ART_HANDOFF.md)
 
 料理表・調理演出は `content/`、採用原画・旧素材は `artwork/originals/` に保存しています。`dist/assets/` は配信用の生成物です。画像を再生成する場合だけ `python3 -m pip install -r requirements-assets.txt` と `python3 scripts/build-assets.py` が必要です。内容だけの変更は `node scripts/build-content.mjs` で反映します。
 
 現在遊べる範囲は日本語の一周目。二・三周目は原作表のデータのみ、英語版は確認待ちです。続きからの再開は同じブラウザーのlocalStorageを使い、従来の保存を引き続き読み込めます。
+
+## 調理シーンを直接確認する
+
+[野菜炒めの調理プレビュー](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=vegetable-stir-fry) は、調理中の表示を保ちます。「できあがりまで進む」→「できた料理を見る」で完成を確認し、「調理を見直す」で戻れます。保存済みのプレイ記録は読み込まず、上書きもしません。「通常のゲームへ」で元の入口に戻ります。
+
+クエリは `?preview=cooking&dish=vegetable-stir-fry`。`dish` には一周目の料理ID（例: `hamburg-steak`、`amatriciana`）も使えます。未登録のIDは通常の入口として扱います。
+
+調理プレビューは `&step=0`〜`&step=3` で工程を指定できます（省略時は1）。[ハンバーグの焼き工程](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=hamburg-steak&step=1)、[赤いパスタの仕上げ](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=amatriciana&step=2)。制作状況と残りの素材は [調理素材の引き継ぎ](docs/COOKING_ART_HANDOFF.md) を参照。

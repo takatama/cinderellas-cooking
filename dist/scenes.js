@@ -316,10 +316,40 @@
             img.replaceWith(note);
           });
           object.append(img);
+          if (["pan", "bowl", "fryer"].includes(stage.vessel)) {
+            const shadow = document.createElement("span");
+            shadow.className = "pan-contact-shadow";
+            shadow.setAttribute("aria-hidden", "true");
+            const front = document.createElement("span");
+            front.className = "pan-front";
+            front.setAttribute("aria-hidden", "true");
+            // Reuse decoded cookware pixels for the near wall and the bowl spoon.
+            root.Assets.onReady(img, () => {
+              front.style.backgroundImage = `url("${img.currentSrc || img.src}")`;
+              front.dataset.ready = "true";
+            });
+            object.append(shadow, front);
+          }
         } else if (name) object.append(foodImage(name, true));
+      }
+      if (stage && ["pan", "bowl", "fryer"].includes(stage.vessel)) {
+        const method = CookingArt.planFor(state.dish).method;
+        const dishId = Catalog.idFor(state.dish);
+        const foodKey = method + "|" + cookingStep + "|" + dishId;
+        if (object.dataset.panFoodKey !== foodKey) {
+          object.querySelector(".pan-food")?.remove();
+          const ingredients = root.PanFood.create(method, cookingStep, stage.vessel, dishId);
+          if (ingredients) object.append(ingredients);
+          object.dataset.panFoodKey = foodKey;
+        }
+      } else {
+        object.querySelector(".pan-food")?.remove();
+        delete object.dataset.panFoodKey;
       }
       const warm =
         state.phase === "result" && CookingArt.planFor(state.dish).servedSteam;
+      $("art").classList.toggle("served-warm", warm);
+      $("art").classList.toggle("dish-served", ["result", "final-result"].includes(state.phase));
       $("steam").classList.toggle("active", stage?.effect === "steam" || warm);
       $("oil-bubbles").hidden = stage?.effect !== "oil";
       $("art").classList.toggle("cooking", cooking);
@@ -331,6 +361,10 @@
           : "";
       $("art").dataset.cookware = stage?.vessel || "";
       $("art").dataset.beat = String(cookingStep);
+      object.classList.toggle("pan-toss", stage?.vessel === "pan" &&
+        (CookingArt.planFor(state.dish).method === "stir-fry" ||
+          (["pasta", "pasta-egg", "rice-fry"].includes(CookingArt.planFor(state.dish).method) && cookingStep >= 2) ||
+          (CookingArt.planFor(state.dish).method === "omelet-rice" && cookingStep === 1)));
     }
     function fitScene() {
       const ratio = $("scene").naturalWidth

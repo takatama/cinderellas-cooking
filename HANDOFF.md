@@ -1,18 +1,77 @@
-# シンデレラの料理：制作ガイド
+# シンデレラの料理：次セッションへの引き継ぎ
 
-更新：2026-11-02（日本時間）。作業開始時はGitHubの最新 `main` と作業ブランチの差分を確認する。PR #2（一周目完成）からPR #5（採用した会社設立後の画像）まではマージ済み。今回の演出追加は `b4f87fa` のmainを基準とする。
+更新：2026-11-03（日本時間）。**確認済みのフライパン原画・肉・クリーム系パスタの配置を維持し、残りの卵・ソース・ボウル・揚げ物まで調理食材を実装。** PR #7を継続し、マージしない。
 
-## 現在の状態と入口
+## 最初に確認すること
 
-日本語の一周目は、カレー・ハンバーグ・アマトリチャーナから城の謎、パンプキンプリン、会社設立とお取り寄せの結末まで実装済み。人物・食材・完成料理・城・終幕の画像も反映済み。
+- リポジトリ：`takatama/cinderellas-cooking`。この環境の作業場所は `/workspace/cinderellas-cooking`。
+- 作業ブランチ：`codex/cooking-food-effects`。変更は [PR #7](https://github.com/takatama/cinderellas-cooking/pull/7) にまとめている。2026-11-02の確認時点でopen・未マージ。ユーザーはコミットとPRを依頼した。マージは依頼されていない。
+- 基準main：`7b51524ab3cd1f9cd4f397b33b639d56986d1bac`（PR #6までマージ済み）。再開時は最新main・PR状態を読み直す。未マージならmainだけを開いて今回の実装を「未実装」と判断しない。
+- [調理素材の仕様・制作状況・次の作業](docs/COOKING_ART_HANDOFF.md) を読む。採用済みの形・配置・縦横比を維持し、残りの素材へ同じ方法を広げる。
+- 日本語の一周目は、カレーからパンプキンプリン・会社設立・お取り寄せまで実装済み。二・三周目は原作表のデータのみ、英語版は未実装。BGM・SEは基盤のみで音源・有効化UIは未追加。
 
-- [起動と確認](README.md)
-- [コード構成・編集する場所・保存・音声・画像配信](docs/REFACTORING.md)
-- [周回別の不足素材・料理・英語確認状況](docs/CONTENT_STATUS.md)
-- [原作資料と照合上の制約](docs/source/README.md)
-- [制作範囲の調査](docs/PRODUCTION_SCOPE.md)、[調理器具の調査](docs/COOKWARE_RESEARCH.md)
+## 今回の確定した状態
 
-二・三周目は原作表のデータのみで未公開。英語版は未実装・未確認。音声基盤は分離済みだが、BGM・SEの音源と有効化UIは未追加。次の制作候補は音楽・SE、追加周回の不足素材、英語版の原作照合。実機での音源調整・ソフトウェアキーボード・初見の試遊、本番キャッシュヘッダーの実測は未確認。
+食材の透過画像は15点。野菜・肉・パスタ2種・ご飯2種に、薄焼き卵・親子丼の具材と卵とじ・ソース・玉ねぎ・ボウル用の肉とポテト2種・揚げ物を追加。工程ごとの一枚絵や連続画像は増やしていない。野菜はフライパンをあおり、肉は静かに焼き、赤いパスタは小さく傾けてからめる。カルボナーラは段階2・3でクリーム系パスタを表示し、火を止めた仕上げに合わせて5.5秒周期でゆっくり傾ける。加熱の湯気・油の泡は出さない。クリーム系パスタは山盛り感を抑えるため `left:14%;width:54%;bottom:27%` とし、原画比率を保って縮小し、左右の余白と手前の側面による隠れを増やす。赤いパスタと野菜も、浮きを防ぐため同じ共通値へ揃えた。肉の位置は維持。
+
+原画の縦横比を保ち、器具→接地影→食材→手前の縁・緑の側面の順に重ねる。手前部分は同じフライパン画像をマスクして再利用する。肉は緑の側面で半分以上を隠すのがユーザーの指定。`bottom:22%` とし、約66%を隠して上部だけ見せる。
+
+フライパン内側の明るい弧状の線を除去し、暗い連続した陰影に修正した。現行原画は `artwork/originals/frying-pan.png`。修正前は `frying-pan-before-depth.png` として制作比較用に保持し、配信しない。**肉を上へ戻す・縦に押しつぶす・旧原画の浅い底へ戻す修正はしない。**
+
+白系ご飯はピラフ段階0、ケチャップ系ご飯はチキンライス段階2・3とオムライス段階1に表示。幅54%・bottom27%で余白と深さを確保する。ふたには重ねない。残りの卵・ソース・ボウル・揚げ物も実装し、今回の調理食材範囲は完了。親子丼は段階2をふたなしの卵投入、段階3をふた付きの蒸らしに分けた。
+
+## 現行サイトと確認用URL
+
+[通常の入口](https://cinderella-first-dish.takatama.chatgpt.site/)（所有者限定）。古い `halvedfable` ホストの記録より、現行の `takatama` ホストを使う。
+
+- [オムライス・薄焼き卵](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=omurice&step=2)
+- [親子丼・卵投入](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=oyakodon&step=2)
+- [ボウル・混ぜ工程](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=hamburg-steak&step=0)
+- [揚げ工程](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=potato-croquettes&step=2)
+- [チキンライス・仕上げ](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=chicken-rice&step=2)
+- [ピラフ・米炒め](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=pilaf&step=0)
+- [オムライス・ご飯炒め](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=omurice&step=1)
+- [ハンバーグ・焼き工程](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=hamburg-steak&step=1)
+- [カルボナーラ・仕上げ](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=carbonara&step=2)
+- [赤いパスタ・仕上げ](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=amatriciana&step=2)
+- [野菜炒め](https://cinderella-first-dish.takatama.chatgpt.site/?preview=cooking&dish=vegetable-stir-fry)
+
+`?preview=cooking&dish=<一周目の料理ID>&step=<0〜3>`。工程省略時は1。調理中を保ち、「調理を見直す」で指定工程へ戻る。プレビュー中は既存セーブを読み込まず上書きしない。通常の完成公開ボタンで結果も確認できる。
+
+## 最新の配信とソースの一致
+
+| 項目 | 最終確認した値 |
+| --- | --- |
+| 配信 | 2026-11-03 07:32 JST、version 58 / succeeded、所有者限定 |
+| Site project_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c` |
+| GitHubの配信一致実装 | `2cacf2def89fb82a641fcdbbd05d777948d709df` |
+| Sitesソースコミット | `603b75ab14f4df737e5334f0ff9a03e6d92de49a` |
+| 共通のdist tree | `5cfdfbab4dc7b7ec92dbe9cd1128bc9beb0104f4` |
+| version_id | `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_67d8bcd668548191a22bd1a00bf80226` |
+| deployment_id | `appgdep_6ae90f571d348191af7b22c8fca663b6` |
+
+上表のコミットは今回の調理食材15点の実装を含む。その後の配信記録追記は資料のみ。変更した配信物を公開するときは、最新のSitesスキルに従い、同じSiteと公開範囲を保って両ソースのdist一致を確認する。`.openai/hosting.json` がSiteの識別元。新規サイトは作らない。前回セッションの認証情報や `/tmp` の補助スクリプトが残ることを前提にしない。今回の環境にはSitesソース補助スクリプトが配置されていなかったため、ネイティブの書込み資格情報を標準入力で受けて通常のGitで今回の追加・変更32ファイルだけを反映し（削除なし）、同一コミットの `.openai/hosting.json` と `dist/` をtarに梱包して `save_version_and_deploy_private` へ渡した。資格情報はソース・ファイルに保存していない。
+
+## 起動・確認・既知のテスト状況
+
+```sh
+npm ci  # Playwrightがない場合だけ。サイト実行自体には不要
+python3 -m http.server 4173 --directory dist
+# 別ターミナルで、変更に関係するものを実行
+npm run check
+npm run check:assets
+CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs cooking-preview
+CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs cream-pasta
+CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs rice-food
+CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs remaining-food
+CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs pan-food
+CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs cooking.browser
+CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs journey.browser
+```
+
+最終原画で上記は合格。配信画像73点の寸法・透過・可視画素・ハッシュ、PC/390/320pxのプレビュー・保存隔離・比率・一時停止・動きを控える設定、全16料理×4段階×7画面サイズの調理・完成公開・保存再開・画像失敗を確認した。カルボナーラ専用テストでは、既存v1セーブのバイト単位の保護と再開、食材・器具の読み込み遅延と失敗、設定・履歴・非表示での一時停止を追加確認した。
+
+以前の広範囲テストでは `door-dials.browser.cjs`、`prefetch.browser.cjs`、`scene-prefetch.browser.cjs` が失敗。変更前の公開ソース `a84827e` でも同じ箇所で再現済みで、このPRでは修正していない。扉の前面スナップショットと自動オーブン演出の導入後、テスト側の前提が古い可能性があるため、次回は実際の差分と失敗箇所を切り分ける。単に待ち時間を増やして通った扱いにしない。`journey.browser.cjs` はChromiumパスの明示指定で全編が合格した。今回の残素材追加では check・check:assets・remaining-food・pan-food・rice-food・cream-pasta・cooking-preview・cooking.browser・journey.browser がすべて合格。全16料理×4段階×7画面サイズと、PC/390/320pxの結末までの全編・画像失敗・破損セーブからの回復を確認した。既知の失敗3件は今回の対象外。
 
 ## 維持する素材と動作
 
@@ -29,53 +88,27 @@
 
 画像の制作根拠と確認案は [docs/references](docs/references/) に残す。これらは制作当時の記録であり、古い素材パス・未実装一覧・ブランチ・PR状態・公開操作の説明は、現在のコードとこのガイドを優先する。
 
-## 検証
+## 既存の場面演出
 
-```sh
-npm run check
-npm run check:assets
-# 別ターミナルで起動後、変更に関連するブラウザーテストを実行
-python3 -m http.server 4173 --directory dist
-CHROMIUM_PATH=/usr/bin/chromium npm run test:browser
-```
+- `dist/oven-transition.js`：金色の光が約4.2秒で広がり、画面が白くなった瞬間にプリンの結果へ自動遷移。光は約1.1秒で引く。完成公開ボタンは短縮操作として残す。保存復元では演出を最初から再生する。
+- `dist/puzzle-effects.js`：扉の解錠と紙が光になる演出。正解・保存は即時に確定し、操作を遮らない。保存復元で正解演出を再生し直さない。
+- `dist/company-reveal.js`：採用済みの会社画像を約3秒で見せる。保存復元では再演出しない。
+- いずれも設定・履歴・タブ非表示で停止し、再開・次場面・リセット時の片付けを維持する。動きを控える設定では拡大や粒を省く。
 
-ブラウザー確認はPlaywrightとChromiumが必要。対象スイートの指定方法と、画像再生成に必要な依存関係は [構成と手順](docs/REFACTORING.md) を参照。
+## その他の資料
 
-## サイトと直近の配信記録
+- [起動と概要](README.md)
+- [コード構成・編集場所・保存・音声・画像配信](docs/REFACTORING.md)
+- [周回別の不足素材・英語確認](docs/CONTENT_STATUS.md)
+- [原作資料と照合上の制約](docs/source/README.md)
+- [制作範囲](docs/PRODUCTION_SCOPE.md)、[調理器具の根拠](docs/COOKWARE_RESEARCH.md)
 
-既存サイト：[デモ](https://cinderella-first-dish.halvedfable.chatgpt.site/)（所有者限定）。Sites project_id は `appgprj_6ae54da56ca481918db77b1973ddfb6c`。新規サイトを作らず、同じSiteと公開範囲を維持する。配信時はその時点のSitesスキルに従い、検証済みGitHubコミットとSitesソースの `dist/` 一致を確認する。
+過去の配信・試行の時系列はGit履歴に残している。再開時はこの資料と現行コードを優先し、古い配信URL・古い位置指定へ戻さない。
 
-以下はリポジトリに残る直近の配信記録であり、今回のドキュメント整理では再配信していない。
+公開用ソースの更新は、検証した変更ファイルに限定する。全ファイルの削除を含み得る同期処理は自動承認レビューで拒否されたため、同一Site ID・変更一覧・削除なしを読み取りで確認し、32ファイルだけを更新して配信した。Sitesが指定する公開ソースのmainへのpushと、GitHubのPRマージは別操作。GitHub mainは変更せず、PR #7は未マージ。
 
-配信成功：2026-11-02 10:42 JST、**version 40 / succeeded**。既存URL・所有者限定を維持。GitHub実装 `b7a60268ae4f16848b4c9ae329f751fac21520d8`、Sitesソース `6c7a57b9d9b2658763de3e2c0a34d028b8c73bce`。双方の `dist/` tree は `d6db1626666c00e64acc69849808112c80ebc73d` で一致。version_id `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_06fe969d97c48191af0464579728f3bf`、deployment_id `appgdep_6ae7ea630b4c8191b442443bdd291682`。この実装はPR #3でmainへマージ済み。この追加適用だけを戻す場合はversion 39。配信記録の追記は資料のみ。
+## 配置値の全点検
 
-## 過去の引継ぎ文書
+2026-11-03、赤いパスタと野菜だけに残っていた旧配置（幅64%・下端39.5%）を、共通の `left:14%;width:54%;bottom:27%` へ修正。共通の接地影はleft16%・幅50%。15素材×1000/390/320pxを比較し、他13素材の配置と全原画の比率は維持した。全素材一覧と数値表は [配置点検](docs/references/COOKING_LAYOUT_AUDIT.md)。`cooking.browser.cjs` に、器具の内側の余白と手前の壁に隠れる深さの検証を追加した。
 
-完了済みのUI・画像制作の引継ぎ書4件と旧履歴2件は削除した。必要な採用条件はこのガイドへ集約し、原作資料・制作記録・確認画像は保持する。過去の配信記録や制作途中の文書が必要な場合はGit履歴から参照する。
-
-
-## 2026-11-02 魔法のオーブンの場面転換
-
-`dist/oven-transition.js` で、オーブンから金色の光が約4.2秒かけて広がり、画面全体が白くなった瞬間に `final-result` へ自動遷移する。白い光は約1.1秒で引く。「できた料理を見る」は演出の短縮として残す。動きをひかえる設定では拡大を省いて緩やかな白へのフェードにする。設定・履歴・非表示中は一時停止し、再開する。調理中の保存を復元した場合は演出を最初から再生し、最初から遊ぶ操作では演出を破棄する。
-
-検証: `node --test tests/*.test.js`、`tests/oven-transition.browser.cjs`（1280／390／320px、通常・動きをひかえる、一時停止、白一色での遷移、保存再開、リセット）、`tests/final-art.browser.cjs`。
-
-
-## 2026-11-02 扉と二色の紙の正解演出
-
-`dist/puzzle-effects.js` に正解直後の視覚演出を追加。扉の数字が光り、中央の暖かい光とともに閉じた扉から開いた扉へフェードする。紙は下端から光になり、オレンジ／ピンクそれぞれの粒が舞い上がって消える。二枚目ではオーブンに小さな光が灯り、調理の大きな発光につながる。新しい画像・音声素材は追加していない。
-
-正解と保存は従来通り即時に確定する。演出は操作を遮らず、次の場面やリセットで破棄する。設定・履歴・非表示では一時停止する。保存から再開した場合に正解演出を再生し直さない。動きをひかえる設定では粒と光の拡大を省いてフェードする。
-
-検証: `node --test tests/*.test.js`、`node tests/puzzle-effects.browser.cjs`（1280／390／320px、不正解、両方の紙の順序、二枚目の光、一時停止、保存）、`CHROMIUM_PATH=/usr/bin/chromium node tests/journey.browser.cjs`。
-
-
-## 2026-11-02 会社設立の場面演出
-
-`dist/company-reveal.js` を追加。出資の申し出から大繁盛の工房へ進むとき、採用済みの `company-ceo.png` の中心から視界が穏やかに広がり、暖かい光が一筋流れる約3秒の演出を再生する。絵は一枚のまま扱い、人物や箱を再生成・切り分けしない。画像の準備を待って開始し、失敗時は既存の代替表示を同様に見せる。
-
-設定・履歴・非表示中は一時停止し、次の場面や再スタートでは演出を破棄する。保存された会社の場面を復元したときは再生しない。動きをひかえる設定では拡大・切り抜き・光の移動を省き、短いフェードにする。物語の文章と進行ボタンは従来通り。
-
-検証: `node --test tests/*.test.js`、`node tests/company-reveal.browser.cjs`（1280／390／320px、一時停止、保存、次場面の片付け、画像失敗）、`node tests/final-art.browser.cjs`。
-
-最新の演出配信は2026-11-02 13:42 JSTに成功。Sitesソース `a84827e297a6b42c8073d962ffb5e38b90224238`、version_id `appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_ca17f0eafc9c81919b51def50f2d5669`、deployment_id `appgdep_6ae814a3e2f881918ac149fece9cb76c`。GitHubへはこの公開済み実装を最新mainにまとめて取り込む。
+配置修正後は `cooking.browser`（全16料理×4段階×7画面サイズ）、`cooking-preview`、`pan-food` が合格。version 58へ所有者限定で配信成功。原画と配信画像は変更しておらず、画像の再生成は不要だった。

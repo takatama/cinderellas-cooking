@@ -4,6 +4,14 @@ const { dishFor, createRound } = Journey;
 const recipe = () => Journey.recipes[state.chapter || 0];
 const target = () => recipe().target;
 const initialState = Progress.initialState;
+const previewParams = new URLSearchParams(location.search);
+const previewDishId = previewParams.get("preview") === "cooking"
+  ? previewParams.get("dish") || "vegetable-stir-fry" : null;
+const previewRecipe = previewDishId && Journey.recipes.find(r =>
+  r.dishes.some(dish => Catalog.idFor(dish) === previewDishId));
+const isCookingPreview = Boolean(previewRecipe);
+const previewStep = /^[0-3]$/.test(previewParams.get("step") || "")
+  ? Number(previewParams.get("step")) : 1;
 
 let ovenTransition = null, puzzleEffects = null, companyReveal = null;
 let cookingStep = 0,
@@ -22,12 +30,13 @@ function scheduleCooking() {
   puzzleEffects?.sync();
   companyReveal?.sync();
   if (
-    state.phase !== "cooking" ||
     document.hidden ||
     document.querySelector("dialog[open]")
   )
     return;
   $("art").classList.remove("effects-paused");
+  if (isCookingPreview) return;
+  if (state.phase !== "cooking") return;
   if (cookingStep >= 3) return;
   cookingTimer = setTimeout(() => {
     cookingStep++;
@@ -51,7 +60,7 @@ const { foodImage, updateSister, updateTable, updateStageArt, fitScene } =
   scenes;
 let savedProgress = null;
 try {
-  savedProgress = Progress.load(localStorage);
+  if (!isCookingPreview) savedProgress = Progress.load(localStorage);
 } catch {}
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 $("reduce").checked = reduced.matches;
@@ -451,6 +460,7 @@ function result() {
   pauseCooking();
   state.phase = "result";
   render();
+  scheduleCooking();
   log("できたての一皿", content().lines);
 }
 function end() {
@@ -776,6 +786,7 @@ function currentCookingBeats() {
 }
 
 function saveProgress() {
+  if (isCookingPreview) return;
   if (state.phase !== "resume") {
     try {
       Progress.save(localStorage, { state, history, cookingStep });
@@ -791,6 +802,36 @@ function skipCooking() {
 }
 
 scenes.init();
-if (savedProgress) state.phase = "resume";
+if (isCookingPreview) {
+  const chapter = Journey.recipes.indexOf(previewRecipe);
+  function showCookingPreview() {
+    pauseCooking();
+    state = initialState();
+    state.chapter = chapter;
+    state.round = Journey.createRound(chapter);
+    state.items = Array.from({length: 8}, (_, bits) =>
+      previewRecipe.pairs.map((pair, i) => pair[(bits >> (2 - i)) & 1]))
+      .find(items => Catalog.idFor(Journey.dishFor(items, chapter)) === previewDishId);
+    state.step = 2;
+    state.dish = Catalog.label(previewDishId);
+    state.phase = "cooking";
+    cookingStep = previewStep;
+    render(false);
+    scheduleCooking();
+  }
+  const toolbar = document.createElement("aside");
+  toolbar.className = "cooking-preview-toolbar";
+  const label = document.createElement("span");
+  label.textContent = Catalog.label(previewDishId) + "の調理プレビュー（プレイ記録は保存しません）";
+  const replay = document.createElement("button");
+  replay.textContent = "調理を見直す";
+  replay.onclick = showCookingPreview;
+  const back = document.createElement("a");
+  back.href = location.pathname;
+  back.textContent = "通常のゲームへ";
+  toolbar.append(label, replay, back);
+  document.querySelector(".mast").after(toolbar);
+  showCookingPreview();
+} else if (savedProgress) state.phase = "resume";
 fitScene();
 render(false);
