@@ -43,6 +43,7 @@ const { settleImages, tracePreparedArt } = require("./assets.cjs");
         page
           .locator(selector)
           .evaluateAll((imgs) =>
+            imgs.length > 0 &&
             imgs.every(
               (img) =>
                 img === window.preparedArt[img.dataset.asset] &&
@@ -119,9 +120,13 @@ const { settleImages, tracePreparedArt } = require("./assets.cjs");
       await page
         .getByRole("button", { name: "数字を合わせる", exact: true })
         .click();
-      assert.equal(await same(".castle-backdrop"), true);
+      // The unlock effect also contains a copy of the closed backdrop.
       assert.equal(
-        await page.locator(".castle-scene").getAttribute("data-loaded"),
+        await same("#journey-art > .journey-picture > .castle-backdrop"),
+        true,
+      );
+      assert.equal(
+        await page.locator("#journey-art > .castle-scene").getAttribute("data-loaded"),
         "true",
       );
       await click("部屋に入る");
