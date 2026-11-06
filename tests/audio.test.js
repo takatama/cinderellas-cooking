@@ -103,3 +103,24 @@ test("unsupported speech and rejected autoplay never prevent game progression", 
   await new Promise((resolve) => setImmediate(resolve));
   a.dispose();
 });
+test("channel controls stop disabled media, retain independent levels, and replace effect tails", () => {
+  const f = fixture(), a = create(f.config, f.host);
+  a.scene("intro");
+  a.setChannel("music", false, 0.1);
+  assert.equal(f.sounds[0].src, "");
+  a.setChannel("music", true, 0.4);
+  assert.equal(f.sounds[1].volume, 0.4);
+  a.effect("choose");
+  a.effect("choose");
+  assert.equal(f.sounds[2].src, "");
+  a.setChannel("effects", true, 0.2);
+  assert.equal(f.sounds[3].volume, 0.2);
+  assert.equal(f.sounds[1].volume, 0.4);
+  a.setChannel("effects", false, 0.2);
+  assert.equal(f.sounds[3].src, "");
+  const count = f.sounds.length;
+  a.suspend(); a.effect("choose");
+  assert.equal(f.sounds.length, count);
+  a.resume();
+  assert.equal(f.sounds.length, count);
+});

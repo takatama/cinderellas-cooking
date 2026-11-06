@@ -15,3 +15,8 @@ __pycache__/
 *.tar
 *.tar.gz
 .DS_Store
+
+# Third-party audio awaiting listening/licensing review; never publish as a pack.
+.audio-cache/
+# Generated licensed media: recreate with scripts/build-audio.py for deployment.
+dist/audio/

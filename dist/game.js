@@ -81,6 +81,7 @@ ovenTransition = OvenTransition.create({
     stopAudio();
     render();
     log(journeyTitle(), content().lines);
+    audio.effect("success");
   },
 });
 const story = JapaneseStory.create({
@@ -116,6 +117,35 @@ const titles = {
   end: ["最初の一皿、おしまい", "06 / 06"],
 };
 const audio = GameAudio.create(AudioConfig);
+// Sound preferences are separate from story saves and cooking-preview isolation.
+for (const channel of ["music", "effects"]) {
+  const toggle = $(channel + "-enabled"), slider = $(channel + "-volume");
+  try {
+    const saved = JSON.parse(localStorage.getItem("cinderella-audio-v1"));
+    const preference = saved?.[channel];
+    if (preference && typeof preference.enabled === "boolean" &&
+        Number.isFinite(preference.volume) && preference.volume >= 0 && preference.volume <= 1) {
+      AudioConfig[channel].enabled = preference.enabled;
+      AudioConfig[channel].volume = preference.volume;
+    }
+  } catch {}
+  toggle.checked = AudioConfig[channel].enabled;
+  slider.value = Math.round(AudioConfig[channel].volume * 100);
+  const sync = () => {
+    $(channel + "-level").textContent = slider.value + "%";
+    audio.setChannel(channel, toggle.checked, Number(slider.value) / 100);
+  };
+  const update = () => {
+    sync();
+    try {
+      localStorage.setItem("cinderella-audio-v1", JSON.stringify(Object.fromEntries(
+        ["music", "effects"].map(c => [c, { enabled: AudioConfig[c].enabled, volume: AudioConfig[c].volume }]))));
+    } catch {}
+  };
+  sync();
+  toggle.onchange = update;
+  slider.oninput = update;
+}
 function stopAudio() {
   audio.stop();
 }
@@ -418,6 +448,7 @@ function resumeHelp() {
   render();
 }
 function start() {
+  const opening = state.phase === "intro" && state.chapter === 0;
   pauseCooking();
   stopAudio();
   if (state.phase === "intro") log("台所のお願い", content().lines);
@@ -431,6 +462,7 @@ function start() {
     message: "",
   };
   render();
+  if (opening) audio.effect("opening");
 }
 function choose(name) {
   if (
@@ -460,6 +492,7 @@ function result() {
   pauseCooking();
   state.phase = "result";
   render();
+  audio.effect(state.dish === target() ? "success" : "other-dish");
   scheduleCooking();
   log("できたての一皿", content().lines);
 }
@@ -500,7 +533,7 @@ $("sound").onclick = () => {
   );
   $("sound").innerHTML = sound
     ? "♫ <span>読み上げ</span>"
-    : "♫ <span>音なし</span>";
+    : "♫ <span>読み上げオフ</span>";
   if (sound) say($("dialogue").innerText);
 };
 if (!("speechSynthesis" in window)) {
@@ -572,6 +605,7 @@ function isCastle() {
 }
 
 function move(phase) {
+  const previousPhase = state.phase;
   if (state.phase === "final-cooking" && phase === "final-result") {
     ovenTransition.finish();
     return;
@@ -585,6 +619,7 @@ function move(phase) {
   if (phase === "prince") state.chapter = 2;
   render();
   log(journeyTitle(), content().lines);
+  if (phase === "complete" && previousPhase !== "complete") audio.effect("ending");
 }
 function hold() {
   state.returnPhase = state.phase;
@@ -749,6 +784,7 @@ function renderAnswerForm(kind) {
     if (kind === "door") {
       move("door-open");
       puzzleEffects.play(kind, solvedArt);
+      audio.effect("success");
       return;
     }
     state[kind] = true;
@@ -760,6 +796,7 @@ function renderAnswerForm(kind) {
     render();
     log("紙のなぞ", content().lines);
     puzzleEffects.play(kind, solvedArt, state.orange && state.pink);
+    audio.effect("success");
   };
   $("actions").prepend(form);
 }

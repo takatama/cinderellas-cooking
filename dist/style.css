@@ -369,3 +369,9 @@ body.reduced .art.cooking:is([data-cooking-method="rice-fry"],[data-cooking-meth
 .stage-object[data-vessel="fryer"] .pan-front{mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1536 1024'%3E%3Cpath fill='white' d='M135 345 C220 475 1300 495 1400 345 L1536 1024 H0 Z'/%3E%3C/svg%3E")}
 .stage-object[data-vessel="bowl"] .pan-contact-shadow{left:22%;width:56%;bottom:48%;height:8%}
 .stage-object[data-vessel="fryer"] .pan-contact-shadow{left:25%;width:50%;bottom:55%;height:6%}
+
+/* Independent audio channels; the settings dialog stays usable on short screens. */
+#settings-dialog{max-height:calc(100svh - 32px);overflow-y:auto}
+.audio-volume{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.audio-volume input[type=range]{flex:1;min-width:100px;max-width:190px;min-height:44px}
+.audio-volume output{min-width:3.5em;text-align:right;font-variant-numeric:tabular-nums}
