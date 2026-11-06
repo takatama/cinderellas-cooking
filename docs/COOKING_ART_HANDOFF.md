@@ -59,7 +59,7 @@
 
 `npm run check` と `npm run check:assets`。ブラウザースイートは `remaining-food`、`pan-food`、`rice-food`、`cream-pasta`、`cooking-preview`、`cooking.browser`、`journey.browser`。`CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs <名前>` で実行する。
 
-全16料理×4段階×7画面サイズで、全ふたなし器具の食材表示と完成公開・保存再開を確認する。専用スイートはPC/390/320pxの比率・工程指定・深さ・ふた・保存隔離・食材と各器具の画像遅延/失敗・完成公開を検証。以前からの `door-dials`、`prefetch`、`scene-prefetch` の失敗は今回の範囲外で、詳細はHANDOFFを参照。
+全16料理×4段階×7画面サイズで、全ふたなし器具の食材表示と完成公開・保存再開を確認する。専用スイートはPC/390/320pxの比率・工程指定・深さ・ふた・保存隔離・食材と各器具の画像遅延/失敗・完成公開を検証。以前からの `door-dials`、`prefetch`、`scene-prefetch` の失敗は2026-11-06にテスト側の古い前提を修正して解消。原因・検証範囲・再実行方法は [HANDOFF](../HANDOFF.md) を参照。
 
 今回の調理食材範囲に未制作項目は残さない。追加周回・英語版・BGM/SE・実機試遊など別範囲の状況は `docs/CONTENT_STATUS.md` とHANDOFFを参照。過去の位置調整・配信履歴はGit履歴で参照できる。
 

@@ -29,7 +29,11 @@ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=inner
 await page.getByRole('button',{name:'数字を合わせる',exact:true}).scrollIntoViewIfNeeded();
 if(process.env.SCREENSHOTS)await page.screenshot({path:`${process.env.SCREENSHOTS}/${width}-${height}-dials.png`,fullPage:true});
 await input.fill('５４６７');await page.getByRole('button',{name:'数字を合わせる',exact:true}).click();
-assert.equal(await page.evaluate(()=>state.phase),'door-open');assert.equal(await page.locator('.door-lock').count(),0);
+assert.equal(await page.evaluate(()=>state.phase),'door-open');
+// The old lock remains only in the temporary, decorative unlock snapshot.
+assert.equal(await page.locator('#journey-art > .journey-picture > .door-lock').count(),0);
+await page.waitForFunction(()=>!document.querySelector('.puzzle-effect-door'));
+assert.equal(await page.locator('.door-lock').count(),0);
 console.log(`PASS ${width}x${height}: four independent dials, wrap, input sync, wrong answer, hint, resume, keyboard, reveal`);
 await context.close();
 }}finally{await browser.close();}

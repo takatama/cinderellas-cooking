@@ -10,7 +10,15 @@ const startFinal = () => {
   state.chapter = 2;
   state.orange = true;
   state.pink = true;
-  move("final-cooking");
+  // Preparation starts before cooking. Keep the automatic oven reveal from
+  // racing the deliberately delayed requests exercised by this suite.
+  move("final-ready");
+};
+const reveal = async (page) => {
+  await page.evaluate(() => move("final-cooking"));
+  await page.getByRole("button", { name: "できた料理を見る", exact: true }).click();
+  // The shortcut finishes the white veil; its animation callback changes phase.
+  await page.waitForFunction(() => state.phase === "final-result");
 };
 (async () => {
   const browser = await chromium.launch({
@@ -62,9 +70,7 @@ const startFinal = () => {
         0,
         "downloaded and decoded art is not revealed early",
       );
-      await page
-        .getByRole("button", { name: "できた料理を見る", exact: true })
-        .click();
+      await reveal(page);
       const ready = await page.evaluate(() => {
         const table = document.querySelector(".finale-table img"),
           dish = document.querySelector("#stage-object img");
@@ -111,9 +117,7 @@ const startFinal = () => {
         await page.waitForRequest((request) =>
           assetPattern("tasting-table.png").test(request.url()),
         );
-      await page
-        .getByRole("button", { name: "できた料理を見る", exact: true })
-        .click();
+      await reveal(page);
       assert.equal(await page.evaluate(() => state.phase), "final-result");
       release();
       await settleImages(page);
@@ -142,9 +146,7 @@ const startFinal = () => {
       await page.waitForFunction(() =>
         window.prefetchFailures.includes("pumpkin-pudding.png"),
       );
-      await page
-        .getByRole("button", { name: "できた料理を見る", exact: true })
-        .click();
+      await reveal(page);
       await settleImages(page);
       assert.equal(
         await page
@@ -175,9 +177,7 @@ const startFinal = () => {
         requests.some((u) => assetPattern("pumpkin-pudding.png").test(u)),
         false,
       );
-      await page
-        .getByRole("button", { name: "できた料理を見る", exact: true })
-        .click();
+      await reveal(page);
       await settleImages(page);
       assert.equal(
         await page
