@@ -1,0 +1,110 @@
+{
+  "reviewedOn": "2026-11-07",
+  "status": "candidates-not-adopted",
+  "sources": [
+    {
+      "id": "success",
+      "title": "キラキラリン",
+      "creator": "ポケットサウンド",
+      "page": "https://pocket-se.info/archives/1105/",
+      "terms": "https://pocket-se.info/rules/",
+      "download": "https://pocket-se.info/se/kirakirarin.mp3",
+      "original": "kirakirarin-alexa.mp3",
+      "match": "base-name"
+    },
+    {
+      "id": "other-dish",
+      "title": "ひらめき音＃2",
+      "creator": "ポケットサウンド",
+      "page": "https://pocket-se.info/archives/35/",
+      "terms": "https://pocket-se.info/rules/",
+      "download": "https://pocket-se.info/se/hirameki2.mp3",
+      "original": "hirameki2-alexa.mp3",
+      "match": "base-name"
+    },
+    {
+      "id": "choose",
+      "title": "ピコーン",
+      "creator": "ポケットサウンド",
+      "page": "https://pocket-se.info/archives/1185/",
+      "terms": "https://pocket-se.info/rules/",
+      "download": "https://pocket-se.info/se/picon.mp3",
+      "original": "picon-alexa.mp3",
+      "match": "base-name"
+    },
+    {
+      "id": "opening",
+      "title": "アニメ風ジングル＃2",
+      "creator": "ポケットサウンド",
+      "page": "https://pocket-se.info/archives/432/",
+      "terms": "https://pocket-se.info/rules/",
+      "download": "https://pocket-se.info/se/anime2.mp3",
+      "original": "anime2-alexa.mp3",
+      "match": "base-name"
+    },
+    {
+      "id": "ending",
+      "title": "キュート系ジングル",
+      "creator": "ポケットサウンド",
+      "page": "https://pocket-se.info/archives/356s/",
+      "terms": "https://pocket-se.info/rules/",
+      "download": "https://pocket-se.info/se/gameclear_cute.mp3",
+      "original": "gameclear-cute-alexa.mp3",
+      "match": "name-and-purpose-candidate"
+    },
+    {
+      "id": "cut",
+      "title": "野菜／玉葱を切る1",
+      "creator": "小森平",
+      "page": "https://taira-komori.net/cooking01.html",
+      "terms": "https://taira-komori.net/welcome.html",
+      "download": "https://taira-komori.net/sound/cooking01/cut_onion1.mp3",
+      "match": "replacement-candidate"
+    },
+    {
+      "id": "stir-fry",
+      "title": "炒める",
+      "creator": "小森平",
+      "page": "https://taira-komori.net/cooking01.html",
+      "terms": "https://taira-komori.net/welcome.html",
+      "download": "https://taira-komori.net/sound/cooking01/stir_fry.mp3",
+      "match": "replacement-candidate"
+    },
+    {
+      "id": "simmer",
+      "title": "ぐつぐつ煮る",
+      "creator": "小森平",
+      "page": "https://taira-komori.net/cooking01.html",
+      "terms": "https://taira-komori.net/welcome.html",
+      "download": "https://taira-komori.net/sound/cooking01/simmer.mp3",
+      "match": "replacement-candidate"
+    },
+    {
+      "id": "oven",
+      "title": "オーブンで焼く",
+      "creator": "小森平",
+      "page": "https://taira-komori.net/cooking01.html",
+      "terms": "https://taira-komori.net/welcome.html",
+      "download": "https://taira-komori.net/sound/cooking01/bake_in_oven.mp3",
+      "match": "replacement-candidate"
+    },
+    {
+      "id": "wish5",
+      "title": "Wish5",
+      "creator": "PeriTune / むつき醒",
+      "page": "https://peritune.com/blog/2019/05/10/wish5/",
+      "terms": "https://creativecommons.org/licenses/by/4.0/",
+      "download": "https://peritune.com/music/PerituneMaterial_Wish5.mp3",
+      "match": "official-standard-edition-original-edit-unconfirmed"
+    },
+    {
+      "id": "wish5-harp",
+      "title": "Wish5 (HarpOnly)",
+      "creator": "PeriTune / むつき醒",
+      "page": "https://peritune.com/blog/2019/05/10/wish5/",
+      "terms": "https://creativecommons.org/licenses/by/4.0/",
+      "download": "https://peritune.com/music/PerituneMaterial_Wish5_HarpOnly.mp3",
+      "match": "official-harp-edition-comparison-candidate"
+    }
+  ]
+}

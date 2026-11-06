@@ -38,7 +38,7 @@
 
 ## 音声
 
-読み上げ、BGM、SEは別チャンネルです。`audio-config.js` の `speech`、`music`、`effects` でファイルと音量を指定します。音源は追加していないためBGM・SEは無効で、従来の読み上げだけが既存ボタンで切り替わります。音源を採用する段階でBGM・SE用のユーザー操作による有効化UIも追加してください。
+読み上げ、BGM、SEは別チャンネルです。`audio-config.js` の `speech`、`music`、`effects` でファイルと音量を指定します。BGM・SEは設定画面から個別に有効化・音量調整でき、初回はオフです。設定はストーリー保存とは別キー `cinderella-audio-v1` に保持します。音源の取得・生成手順はREADME、出典と利用条件は `docs/AUDIO_SOURCES.md` を参照。読み上げは既存ボタンで切り替わり、Gemini TTSの合成は後工程です。
 
 BGMは `music.tracks` へIDとパス、`music.scenes` へphaseとトラックIDを対応させます。SEは `effects.cues` に登録し、`audio.effect('choose')` などのイベントで呼びます。同じBGMは要素を再利用します。設定・履歴・タブ非表示で中断し、戻ったときにBGMだけ再開します。読み上げは古い台詞を再開せず、次の表示に合わせます。自動再生拒否や未対応音声で進行を止めません。音量・音色・端末ごとの聞きやすさは実際の音源を採用後に調整します。
 

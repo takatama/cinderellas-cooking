@@ -4,7 +4,8 @@
     let speechEnabled = false,
       suspended = false,
       music = null,
-      musicKey = null;
+      musicKey = null,
+      currentScene = "";
     const effects = new Set();
     const level = (v) => Math.max(0, Math.min(1, Number(v) || 0));
     function play(media) {
@@ -51,6 +52,7 @@
       if (!speechEnabled) cancelSpeech();
     }
     function scene(name) {
+      currentScene = name;
       const key = config.music.scenes[name],
         src = config.music.tracks[key];
       if (!config.music.enabled || !src) {
@@ -65,7 +67,7 @@
       }
       if (key !== musicKey) {
         music?.pause();
-        music = new host.Audio(src);
+        try { music = new host.Audio(src); } catch { music = null; musicKey = null; return; }
         music.loop = true;
         music.preload = "none";
         musicKey = key;
@@ -76,6 +78,8 @@
     function effect(cue) {
       const src = config.effects.cues[cue];
       if (!config.effects.enabled || !src || suspended) return;
+      // A new event replaces the old cue instead of stacking long tails.
+      stopEffects();
       try {
         const media = new host.Audio(src);
         media.volume = level(config.effects.volume);
@@ -106,6 +110,14 @@
       music = null;
       musicKey = null;
     }
+    function setChannel(channel, enabled, volume) {
+      if (!["music", "effects"].includes(channel)) return;
+      config[channel].enabled = !!enabled;
+      config[channel].volume = level(volume);
+      if (channel === "music") scene(currentScene);
+      else if (!enabled) stopEffects();
+      else for (const media of effects) media.volume = config.effects.volume;
+    }
     return {
       say,
       stop,
@@ -115,6 +127,7 @@
       suspend,
       resume,
       dispose,
+      setChannel,
     };
   }
   root.GameAudio = { create };

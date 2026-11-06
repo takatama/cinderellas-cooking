@@ -1,0 +1,552 @@
+{
+  "measuredOn": "2026-11-07",
+  "method": "ffprobe and ffmpeg loudnorm input measurements; originals unmodified",
+  "records": [
+    {
+      "source": {
+        "id": "choose",
+        "title": "ピコーン",
+        "creator": "ポケットサウンド",
+        "page": "https://pocket-se.info/archives/1185/",
+        "terms": "https://pocket-se.info/rules/",
+        "download": "https://pocket-se.info/se/picon.mp3",
+        "original": "picon-alexa.mp3",
+        "match": "base-name"
+      },
+      "acquiredAt": "2026-11-06T22:28:13.018905+00:00",
+      "method": "official-download",
+      "resolvedDownloadUrl": "https://pocket-se.info/se/picon.mp3",
+      "sha256": "27c7659fc0efb3084640642cbf96d70ad087729370b0b26dd147e4379b47702b",
+      "bytes": 135218,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 2,
+            "side_data_list": [
+              {}
+            ]
+          }
+        ],
+        "format": {
+          "duration": "5.433469"
+        }
+      },
+      "changes": [],
+      "listened": false,
+      "adopted": false,
+      "note": "Local import alone does not verify provenance or original-game identity.",
+      "measurements": {
+        "integratedLUFS": -15.5,
+        "truePeakDBTP": 0.13,
+        "loudnessRangeLU": 16.5
+      },
+      "listeningPreview": {
+        "file": ".audio-cache/listening/choose.mp3",
+        "offsetSeconds": 0,
+        "maxSeconds": 5.433469,
+        "gainDB": -4.5,
+        "processing": "Static attenuation and edge fades, MP3 re-encoding; original preserved"
+      }
+    },
+    {
+      "source": {
+        "id": "cut",
+        "title": "野菜／玉葱を切る1",
+        "creator": "小森平",
+        "page": "https://taira-komori.net/cooking01.html",
+        "terms": "https://taira-komori.net/welcome.html",
+        "download": "https://taira-komori.net/sound/cooking01/cut_onion1.mp3",
+        "match": "replacement-candidate"
+      },
+      "acquiredAt": "2026-11-06T22:28:14.220091+00:00",
+      "method": "official-download",
+      "resolvedDownloadUrl": "https://taira-komori.net/sound/cooking01/cut_onion1.mp3",
+      "sha256": "b82c10ef5cb0a7e19da7f4c8ad2c24ab86fd452dc464e50efe4041ab8f4c493c",
+      "bytes": 15218,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 2
+          }
+        ],
+        "format": {
+          "duration": "0.470204"
+        }
+      },
+      "changes": [],
+      "listened": false,
+      "adopted": false,
+      "note": "Local import alone does not verify provenance or original-game identity.",
+      "measurements": {
+        "integratedLUFS": -18.35,
+        "truePeakDBTP": 0.53,
+        "loudnessRangeLU": 0.0
+      },
+      "listeningPreview": {
+        "file": ".audio-cache/listening/cut.mp3",
+        "offsetSeconds": 0,
+        "maxSeconds": 0.470204,
+        "gainDB": -8.65,
+        "processing": "Static attenuation and edge fades, MP3 re-encoding; original preserved"
+      }
+    },
+    {
+      "source": {
+        "id": "ending",
+        "title": "キュート系ジングル",
+        "creator": "ポケットサウンド",
+        "page": "https://pocket-se.info/archives/356s/",
+        "terms": "https://pocket-se.info/rules/",
+        "download": "https://pocket-se.info/se/gameclear_cute.mp3",
+        "original": "gameclear-cute-alexa.mp3",
+        "match": "name-and-purpose-candidate"
+      },
+      "acquiredAt": "2026-11-06T22:28:12.984972+00:00",
+      "method": "official-download",
+      "resolvedDownloadUrl": "https://pocket-se.info/se/gameclear_cute.mp3",
+      "sha256": "0d8a9ea12edc96cfbee923cc22301804fc874067ef29d3d1272a1635dc8ad757",
+      "bytes": 133714,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 2,
+            "side_data_list": [
+              {}
+            ]
+          }
+        ],
+        "format": {
+          "duration": "5.459592"
+        }
+      },
+      "changes": [],
+      "listened": false,
+      "adopted": false,
+      "note": "Local import alone does not verify provenance or original-game identity.",
+      "measurements": {
+        "integratedLUFS": -14.56,
+        "truePeakDBTP": -0.41,
+        "loudnessRangeLU": 10.1
+      },
+      "listeningPreview": {
+        "file": ".audio-cache/listening/ending.mp3",
+        "offsetSeconds": 0,
+        "maxSeconds": 5.459592,
+        "gainDB": -5.44,
+        "processing": "Static attenuation and edge fades, MP3 re-encoding; original preserved"
+      }
+    },
+    {
+      "source": {
+        "id": "opening",
+        "title": "アニメ風ジングル＃2",
+        "creator": "ポケットサウンド",
+        "page": "https://pocket-se.info/archives/432/",
+        "terms": "https://pocket-se.info/rules/",
+        "download": "https://pocket-se.info/se/anime2.mp3",
+        "original": "anime2-alexa.mp3",
+        "match": "base-name"
+      },
+      "acquiredAt": "2026-11-06T22:28:12.666940+00:00",
+      "method": "official-download",
+      "resolvedDownloadUrl": "https://pocket-se.info/se/anime2.mp3",
+      "sha256": "129791b28d46dd1db24ac85a222d7ab7b568e8ba9aa7a9e9a8c336b8b3cca8b7",
+      "bytes": 188257,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 2,
+            "side_data_list": [
+              {}
+            ]
+          }
+        ],
+        "format": {
+          "duration": "7.732245"
+        }
+      },
+      "changes": [],
+      "listened": false,
+      "adopted": false,
+      "note": "Local import alone does not verify provenance or original-game identity.",
+      "measurements": {
+        "integratedLUFS": -11.34,
+        "truePeakDBTP": -0.18,
+        "loudnessRangeLU": 15.9
+      },
+      "listeningPreview": {
+        "file": ".audio-cache/listening/opening.mp3",
+        "offsetSeconds": 0,
+        "maxSeconds": 7.732245,
+        "gainDB": -8.66,
+        "processing": "Static attenuation and edge fades, MP3 re-encoding; original preserved"
+      }
+    },
+    {
+      "source": {
+        "id": "other-dish",
+        "title": "ひらめき音＃2",
+        "creator": "ポケットサウンド",
+        "page": "https://pocket-se.info/archives/35/",
+        "terms": "https://pocket-se.info/rules/",
+        "download": "https://pocket-se.info/se/hirameki2.mp3",
+        "original": "hirameki2-alexa.mp3",
+        "match": "base-name"
+      },
+      "acquiredAt": "2026-11-06T22:28:12.730272+00:00",
+      "method": "official-download",
+      "resolvedDownloadUrl": "https://pocket-se.info/se/hirameki2.mp3",
+      "sha256": "17fe25a9ed22b4e1ce7e6c148b852847ec1f879add6f0fc337bcf3e5ee5f06ae",
+      "bytes": 102622,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 2,
+            "side_data_list": [
+              {}
+            ]
+          }
+        ],
+        "format": {
+          "duration": "4.075102"
+        }
+      },
+      "changes": [],
+      "listened": false,
+      "adopted": false,
+      "note": "Local import alone does not verify provenance or original-game identity.",
+      "measurements": {
+        "integratedLUFS": -17.25,
+        "truePeakDBTP": -5.17,
+        "loudnessRangeLU": 21.7
+      },
+      "listeningPreview": {
+        "file": ".audio-cache/listening/other-dish.mp3",
+        "offsetSeconds": 0,
+        "maxSeconds": 4.075102,
+        "gainDB": -2.75,
+        "processing": "Static attenuation and edge fades, MP3 re-encoding; original preserved"
+      }
+    },
+    {
+      "source": {
+        "id": "oven",
+        "title": "オーブンで焼く",
+        "creator": "小森平",
+        "page": "https://taira-komori.net/cooking01.html",
+        "terms": "https://taira-komori.net/welcome.html",
+        "download": "https://taira-komori.net/sound/cooking01/bake_in_oven.mp3",
+        "match": "replacement-candidate"
+      },
+      "acquiredAt": "2026-11-06T22:28:14.737045+00:00",
+      "method": "official-download",
+      "resolvedDownloadUrl": "https://taira-komori.net/sound/cooking01/bake_in_oven.mp3",
+      "sha256": "bbec54494e22b57b4adade1d85abe04409997854b58a13cbe07c27a836957b98",
+      "bytes": 512298,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "side_data_list": [
+              {}
+            ]
+          }
+        ],
+        "format": {
+          "duration": "25.488000"
+        }
+      },
+      "changes": [],
+      "listened": false,
+      "adopted": false,
+      "note": "Local import alone does not verify provenance or original-game identity.",
+      "measurements": {
+        "integratedLUFS": -19.7,
+        "truePeakDBTP": 0.67,
+        "loudnessRangeLU": 26.9
+      },
+      "listeningPreview": {
+        "file": ".audio-cache/listening/oven.mp3",
+        "offsetSeconds": 0,
+        "maxSeconds": 10,
+        "gainDB": -7.3,
+        "processing": "Static attenuation and edge fades, MP3 re-encoding; original preserved"
+      }
+    },
+    {
+      "source": {
+        "id": "simmer",
+        "title": "ぐつぐつ煮る",
+        "creator": "小森平",
+        "page": "https://taira-komori.net/cooking01.html",
+        "terms": "https://taira-komori.net/welcome.html",
+        "download": "https://taira-komori.net/sound/cooking01/simmer.mp3",
+        "match": "replacement-candidate"
+      },
+      "acquiredAt": "2026-11-06T22:28:14.591688+00:00",
+      "method": "official-download",
+      "resolvedDownloadUrl": "https://taira-komori.net/sound/cooking01/simmer.mp3",
+      "sha256": "bf99b11d97a0f4a9a964ddc92e81aa4143bd28e4907055de80f36441b817c10a",
+      "bytes": 544364,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 2
+          }
+        ],
+        "format": {
+          "duration": "16.222041"
+        }
+      },
+      "changes": [],
+      "listened": false,
+      "adopted": false,
+      "note": "Local import alone does not verify provenance or original-game identity.",
+      "measurements": {
+        "integratedLUFS": -23.72,
+        "truePeakDBTP": 0.04,
+        "loudnessRangeLU": 1.5
+      },
+      "listeningPreview": {
+        "file": ".audio-cache/listening/simmer.mp3",
+        "offsetSeconds": 0,
+        "maxSeconds": 10,
+        "gainDB": -6.04,
+        "processing": "Static attenuation and edge fades, MP3 re-encoding; original preserved"
+      }
+    },
+    {
+      "source": {
+        "id": "stir-fry",
+        "title": "炒める",
+        "creator": "小森平",
+        "page": "https://taira-komori.net/cooking01.html",
+        "terms": "https://taira-komori.net/welcome.html",
+        "download": "https://taira-komori.net/sound/cooking01/stir_fry.mp3",
+        "match": "replacement-candidate"
+      },
+      "acquiredAt": "2026-11-06T22:28:14.962139+00:00",
+      "method": "official-download",
+      "resolvedDownloadUrl": "https://taira-komori.net/sound/cooking01/stir_fry.mp3",
+      "sha256": "3121a217e25bb6a16e9ecf14639398fef7e6790822ef07be7dc4ffebd9a50dba",
+      "bytes": 1286568,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 2
+          }
+        ],
+        "format": {
+          "duration": "44.956735"
+        }
+      },
+      "changes": [],
+      "listened": false,
+      "adopted": false,
+      "note": "Local import alone does not verify provenance or original-game identity.",
+      "measurements": {
+        "integratedLUFS": -18.69,
+        "truePeakDBTP": 0.27,
+        "loudnessRangeLU": 7.0
+      },
+      "listeningPreview": {
+        "file": ".audio-cache/listening/stir-fry.mp3",
+        "offsetSeconds": 0,
+        "maxSeconds": 10,
+        "gainDB": -8.31,
+        "processing": "Static attenuation and edge fades, MP3 re-encoding; original preserved"
+      }
+    },
+    {
+      "source": {
+        "id": "success",
+        "title": "キラキラリン",
+        "creator": "ポケットサウンド",
+        "page": "https://pocket-se.info/archives/1105/",
+        "terms": "https://pocket-se.info/rules/",
+        "download": "https://pocket-se.info/se/kirakirarin.mp3",
+        "original": "kirakirarin-alexa.mp3",
+        "match": "base-name"
+      },
+      "acquiredAt": "2026-11-06T22:27:46.676927+00:00",
+      "method": "official-download",
+      "resolvedDownloadUrl": "https://pocket-se.info/se/kirakirarin.mp3",
+      "sha256": "9eedd52719ecee19b3f0ba474ea8d1809e8b9f01bc1711ce9aa811cd13f9b949",
+      "bytes": 160299,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 2,
+            "side_data_list": [
+              {}
+            ]
+          }
+        ],
+        "format": {
+          "duration": "6.478367"
+        }
+      },
+      "changes": [],
+      "listened": false,
+      "adopted": false,
+      "note": "Local import alone does not verify provenance or original-game identity.",
+      "measurements": {
+        "integratedLUFS": -13.34,
+        "truePeakDBTP": -0.19,
+        "loudnessRangeLU": 23.6
+      },
+      "listeningPreview": {
+        "file": ".audio-cache/listening/success.mp3",
+        "offsetSeconds": 0,
+        "maxSeconds": 6.478367,
+        "gainDB": -6.66,
+        "processing": "Static attenuation and edge fades, MP3 re-encoding; original preserved"
+      }
+    },
+    {
+      "source": {
+        "id": "wish5-harp",
+        "title": "Wish5 (HarpOnly)",
+        "creator": "PeriTune / むつき醒",
+        "page": "https://peritune.com/blog/2019/05/10/wish5/",
+        "terms": "https://creativecommons.org/licenses/by/4.0/",
+        "download": "https://peritune.com/music/PerituneMaterial_Wish5_HarpOnly.mp3",
+        "match": "official-harp-edition-comparison-candidate"
+      },
+      "acquiredAt": "2026-11-06T22:28:44.073131+00:00",
+      "method": "official-download",
+      "resolvedDownloadUrl": "https://peritune.com/music/PerituneMaterial_Wish5_HarpOnly.mp3",
+      "sha256": "af5acc48c9bcf5874c554d90595c7521556d33fd129b4e418f3c2862ddb25ce0",
+      "bytes": 4710190,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 2,
+            "side_data_list": [
+              {}
+            ]
+          }
+        ],
+        "format": {
+          "duration": "196.231837"
+        }
+      },
+      "changes": [],
+      "listened": false,
+      "adopted": false,
+      "note": "Local import alone does not verify provenance or original-game identity.",
+      "measurements": {
+        "integratedLUFS": -12.09,
+        "truePeakDBTP": -0.32,
+        "loudnessRangeLU": 7.5
+      },
+      "listeningPreview": {
+        "file": ".audio-cache/listening/wish5-harp.mp3",
+        "offsetSeconds": 8,
+        "maxSeconds": 20,
+        "gainDB": -11.91,
+        "processing": "Static attenuation and edge fades, MP3 re-encoding; original preserved"
+      }
+    },
+    {
+      "source": {
+        "id": "wish5",
+        "title": "Wish5",
+        "creator": "PeriTune / むつき醒",
+        "page": "https://peritune.com/blog/2019/05/10/wish5/",
+        "terms": "https://creativecommons.org/licenses/by/4.0/",
+        "download": "https://peritune.com/music/PerituneMaterial_Wish5.mp3",
+        "match": "official-standard-edition-original-edit-unconfirmed"
+      },
+      "acquiredAt": "2026-11-06T22:28:44.235281+00:00",
+      "method": "official-download",
+      "resolvedDownloadUrl": "https://peritune.com/music/PerituneMaterial_Wish5.mp3",
+      "sha256": "2c470aea5e11117778647f59605c77183dbe6ac70f001349a24ca9873642016c",
+      "bytes": 4710190,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100",
+            "channels": 2,
+            "side_data_list": [
+              {}
+            ]
+          }
+        ],
+        "format": {
+          "duration": "196.231837"
+        }
+      },
+      "changes": [],
+      "listened": false,
+      "adopted": false,
+      "note": "Local import alone does not verify provenance or original-game identity.",
+      "measurements": {
+        "integratedLUFS": -10.62,
+        "truePeakDBTP": -0.29,
+        "loudnessRangeLU": 7.6
+      },
+      "listeningPreview": {
+        "file": ".audio-cache/listening/wish5.mp3",
+        "offsetSeconds": 8,
+        "maxSeconds": 20,
+        "gainDB": -13.38,
+        "processing": "Static attenuation and edge fades, MP3 re-encoding; original preserved"
+      }
+    }
+  ]
+}

@@ -9,7 +9,8 @@
     "check": "node scripts/build-content.mjs --check && node --test tests/*.test.js",
     "check:assets": "python3 scripts/check-assets.py",
     "test:browser": "node scripts/test-browser.mjs",
-    "audit": "node scripts/audit-content.mjs --write"
+    "audit": "node scripts/audit-content.mjs --write",
+    "build:audio": "python3 scripts/build-audio.py"
   },
   "devDependencies": {
     "playwright": "1.62.1"
