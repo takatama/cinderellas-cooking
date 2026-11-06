@@ -1,6 +1,6 @@
 # シンデレラの料理：次セッションへの引き継ぎ
 
-更新：2026-11-03（日本時間）。**確認済みのフライパン原画・肉・クリーム系パスタの配置を維持し、残りの卵・ソース・ボウル・揚げ物まで調理食材を実装。** PR #7を継続し、マージしない。
+更新：2026-11-07（日本時間）。**音源・音量・クレジットを実装し、所有者限定サイトへ配信済み。** 最新の作業は [PR #9](https://github.com/takatama/cinderellas-cooking/pull/9)（未マージ）。PR #7・#8はマージ済み。以下の調理素材の実装・配信履歴は過去の記録として保持する。
 
 ## 最初に確認すること
 
@@ -132,3 +132,17 @@ CHROMIUM_PATH=/usr/bin/chromium node scripts/test-browser.mjs prefetch
 2026-11-03、赤いパスタと野菜だけに残っていた旧配置（幅64%・下端39.5%）を、共通の `left:14%;width:54%;bottom:27%` へ修正。共通の接地影はleft16%・幅50%。15素材×1000/390/320pxを比較し、他13素材の配置と全原画の比率は維持した。全素材一覧と数値表は [配置点検](docs/references/COOKING_LAYOUT_AUDIT.md)。`cooking.browser.cjs` に、器具の内側の余白と手前の壁に隠れる深さの検証を追加した。
 
 配置修正後は `cooking.browser`（全16料理×4段階×7画面サイズ）、`cooking-preview`、`pan-food` が合格。version 58へ所有者限定で配信成功。原画と配信画像は変更しておらず、画像の再生成は不要だった。
+
+
+## 2026-11-07：BGM・効果音の組み込みと配信
+
+- GitHub実装：`83c957ebd100923ad87ae9a0537279795749f722`、ブランチ `codex/game-audio`、PR #9（未マージ）。この節の後の追記コミットは資料のみ。
+- Sites公開ソース：`e962d05ba009934bb509a8f4dfaee744931c85bc`。既存Site ID・所有者限定を維持し、2026-11-07 07:45 JSTに配信succeeded。
+- version_id：`appgprj_6ae54da56ca481918db77b1973ddfb6c~appgver_03ff5b5775508191a1580cecb7195d00`
+- deployment_id：`appgdep_6aee5874641c8191850d6a39c869d6a7`
+- https://cinderella-first-dish.takatama.chatgpt.site の「設定」でBGM・効果音を個別にオンにする。初回はオフ。音量とオン／オフは `cinderella-audio-v1` に保存し、従来のストーリー保存は維持。
+- BGM：Wish5 (HarpOnly)、謎解き場面のみ。SE：材料選択・料理完成・別料理・謎正解・開始・結末。設定からクレジットを開ける。読み上げは既存の端末音声のまま、Gemini TTS一括合成は後工程。
+- 原音・試聴コピーは `.audio-cache/`、配信用6音源と加工記録は `dist/audio/`。いずれもGitHubには音源ファイルを含めず、取得・検証・再生成のコードと出典記録を保存。`npm run build:audio` は取得済みの原音ハッシュを検証してから生成する。
+- Sitesへの同期は変更を明示した13ファイルのみ、削除なし。音源を含めた13ファイルのバイト一致を検証して、同じ公開ソースコミットの `.openai/hosting.json` と `dist/` を梱包した。
+- 検証合格：`npm run check`、`game-audio`（1280/390/320px、独立音量・初回オフ・設定保存・中断再開・成功音の重複防止・復元時の無再生）、配信6MP3のHTTP取得・Chromiumデコード、`journey.browser`（3画面幅の全編、両紙順序、保存、再挑戦、結末、画像失敗、破損セーブ）、`prefetch`、`scene-prefetch`。320pxの設定画面は目視確認済み。全ブラウザースイートの一括再実行は行っていない。
+- 残り：実機での音色・音量の最終評価、調理中の実音・扉・ダイヤル音の選定と実装、Gemini TTS合成、追加周回・英語版。スマホ実機試遊を実施した扱いにはしない。
